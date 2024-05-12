@@ -107,17 +107,16 @@ public class Menus extends BaseInput {
         System.out.println("| 1. Nombre                               |");
         System.out.println("| 2. Apellido                             |");
         System.out.println("| 3. Direccion                            |");
-        System.out.println("| 4. Fecha de nacimiento                  |");
-        System.out.println("| 5. Tipo de persona                      |");
-        System.out.println("| 6. Banco                                |");
-        System.out.println("| 7. Mail                                 |");
+        System.out.println("| 4. Tipo de persona                      |");
+        System.out.println("| 5. Banco                                |");
+        System.out.println("| 6. Mail                                 |");
         System.out.println("| 0. Salir                                |");
         System.out.println("-------------------------------------------");
-        System.out.print(" Ingrese su Opcion (0-7): ");
+        System.out.print(" Ingrese su Opcion (0-6): ");
 
         String opcion = scanner.nextLine();
-        while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 8) {
-            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0 y 7.");
+        while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 7) {
+            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0 y 6.");
             opcion = scanner.nextLine();
         }
 

@@ -48,19 +48,15 @@ public class ModifcarCliente extends BaseGestion {
                         cliente.setDireccion(mod.ingresarDireccion());
                         System.out.println("Direccion modificado correctamente");
                         break;
-                    case 4: //Fecha de nacimiento
-                        cliente.setFechaNacimiento(mod.ingresarFechaNacimiento());
-                        System.out.println("Fecha nacimiento modificado correctamente");
-                        break;
-                    case 5: //Tipo de persona
+                    case 4: //Tipo de persona
                         cliente.setTipoPersona(mod.ingresarTipoPersona());
                         System.out.println("Tipo persona modificado correctamente");
                         break;
-                    case 6: //Banco
+                    case 5: //Banco
                         cliente.setBanco(mod.ingresarBanco());
                         System.out.println("Banco modificado correctamente");
                         break;
-                    case 7: //Mail
+                    case 6: //Mail
                         cliente.setMail(mod.ingresarMail());
                         System.out.println("Mail modificado correctamente");
                         break;
