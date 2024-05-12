@@ -26,6 +26,10 @@ public class MostrarMovimientos extends baseOperaciones {
 
         }
 
+        System.out.println("Enter para seguir");
+        scanner.nextLine();
+        clearScreen();
+
     }
 
     public String mostrarMovimiento(Movimiento movimiento){

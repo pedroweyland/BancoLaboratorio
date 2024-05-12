@@ -19,7 +19,12 @@ public class Deposito extends baseOperaciones {
         Movimiento movimiento = crearMovimiento(tipoOperacion, monto);
         cuenta.addMovimientos(movimiento);
 
+        System.out.println("----------------------------------------");
         System.out.println("Se ha realizado el deposito de $" + monto + " a la cuenta " + cuenta.getNombre());
+        System.out.println("----------------------------------------");
 
+        System.out.println("Enter para seguir");
+        scanner.nextLine();
+        clearScreen();
     }
 }

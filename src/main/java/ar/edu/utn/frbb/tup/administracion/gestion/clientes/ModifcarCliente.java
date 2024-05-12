@@ -6,7 +6,7 @@ import ar.edu.utn.frbb.tup.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.inputs.ClienteInput;
 import java.util.List;
 
-import static ar.edu.utn.frbb.tup.menuBuilder.Menus.menuModificacion;
+import static ar.edu.utn.frbb.tup.menubuilder.Menus.menuModificacion;
 
 
 public class ModifcarCliente extends BaseGestion {
@@ -16,6 +16,8 @@ public class ModifcarCliente extends BaseGestion {
         List<Cliente> clientes = banco.getClientes(); //Creo una lista auxiliar 'cliente' con la copia de Clientes que esta en banco ++Legibilidad
 
         long dni = pedirDni("Escriba el DNI para el cliente que quiere modificar: ");
+
+        clearScreen();
 
         //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
         Cliente cliente = encontrarCliente(clientes, dni);
@@ -63,11 +65,10 @@ public class ModifcarCliente extends BaseGestion {
                         System.out.println("Mail modificado correctamente");
                         break;
                     case 0:
-                        System.out.println("Saliendo...");
                         seguir = false;
                         break;
                 }
-
+                System.out.println(); //Espacion en blanco
             }
         }
     }

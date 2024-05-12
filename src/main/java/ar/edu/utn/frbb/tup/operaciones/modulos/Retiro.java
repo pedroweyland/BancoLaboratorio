@@ -11,7 +11,7 @@ public class Retiro extends baseOperaciones {
 
         //Pido el monto del retiro
         double monto = ingresarDinero("Ingrese el monto del retiro: ");
-
+        System.out.println("----------------------------------------");
         if (monto > cuenta.getSaldo()) {
             System.out.println("No puede retirar ese monto, su saldo es de $" + cuenta.getSaldo());
 
@@ -24,7 +24,12 @@ public class Retiro extends baseOperaciones {
             cuenta.addMovimientos(movimiento);
 
             System.out.println("Se ha realizado el retiro de $" + monto + " a la cuenta " + cuenta.getNombre());
+
         }
+        System.out.println("----------------------------------------");
+        System.out.println("Enter para seguir");
+        scanner.nextLine();
+        clearScreen();
 
     }
 }

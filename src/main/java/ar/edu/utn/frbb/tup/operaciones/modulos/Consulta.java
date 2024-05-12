@@ -9,7 +9,13 @@ public class Consulta extends baseOperaciones {
 
     public void consulta(Cuenta cuenta){
 
+        System.out.println("----------------------------------------");
         System.out.println("Su saldo es de la cuenta " + cuenta.getNombre() + " es de $" + cuenta.getSaldo());
+        System.out.println("----------------------------------------");
+
+        System.out.println("Enter para seguir");
+        scanner.nextLine();
+        clearScreen();
 
         //Tomo registro de la operacion que se hizo
         Movimiento movimiento = crearMovimiento(tipoOperacion, 0);

@@ -6,7 +6,7 @@ import ar.edu.utn.frbb.tup.administracion.CuentaAdministracion;
 import ar.edu.utn.frbb.tup.inputs.BaseInput;
 import ar.edu.utn.frbb.tup.operaciones.Operaciones;
 
-import static ar.edu.utn.frbb.tup.menuBuilder.Menus.menuPrincipal;
+import static ar.edu.utn.frbb.tup.menubuilder.Menus.menuPrincipal;
 
 
 public class MenuBanco extends BaseInput {

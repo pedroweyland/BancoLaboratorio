@@ -40,10 +40,14 @@ public class CrearCuenta extends BaseGestion {
 
                     System.out.println("----- Cuenta creada del cliente " + cliente.getNombre() + " -----");
                     System.out.println(toString(cuenta));
+                    System.out.println("-------- Cuenta creada con exito --------");
                     System.out.println("----------------------------------------");
-                    System.out.println("Cuenta creada con exito");
 
                     seguir = false;
+
+                    System.out.println("Enter para seguir");
+                    scanner.nextLine();
+                    clearScreen();
                 }
             }
         }

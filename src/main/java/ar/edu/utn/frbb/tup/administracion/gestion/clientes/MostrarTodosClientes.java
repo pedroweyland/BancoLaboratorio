@@ -23,6 +23,9 @@ public class MostrarTodosClientes extends BaseGestion {
         } else {
             System.out.println("No hay clientes registrados");
         }
+        System.out.println("Enter para seguir");
+        scanner.nextLine();
+        clearScreen();
     }
 
 }

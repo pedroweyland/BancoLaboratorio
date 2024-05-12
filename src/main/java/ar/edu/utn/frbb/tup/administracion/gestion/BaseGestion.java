@@ -79,7 +79,8 @@ public class BaseGestion {
                 "CVU: " + cuenta.getCVU() + "\n" +
                 "Fecha de Creacion: " + cuenta.getFechaCreacion() + "\n" +
                 "Tipo de cuenta: " + cuenta.getTipoCuenta() + "\n" +
-                "Id: " + cuenta.getId();
+                "Id: " + cuenta.getId() + "\n" +
+                "----------------------------------------";
     }
 
 }

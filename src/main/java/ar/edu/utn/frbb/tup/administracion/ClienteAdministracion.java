@@ -4,7 +4,7 @@ package ar.edu.utn.frbb.tup.administracion;
 import ar.edu.utn.frbb.tup.administracion.gestion.clientes.*;
 import ar.edu.utn.frbb.tup.entidades.Banco;
 
-import static ar.edu.utn.frbb.tup.menuBuilder.Menus.menuCliente;
+import static ar.edu.utn.frbb.tup.menubuilder.Menus.menuCliente;
 
 public class ClienteAdministracion {
     private boolean salir = false;

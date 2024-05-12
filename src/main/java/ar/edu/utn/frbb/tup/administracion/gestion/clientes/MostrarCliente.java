@@ -28,6 +28,10 @@ public class MostrarCliente extends BaseGestion {
                 System.out.println(toString(cliente)); //Muestro en pantalla el cliente encontrado
                 seguir = false;
             }
+
+            System.out.println("Enter para seguir");
+            scanner.nextLine();
+            clearScreen();
         }
 
     }

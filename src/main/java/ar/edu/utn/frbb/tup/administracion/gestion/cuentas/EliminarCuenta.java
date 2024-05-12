@@ -4,6 +4,7 @@ import ar.edu.utn.frbb.tup.entidades.Banco;
 import ar.edu.utn.frbb.tup.entidades.Cliente;
 import ar.edu.utn.frbb.tup.entidades.Cuenta;
 import ar.edu.utn.frbb.tup.administracion.gestion.BaseGestion;
+import org.w3c.dom.ls.LSException;
 
 import java.util.List;
 import java.util.Set;
@@ -45,7 +46,12 @@ public class EliminarCuenta extends BaseGestion {
                 boolean encontrado = false;
                 for (Cuenta cuenta : cuentas){
                     if (cuenta.getCVU() == cvu){
+                        //Borro la cuenta en Cuentas
                         cuentas.remove(cuenta);
+                        //Borro El nombre de la cuenta que esta asociada en clientes
+                        String nombreCuenta = cuenta.getNombre();
+                        cliente.getNombreCuentas().remove(nombreCuenta);
+
                         encontrado = true;
                     }
                 }

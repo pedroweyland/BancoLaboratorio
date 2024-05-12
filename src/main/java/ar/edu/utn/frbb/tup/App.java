@@ -5,7 +5,7 @@ import ar.edu.utn.frbb.tup.entidades.Banco;
 
 public class App
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
         Banco banco = new Banco();
         MenuBanco menuBanco = new MenuBanco();

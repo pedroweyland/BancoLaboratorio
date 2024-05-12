@@ -7,7 +7,7 @@ import ar.edu.utn.frbb.tup.operaciones.modulos.*;
 
 import java.util.List;
 
-import static ar.edu.utn.frbb.tup.menuBuilder.Menus.menuOperaciones;
+import static ar.edu.utn.frbb.tup.menubuilder.Menus.menuOperaciones;
 
 public class Operaciones extends baseOperaciones {
 

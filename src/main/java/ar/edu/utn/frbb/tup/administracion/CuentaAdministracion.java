@@ -5,7 +5,7 @@ import ar.edu.utn.frbb.tup.administracion.gestion.cuentas.CrearCuenta;
 import ar.edu.utn.frbb.tup.administracion.gestion.cuentas.EliminarCuenta;
 import ar.edu.utn.frbb.tup.administracion.gestion.cuentas.MostrarCuenta;
 
-import static ar.edu.utn.frbb.tup.menuBuilder.Menus.menuCuenta;
+import static ar.edu.utn.frbb.tup.menubuilder.Menus.menuCuenta;
 
 public class CuentaAdministracion {
     private boolean salir = false;

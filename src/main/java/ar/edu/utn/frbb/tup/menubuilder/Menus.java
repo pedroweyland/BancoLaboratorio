@@ -1,4 +1,4 @@
-package ar.edu.utn.frbb.tup.menuBuilder;
+package ar.edu.utn.frbb.tup.menubuilder;
 
 import ar.edu.utn.frbb.tup.inputs.BaseInput;
 
@@ -10,19 +10,20 @@ public class Menus extends BaseInput {
 
     public static int menuPrincipal() {
         Scanner scanner = new Scanner(System.in);
+        clearScreen();
 
         System.out.println("---------------------------------------");
-        System.out.println("| Bienveido a la aplicación de Banco! |");
+        System.out.println("| Bienveido a la aplicacion de Banco! |");
         System.out.println("| 1. Ir al menu Cliente               |");
         System.out.println("| 2. Ir al menu Cuenta                |");
         System.out.println("| 3. Operaciones                      |");
         System.out.println("| 0. Salir                            |");
         System.out.println("---------------------------------------");
-        System.out.print(" Ingrese su opción (0-3): ");
+        System.out.print(" Ingrese su opcion (0-3): ");
 
         String opcion = scanner.nextLine();
         while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 4) {
-            System.out.println("Opción inválida. Por favor seleccione un número entre 0 y 3.");
+            System.out.println("Opcion inválida. Por favor seleccione un número entre 0 y 3.");
             opcion = scanner.nextLine();
         }
 
@@ -32,6 +33,7 @@ public class Menus extends BaseInput {
     }
     public static int menuCliente() {
         Scanner scanner = new Scanner(System.in);
+
         System.out.println("---------------------------------------");
         System.out.println("|    Bienveido al menu de Cliente!    |");
         System.out.println("| 1. Crear un nuevo Cliente           |");
@@ -41,11 +43,11 @@ public class Menus extends BaseInput {
         System.out.println("| 5. Mostrar todos los Cliente        |");
         System.out.println("| 0. Salir                            |");
         System.out.println("---------------------------------------");
-        System.out.print(" Ingrese su opción (0-5): ");
+        System.out.print(" Ingrese su Opcion (0-5): ");
 
         String opcion = scanner.nextLine();
         while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 6) {
-            System.out.println("Opción inválida. Por favor seleccione un número entre 0 y 5.");
+            System.out.println("Opcion invalida. Por favor seleccione un número entre 0 y 5.");
             opcion = scanner.nextLine();
         }
 
@@ -63,11 +65,11 @@ public class Menus extends BaseInput {
         System.out.println("| 3. Mostrar un Cuentas del cliente   |");
         System.out.println("| 0. Salir                            |");
         System.out.println("---------------------------------------");
-        System.out.print(" Ingrese su opción (0-3): ");
+        System.out.print(" Ingrese su Opcion (0-3): ");
         String opcion = scanner.nextLine();
 
         while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 4) { // Valido si es numero y si esta entre 0 y 5
-            System.out.println("Opción inválida. Por favor seleccione un número entre 0-3.");
+            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0-3.");
             opcion = scanner.nextLine();
         }
 
@@ -87,11 +89,11 @@ public class Menus extends BaseInput {
         System.out.println("| 5. Ver movimientos                   |");
         System.out.println("| 0. Salir                             |");
         System.out.println("---------------------------------------");
-        System.out.print(" Ingrese su opción (0-5): ");
+        System.out.print(" Ingrese su Opcion (0-5): ");
         String opcion = scanner.nextLine();
 
         while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 6) { // Valido si es numero y si esta entre 0 y 4
-            System.out.println("Opción inválida. Por favor seleccione un número entre 0-5.");
+            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0-5.");
             opcion = scanner.nextLine();
         }
         clearScreen();
@@ -111,13 +113,15 @@ public class Menus extends BaseInput {
         System.out.println("| 7. Mail                                 |");
         System.out.println("| 0. Salir                                |");
         System.out.println("-------------------------------------------");
-        System.out.print(" Ingrese su opción (0-7): ");
+        System.out.print(" Ingrese su Opcion (0-7): ");
 
         String opcion = scanner.nextLine();
         while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 8) {
-            System.out.println("Opción inválida. Por favor seleccione un número entre 0 y 7.");
+            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0 y 7.");
             opcion = scanner.nextLine();
         }
+
+        clearScreen();
 
         return Integer.parseInt(opcion);
 

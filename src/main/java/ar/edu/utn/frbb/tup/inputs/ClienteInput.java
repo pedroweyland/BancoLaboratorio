@@ -42,7 +42,7 @@ public class ClienteInput extends BaseInput {
     }
 
     public String ingresarDireccion() {
-        System.out.println("Ingrese la dirección del cliente: ");
+        System.out.println("Ingrese la direccion del cliente: ");
         return scanner.nextLine();
     }
 
@@ -50,7 +50,7 @@ public class ClienteInput extends BaseInput {
         System.out.println("Ingrese el dni del cliente: ");
         String dni = scanner.nextLine();
         while (!esNumeroLong(dni)) {
-            System.out.println("Dni inválido. Ingrese el dni del cliente: ");
+            System.out.println("Dni invalido. Ingrese el dni del cliente: ");
             dni = scanner.nextLine();
         }
         return Long.parseLong(dni);
@@ -61,7 +61,7 @@ public class ClienteInput extends BaseInput {
         String fechaNacimiento = scanner.nextLine();
 
         while (!esFechaValida(fechaNacimiento)) {
-            System.out.println("Fecha de nacimiento inválida. Ingrese la fecha de nacimiento del cliente (Formato: YYYY-MM-DD): ");
+            System.out.println("Fecha de nacimiento invalida. Ingrese la fecha de nacimiento del cliente (Formato: YYYY-MM-DD): ");
             fechaNacimiento = scanner.nextLine();
         }
 
@@ -79,12 +79,12 @@ public class ClienteInput extends BaseInput {
 
         while (!entradaValida) {
             try {
-                System.out.println("Ingrese el tipo de persona Física(F) o Jurídica(J): ");
+                System.out.println("Ingrese el tipo de persona Fisica(F) o Juridica(J): ");
                 tipoPersonaStr = scanner.nextLine().toUpperCase();
                 return TipoPersona.fromString(tipoPersonaStr); //Retorno el tipo persona
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
-                System.out.println("Por favor, ingrese un valor válido (F o J).");
+                System.out.println("Por favor, ingrese un valor valido (F o J).");
             }
         }
         // Esto nunca debería ocurrir si el bucle funciona correctamente

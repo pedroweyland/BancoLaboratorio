@@ -44,7 +44,7 @@ public class CuentaInput extends BaseInput {
                 return TipoCuenta.fromString(tipoCuentaStr); //Retorno el tipo persona
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
-                System.out.println("Por favor, ingrese un valor válido (C o A).");
+                System.out.println("Por favor, ingrese un valor valido (C o A).");
             }
         }
         return null;

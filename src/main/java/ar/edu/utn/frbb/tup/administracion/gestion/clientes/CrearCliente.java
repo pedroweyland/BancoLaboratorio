@@ -32,6 +32,9 @@ public class CrearCliente extends BaseGestion {
             System.out.println(toString(cliente)); //Muestro el cliente
         }
 
+        System.out.println("Enter para seguir");
+        scanner.nextLine();
+        clearScreen();
     }
 
 }

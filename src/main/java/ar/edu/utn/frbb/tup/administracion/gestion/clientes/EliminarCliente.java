@@ -33,6 +33,10 @@ public class EliminarCliente extends BaseGestion {
                 clientes.remove(cliente);
                 seguir = false;
             }
+
+            System.out.println("Enter para seguir");
+            scanner.nextLine();
+            clearScreen();
         }
     }
 

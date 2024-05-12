@@ -5,7 +5,7 @@ import ar.edu.utn.frbb.tup.entidades.Movimiento;
 import ar.edu.utn.frbb.tup.operaciones.baseOperaciones;
 
 public class Transferencia extends baseOperaciones {
-    private final String tipoOperacion = "Transferencia";
+    private final String tipoOperacion = "Transferencia a la cuenta ";
     private final String tipoOperacionDestino = "Deposito recibido de la cuenta ";
 
     public void transferencia(Cuenta cuentaOrigen, Cuenta cuentaDestino){
@@ -16,6 +16,7 @@ public class Transferencia extends baseOperaciones {
 
             double monto = ingresarDinero("Ingrese el monto a transferir a la cuenta " + cuentaDestino.getNombre() + ": ");
 
+            System.out.println("----------------------------------------");
             if (monto > cuentaOrigen.getSaldo()){
                 System.out.println("No hay suficiente dinero en la cuenta " + cuentaOrigen.getNombre());
             } else {
@@ -24,14 +25,20 @@ public class Transferencia extends baseOperaciones {
                 cuentaDestino.setSaldo(cuentaDestino.getSaldo() + monto);
 
                 //Tomo registro de la transferencia
-                Movimiento movimiento = crearMovimiento(tipoOperacion, monto);
+                Movimiento movimiento = crearMovimiento(tipoOperacion + cuentaDestino.getNombre(), monto);
                 cuentaOrigen.addMovimientos(movimiento);
 
                 Movimiento movimientoDestino = crearMovimiento(tipoOperacionDestino + cuentaOrigen.getNombre(), monto);
                 cuentaDestino.addMovimientos(movimientoDestino);
 
+
                 System.out.println("Se ha transferido " + monto + " a la cuenta " + cuentaDestino.getNombre());
             }
+            System.out.println("----------------------------------------");
+
+            System.out.println("Enter para seguir");
+            scanner.nextLine();
+            clearScreen();
         }
     }
 }

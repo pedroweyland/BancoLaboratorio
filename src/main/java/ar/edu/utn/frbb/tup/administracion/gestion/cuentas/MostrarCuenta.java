@@ -40,8 +40,13 @@ public class MostrarCuenta extends BaseGestion {
                     System.out.println(toString(cuenta)); //Muestro en pantalla las cuentas del cliente
                     cantCuentas++;
                 }
-                System.out.println("----------------------------------------");
                 System.out.println("Tiene " + cantCuentas + " cuentas asociadas");
+                System.out.println("----------------------------------------");
+
+                System.out.println("Enter para seguir");
+                scanner.nextLine();
+                clearScreen();
+
                 seguir = false;
             }
         }
