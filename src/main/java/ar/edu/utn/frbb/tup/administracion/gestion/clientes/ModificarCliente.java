@@ -1,6 +1,5 @@
 package ar.edu.utn.frbb.tup.administracion.gestion.clientes;
 
-import ar.edu.utn.frbb.tup.entidades.Banco;
 import ar.edu.utn.frbb.tup.entidades.Cliente;
 import ar.edu.utn.frbb.tup.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.inputs.ClienteInput;
@@ -9,11 +8,10 @@ import java.util.List;
 import static ar.edu.utn.frbb.tup.menubuilder.Menus.menuModificacion;
 
 
-public class ModifcarCliente extends BaseGestion {
+public class ModificarCliente extends BaseGestion {
 
     // Modificacion Cliente
-    public void ModifcarCliente(Banco banco){
-        List<Cliente> clientes = banco.getClientes(); //Creo una lista auxiliar 'cliente' con la copia de Clientes que esta en banco ++Legibilidad
+    public void modificarCliente(List<Cliente> clientes){
 
         long dni = pedirDni("Escriba el DNI para el cliente que quiere modificar: ");
 
@@ -64,7 +62,7 @@ public class ModifcarCliente extends BaseGestion {
                         seguir = false;
                         break;
                 }
-                System.out.println(); //Espacion en blanco
+                System.out.println(); //Espacio en blanco
             }
         }
     }

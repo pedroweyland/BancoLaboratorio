@@ -5,6 +5,7 @@ import ar.edu.utn.frbb.tup.entidades.Cuenta;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import static ar.edu.utn.frbb.tup.validator.Validaciones.esNumeroLong;
 
@@ -18,12 +19,23 @@ public class BaseGestion {
 
     //Funciones extras para reducir codigo
 
+
     public Cliente encontrarCliente(List<Cliente> clientes, long dni){
-        //Funcion que encuentra cliente y retorna el cliente o Null si no lo encuentra
+        //Funcion que encuentra cliente, retorna el cliente o Null si no lo encuentra
 
         for (Cliente cliente : clientes) { //Busco en la lista clientes si existe el dni que puso el usuario
             if (cliente.getDni() == dni){
                 return cliente;
+            }
+        }
+        return null;
+    }
+
+    public Cuenta encontrarCuenta(Set<Cuenta> cuentas, long cvu){
+        //Funcion que encuentra cuenta, retorna la cuenta o Null si no la encontro
+        for (Cuenta cuenta : cuentas){
+            if (cuenta.getCVU() == cvu){
+                return cuenta;
             }
         }
         return null;
@@ -55,6 +67,20 @@ public class BaseGestion {
         }
 
         return Long.parseLong(cvu);
+    }
+
+    public boolean pedirOpcion(String texto){
+        //Pido opcion para ver si quiere dar de baja o de alta
+        System.out.println(texto);
+        String opcion = scanner.nextLine();
+
+        //Si ingresa otro tipo de letra vuelve error
+        while (!opcion.equalsIgnoreCase("a") && !opcion.equalsIgnoreCase("b")){
+            System.out.println("Error, ingrese A (Alta) o B (Baja)");
+            opcion = scanner.nextLine();
+        }
+
+        return opcion.equalsIgnoreCase("a");
     }
 
     //Dependiendo que tipo de parametro se le pase usa una funcion o la otra

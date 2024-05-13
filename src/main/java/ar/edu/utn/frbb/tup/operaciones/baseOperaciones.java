@@ -22,8 +22,9 @@ public class baseOperaciones {
         System.out.flush();
     }
 
-
     public Cuenta encontrarCuenta(Set<Cuenta> cuentas, long cvu) {
+        //Funcion que encuentra una cuenta y retorna la cuenta si la encontro o retorna null si no la encontro
+
         for (Cuenta cuenta : cuentas) {
             if (cuenta.getCVU() == cvu) {
                 return cuenta;
@@ -42,7 +43,6 @@ public class baseOperaciones {
         }
         return null;
     }
-
 
     public long pedirDni(String texto){
         //Funcion para que el usuario ingrese dni, valido y devuelve en tipo 'long'
@@ -102,7 +102,6 @@ public class baseOperaciones {
             }
 
         }
-
         return 0;
     }
 }

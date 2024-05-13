@@ -12,6 +12,7 @@ public class Deposito extends baseOperaciones {
 
         //Pido el monto del deposito
         double monto = ingresarDinero("Ingrese el monto del deposito: ");
+
         //Sumo el monto al saldo que tenia la cuenta
         cuenta.setSaldo(cuenta.getSaldo() + monto); 
 

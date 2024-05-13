@@ -15,31 +15,25 @@ public class MenuBanco extends BaseInput {
 
 
     public void menuInicio(Banco banco){
-
+        //Inicio del banco
         while(!salir){
-
+            //Usuario decida 
             int opcion = menuPrincipal();
             switch (opcion) {
                 case 1:
                     ClienteAdministracion cliente = new ClienteAdministracion();
                     cliente.clienteAdministracion(banco);
-
                     break;
                 case 2:
                     CuentaAdministracion cuenta = new CuentaAdministracion();
                     cuenta.cuentaAdministracion(banco);
-
                     break;
                 case 3:
                     Operaciones operaciones = new Operaciones();
                     operaciones.operaciones(banco);
-
                     break;
                 case 0:
                     salir = true;
-                    break;
-                default:
-                    System.out.println("Opción inválida. Por favor seleccione 0-3.");
                     break;
             }
             clearScreen();

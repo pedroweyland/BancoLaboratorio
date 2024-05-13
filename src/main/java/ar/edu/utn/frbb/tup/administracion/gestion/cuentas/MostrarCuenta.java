@@ -1,6 +1,5 @@
 package ar.edu.utn.frbb.tup.administracion.gestion.cuentas;
 
-import ar.edu.utn.frbb.tup.entidades.Banco;
 import ar.edu.utn.frbb.tup.entidades.Cliente;
 import ar.edu.utn.frbb.tup.entidades.Cuenta;
 import ar.edu.utn.frbb.tup.administracion.gestion.BaseGestion;
@@ -10,14 +9,13 @@ import java.util.Set;
 
 public class MostrarCuenta extends BaseGestion {
 
-    public void mostrarCuenta(Banco banco){
+    public void mostrarCuenta(List<Cliente> clientes){
         boolean seguir = true;
-        List<Cliente> clientes = banco.getClientes(); //Creo una lista auxiliar 'cliente' con la copia de Clientes que esta en banco ++Legibilidad
 
         while (seguir){
             long dni = pedirDni("Escriba el DNI del usuario para ver sus cuentas: (0 para salir)");
 
-            if (dni == 0) break;
+            if (dni == 0) break; //Si escribe 0 termina con el bucle
 
             //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
             Cliente cliente = encontrarCliente(clientes, dni);
@@ -35,6 +33,7 @@ public class MostrarCuenta extends BaseGestion {
                 Set<Cuenta> cuentas = cliente.getCuentas();
 
                 for (Cuenta cuenta : cuentas) {
+                    //Muestro en pantalla las cuentas que creo el cliente
                     System.out.println("------- Cuentas del cliente " + cliente.getNombre() + " -------");
 
                     System.out.println(toString(cuenta)); //Muestro en pantalla las cuentas del cliente

@@ -12,6 +12,8 @@ public class Transferencia extends baseOperaciones {
 
         if (cuentaDestino == null) {
             System.out.println("No existe la cuenta a transferir");
+        } else if (cuentaOrigen.getCVU() == cuentaDestino.getCVU()) {
+            System.out.println("No se puede transferir a la misma cuenta");
         } else {
 
             double monto = ingresarDinero("Ingrese el monto a transferir a la cuenta " + cuentaDestino.getNombre() + ": ");
@@ -20,7 +22,7 @@ public class Transferencia extends baseOperaciones {
             if (monto > cuentaOrigen.getSaldo()){
                 System.out.println("No hay suficiente dinero en la cuenta " + cuentaOrigen.getNombre());
             } else {
-                //Restp el monto a la cuenta origen y sumo a la que se envia
+                //Resto el monto a la cuenta origen y sumo a la que se envia
                 cuentaOrigen.setSaldo(cuentaOrigen.getSaldo() - monto);
                 cuentaDestino.setSaldo(cuentaDestino.getSaldo() + monto);
 

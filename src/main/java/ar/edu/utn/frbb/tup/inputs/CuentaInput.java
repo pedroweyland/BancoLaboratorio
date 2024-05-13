@@ -5,6 +5,7 @@ import ar.edu.utn.frbb.tup.entidades.TipoCuenta;
 
 import java.time.LocalDate;
 import java.util.Random;
+import java.util.Set;
 
 public class CuentaInput extends BaseInput {
 
@@ -15,13 +16,14 @@ public class CuentaInput extends BaseInput {
 
         clearScreen();
 
-
         cuenta.setNombre(ingresarNombre());
 
         //Inicializo los valores de la cuenta NUEVA
         cuenta.setEstado(true);
         cuenta.setSaldo(0);
+
         cuenta.setCVU(generarCVU(r)); //Creo un CVU random
+
         cuenta.setFechaCreacion(LocalDate.now());
         cuenta.setTipoCuenta(ingresarTipoCuenta());
         return cuenta;
@@ -49,6 +51,7 @@ public class CuentaInput extends BaseInput {
         }
         return null;
     }
+
     public long generarCVU(Random r) {
         return r.nextInt(900000) + 100000; //Genera numero aleatorio entre 100000 y 999999
     }

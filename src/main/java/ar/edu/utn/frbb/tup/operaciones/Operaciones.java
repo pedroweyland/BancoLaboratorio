@@ -13,7 +13,10 @@ public class Operaciones extends baseOperaciones {
 
     public void operaciones (Banco banco) {
         boolean seguir = true;
-        Cuenta cuenta = cuentaOperar(banco);
+
+        List<Cliente> clientes = banco.getClientes();
+        Cuenta cuenta = cuentaOperar(clientes);
+
 
         if (cuenta == null) { // Si cuenta es null, significa que el usuario decidio irse o no tiene cuentas asociadas
             System.out.println("Saliendo...");
@@ -41,7 +44,6 @@ public class Operaciones extends baseOperaciones {
                             Transferencia t = new Transferencia();
                             t.transferencia(cuenta, cuentaDestino);
                         }
-
                         break;
                     case 4:
                         Consulta c = new Consulta();
@@ -58,35 +60,59 @@ public class Operaciones extends baseOperaciones {
                 }
             }
         }
-
     }
 
     //Funcion para que el usaurio encuentre la cuenta que desea operar, y retorna la cuenta o null si no la encuentra
-    public Cuenta cuentaOperar(Banco banco){
+    public Cuenta cuentaOperar(List<Cliente> clientes){
 
         while (true) {
 
             //Pido el DNI del cliente, y busco si existe
             long dni = pedirDni("Para realizar una operacion ingrese el DNI del cliente: (0 para salir)");
-            Cliente cliente = encontrarCliente(banco.getClientes(), dni);
-            if (dni == 0) break;
+            if (dni == 0) break; //Si escribe 0 termina con el bucle
+
+
+            Cliente cliente = encontrarCliente(clientes, dni);
 
             if (cliente == null){ //Verifico si el cliente existe
                 System.out.println("No se encontro ningun cliente con el DNI dado");
-            } else if (cliente.getCuentas().isEmpty()){ //Verifico si el cliente tiene cuentas asociadas
+                continue; //continue para que vuelva a iterar el while
+            }
+
+            if (cliente.getCuentas().isEmpty()){ //Verifico si el cliente tiene cuentas asociadas
+                System.out.println("----------------------------------------");
                 System.out.println("El cliente no tiene cuentas asociadas");
+                System.out.println("----------------------------------------");
+                System.out.println("Enter para seguir");
+                scanner.nextLine();
                 break;
             } else { //Si el cliente existe y tiene cuentas asociadas se procede a buscar la cuenta
 
                 while (true) { //Bucle while por si el usuario se equivoca del CVU y que intente de poner de vuelta CVU
+
                     //Pido el ID de la cuenta, y busco si existe
                     long cvu = pedirCvu("Ahora ingrese el CVU de la cuenta en la que quiere operar: (0 para salir)");
                     Cuenta cuenta = encontrarCuenta(cliente.getCuentas(), cvu);
+
                     if (cvu == 0) break;
 
                     if (cuenta != null) { //Verifico si la cuenta existe
-                        clearScreen();
-                        return cuenta;
+
+                        if (!cuenta.getEstado()){ //Verifico si la cuenta esta de alta o de baja
+
+                            System.out.println("----------------------------------------");
+                            System.out.println("La cuenta esta de baja, no puede operar.");
+                            System.out.println("----------------------------------------");
+
+                            System.out.println("Enter para seguir");
+                            scanner.nextLine();
+
+                            return null;
+                        } else{
+                            clearScreen();
+                            return cuenta;
+                        }
+
                     } else {
                         System.out.println("No se encontro ninguna cuenta con el CVU dado");
                     }

@@ -1,68 +1,63 @@
 package ar.edu.utn.frbb.tup.administracion.gestion.cuentas;
 
-import ar.edu.utn.frbb.tup.entidades.Banco;
 import ar.edu.utn.frbb.tup.entidades.Cliente;
 import ar.edu.utn.frbb.tup.entidades.Cuenta;
 import ar.edu.utn.frbb.tup.administracion.gestion.BaseGestion;
-import org.w3c.dom.ls.LSException;
 
 import java.util.List;
 import java.util.Set;
 
 public class EliminarCuenta extends BaseGestion {
 
-    public void eliminarCuenta(Banco banco){
+    public void eliminarCuenta(List<Cliente> clientes){
 
-        List<Cliente> clientes = banco.getClientes(); //Creo una lista auxiliar 'cliente' con la copia de Clientes que esta en banco ++Legibilidad
         boolean seguir = true;
 
         while (seguir){
 
             long dni = pedirDni("Escriba el DNI al cliente para eliminar una cuenta: (0 para salir) ");
 
-            //Condicional por si se quiere ir el usuario
-            if (dni == 0) break;
-
+            if (dni == 0) break; //Si escribe 0 termina con el bucle
 
             Cliente cliente = encontrarCliente(clientes, dni);
-
+            clearScreen();
             if (cliente == null){
                 System.out.println("No existe ningun cliente con el DNI ingresado ");
 
             } else if (cliente.getCuentas().isEmpty()) { //Valido si el cliente tiene cuentas o no
-                System.out.println("Este cliente  no tiene cuentas asociadas");
+                System.out.println("Este cliente no tiene cuentas asociadas");
                 break;
 
             } else {
-
                 Set<Cuenta> cuentas = cliente.getCuentas();
 
-                //Pido CVU de la cuenta que se quiere elimnar
+                //Pido CVU de la cuenta que quiere eliminar
                 long cvu = pedirCvu("Escriba el CVU de la cuenta que quiere eliminar: (0 para salir) ");
-                //Condicional por si se quiere ir el usuario
-                if (cvu == 0) break;
+                clearScreen();
+                if (cvu == 0) break; //Si escribe 0 termina con el bucle
 
-                //Recorro el set, busco si existe el id, si es asi borro cuenta
-                boolean encontrado = false;
-                for (Cuenta cuenta : cuentas){
-                    if (cuenta.getCVU() == cvu){
-                        //Borro la cuenta en Cuentas
-                        cuentas.remove(cuenta);
-                        //Borro El nombre de la cuenta que esta asociada en clientes
-                        String nombreCuenta = cuenta.getNombre();
-                        cliente.getNombreCuentas().remove(nombreCuenta);
+                //Devuelve la cuenta encontrada o Null si no la encontro
+                Cuenta cuenta = encontrarCuenta(cuentas, cvu);
 
-                        encontrado = true;
-                    }
-                }
-
-                if (!encontrado){
-                    System.out.println("El cliente no tiene una cuenta con el ID ingresado");
+                if (cuenta == null){
+                    System.out.println("No existe la cuenta con el CVU: " + cvu);
                 } else {
-                    System.out.println("La cuenta se borro exitosamente");
-                }
+                    //Borro la cuenta en Cuentas
+                    cuentas.remove(cuenta);
 
+                    //Borro El nombre de la cuenta que esta asociada en clientes
+                    String nombreCuenta = cuenta.getNombre();
+                    cliente.getNombreCuentas().remove(nombreCuenta);
+
+                    System.out.println("----------------------------------------");
+                    System.out.println("La cuenta se borro exitosamente");
+                    System.out.println("----------------------------------------");
+                }
                 seguir = false;
+
+                System.out.println("Enter para seguir");
+                scanner.nextLine();
+                clearScreen();
             }
         }
     }

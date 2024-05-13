@@ -63,13 +63,14 @@ public class Menus extends BaseInput {
         System.out.println("| 1. Crear una nueva Cuenta           |");
         System.out.println("| 2. Eliminar un Cuenta               |");
         System.out.println("| 3. Mostrar un Cuentas del cliente   |");
+        System.out.println("| 4. Dar Alta/Baja Cuenta             |");
         System.out.println("| 0. Salir                            |");
         System.out.println("---------------------------------------");
-        System.out.print(" Ingrese su Opcion (0-3): ");
+        System.out.print(" Ingrese su Opcion (0-4): ");
         String opcion = scanner.nextLine();
 
-        while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 4) { // Valido si es numero y si esta entre 0 y 5
-            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0-3.");
+        while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 5) { // Valido si es numero y si esta entre 0 y 4
+            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0-4.");
             opcion = scanner.nextLine();
         }
 
@@ -92,7 +93,7 @@ public class Menus extends BaseInput {
         System.out.print(" Ingrese su Opcion (0-5): ");
         String opcion = scanner.nextLine();
 
-        while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 6) { // Valido si es numero y si esta entre 0 y 4
+        while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 6) { // Valido si es numero y si esta entre 0 y 5
             System.out.println("Opcion invalida. Por favor seleccione un numero entre 0-5.");
             opcion = scanner.nextLine();
         }
