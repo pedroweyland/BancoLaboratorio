@@ -17,21 +17,17 @@ public class CrearCliente extends BaseGestion {
         //Usuario ingresa los datos y se guarda en la variable cliente
         Cliente cliente = clienteInput.ingresoCliente();
 
-        //Valido si el cliente ya existe por el dni que ingreso anteriormente
-        for (Cliente c : clientes) {
-            if (c.getDni() == cliente.getDni()) {
-                System.out.println("El cliente ya existe");
-                existe = true;
-                break;
-            }
-        }
+        //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
+        Cliente c = encontrarCliente(clientes, cliente.getDni());
 
-        if (!existe){ //Si no existe el cliente lo agrego al banco y lo muestro
+        if (c == null){ //Si no existe el cliente lo agrego al banco y lo muestro
             clientes.add(cliente);
 
             //Muestro en pantalla el resultado
             System.out.println("------- Cliente creado con exito -------");
             System.out.println(toString(cliente));
+        } else {
+            System.out.println("El cliente ya existe");
         }
 
         System.out.println("Enter para seguir");
