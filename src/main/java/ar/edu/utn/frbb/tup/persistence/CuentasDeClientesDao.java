@@ -23,8 +23,6 @@ public class CuentasDeClientesDao {
 
             if (!existe) {
                 writer.println("DNI, CVU");
-            } else {
-                System.out.println("El archivo ya existe");
             }
 
         } catch (IOException e) {
@@ -43,7 +41,6 @@ public class CuentasDeClientesDao {
 
             writer.println(dni + "," + cvu);
             writer.close();
-            System.out.println("Se ha escrito la relacion en el archivo");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -101,7 +98,6 @@ public class CuentasDeClientesDao {
                 String[] datos = linea.split(",");
 
                 if (Long.parseLong(datos[0]) == dni) {
-                    System.out.println("Se ha encontrado La relacion de Cuenta cliente");
                     reader.close();
                     return true;
                 }

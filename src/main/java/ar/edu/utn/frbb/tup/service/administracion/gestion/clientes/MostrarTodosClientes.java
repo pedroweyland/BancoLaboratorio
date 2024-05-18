@@ -1,7 +1,6 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
-import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 
 import java.util.List;
@@ -11,7 +10,7 @@ public class MostrarTodosClientes extends BaseGestion {
     // Mostrar todos los clientes
     public void mostrarTodosClientes(){
 
-        List<Cliente> clientes = clienteDao.findAll();
+        List<Cliente> clientes = clienteDao.findAllClientes();
 
         int contador = 1;
 

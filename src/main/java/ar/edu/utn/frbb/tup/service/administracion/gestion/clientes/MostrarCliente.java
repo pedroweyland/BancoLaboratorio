@@ -9,7 +9,7 @@ import java.util.List;
 public class MostrarCliente extends BaseGestion {
 
     // Mostrar un cliente en especifico
-    public void mostrarCliente(List<Cliente> clientes){
+    public void mostrarCliente(){
         boolean seguir = true;
 
         while (seguir) {

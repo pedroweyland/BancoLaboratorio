@@ -6,6 +6,7 @@ import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.CuentasDeClientesDao;
+import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 
 
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ public class baseOperaciones {
     protected ClienteDao clienteDao = new ClienteDao();
     protected CuentaDao cuentaDao = new CuentaDao();
     protected CuentasDeClientesDao cuentasDeClientes = new CuentasDeClientesDao();
+    protected MovimientosDao movimientosDao = new MovimientosDao();
 
     protected static void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -77,10 +79,10 @@ public class baseOperaciones {
         return Long.parseLong(cvu);
     }
 
-    public Movimiento crearMovimiento(String tipoOperacion, double monto){
+    public Movimiento crearMovimiento(String tipoOperacion, double monto, long cvu){
         //Creo el movimiento para usar cuando se realizen las operaciones
         Movimiento movimiento = new Movimiento();
-
+        movimiento.setCVU(cvu);
         movimiento.setFecha(LocalDate.now());
         movimiento.setHora(LocalTime.now());
         movimiento.setTipoOperacion(tipoOperacion);

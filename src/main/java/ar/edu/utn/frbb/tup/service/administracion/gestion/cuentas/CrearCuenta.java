@@ -11,44 +11,41 @@ import java.util.Set;
 public class CrearCuenta extends BaseGestion {
     CuentaInput cuentaInput = new CuentaInput();
 
-    public void crearCuenta(List<Cliente> clientes) {
+    public void crearCuenta() {
 
-        if (clientes.isEmpty()){ //Si no hay clientes no hay cuenta para asignar
-            System.out.println("No hay clientes para asignarle una cuenta");
-        } else {
-            boolean seguir = true;
+        boolean seguir = true;
 
-            while (seguir){
+        while (seguir) {
 
-                long dni = pedirDni("Escriba el DNI del cliente para crearle una cuenta: (0 para salir)");
+            long dni = pedirDni("Escriba el DNI del cliente para crearle una cuenta: (0 para salir)");
 
-                if (dni == 0) break; //Si escribe 0 termina con el bucle
+            clearScreen();
+            if (dni == 0) break; //Si escribe 0 termina con el bucle
 
-                Cliente cliente = clienteDao.findCliente(dni);
+            Cliente cliente = clienteDao.findCliente(dni);
+
+
+            if (cliente == null) { //Si cliente es == null significa que no se encontro
+                System.out.println("No se encontro ningun cliente con el dni dado");
+            } else {
+                //Usuario ingresa los datos y se guarda en la variable cliente
+                Cuenta cuenta = cuentaInput.creacionCuenta();
+
+                //Agrego la cuenta al archivo y guardo la relacion que tiene con las cuentas
+                cuentaDao.saveCuenta(cuenta);
+                cuentasDeClientes.saveRelacion(dni, cuenta.getCVU());
+
+                //Muestro en pantalla el resultado
+                System.out.println("----- Cuenta creada del cliente " + cliente.getNombre() + " -----");
+                System.out.println(toString(cuenta));
+                System.out.println("-------- Cuenta creada con exito --------");
+                System.out.println("----------------------------------------");
+
+                seguir = false;
+
+                System.out.println("Enter para seguir");
+                scanner.nextLine();
                 clearScreen();
-
-                if (cliente == null) { //Si cliente es == null significa que no se encontro
-                    System.out.println("No se encontro ningun cliente con el dni dado");
-                } else {
-                    //Usuario ingresa los datos y se guarda en la variable cliente
-                    Cuenta cuenta = cuentaInput.creacionCuenta();
-
-                    //Agrego la cuenta al archivo y guardo la relacion que tiene con las cuentas
-                    cuentaDao.saveCuenta(cuenta);
-                    cuentasDeClientes.saveRelacion(dni, cuenta.getCVU());
-
-                    //Muestro en pantalla el resultado
-                    System.out.println("----- Cuenta creada del cliente " + cliente.getNombre() + " -----");
-                    System.out.println(toString(cuenta));
-                    System.out.println("-------- Cuenta creada con exito --------");
-                    System.out.println("----------------------------------------");
-
-                    seguir = false;
-
-                    System.out.println("Enter para seguir");
-                    scanner.nextLine();
-                    clearScreen();
-                }
             }
         }
     }

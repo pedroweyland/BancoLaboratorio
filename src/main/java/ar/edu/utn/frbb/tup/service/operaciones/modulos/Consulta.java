@@ -18,7 +18,7 @@ public class Consulta extends baseOperaciones {
         clearScreen();
 
         //Tomo registro de la operacion que se hizo
-        Movimiento movimiento = crearMovimiento(tipoOperacion, 0);
-        cuenta.addMovimientos(movimiento);
+        Movimiento movimiento = crearMovimiento(tipoOperacion, 0, cuenta.getCVU());
+        movimientosDao.saveMovimiento(movimiento);
     }
 }

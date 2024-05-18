@@ -9,10 +9,9 @@ import java.util.List;
 public class MostrarMovimientos extends baseOperaciones {
 
     public void mostrarMovimientos(Cuenta cuenta){
+        List<Movimiento> movimientos = movimientosDao.findMovimientos(cuenta.getCVU());
 
-        if (!cuenta.getMovimientos().isEmpty()) { //Valido si la cuenta tiene movimientos o no
-
-            List<Movimiento> movimientos = cuenta.getMovimientos();
+        if (!movimientos.isEmpty()) { //Valido si la cuenta tiene movimientos o no
 
             //Recorro la lista de movivmientos para ir mostrando uno por uno
             System.out.println("---------- Movimientos de la cuenta " + cuenta.getNombre() + " ----------");

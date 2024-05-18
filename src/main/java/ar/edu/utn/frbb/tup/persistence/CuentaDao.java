@@ -26,8 +26,6 @@ public class CuentaDao {
 
             if (!existe) {
                 writer.println("CVU, nombre, estado, saldo, fecha creacion, tipo de cuenta");
-            } else {
-                System.out.println("El archivo ya existe");
             }
 
         } catch (IOException e) {
@@ -46,7 +44,6 @@ public class CuentaDao {
 
             writer.println(cuenta.getCVU() + "," + cuenta.getNombre() + "," + cuenta.getEstado() + "," + cuenta.getSaldo() + "," + cuenta.getFechaCreacion() + "," + cuenta.getTipoCuenta());
             writer.close();
-            System.out.println("Se ha escrito la cuenta en el archivo");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -103,7 +100,6 @@ public class CuentaDao {
                 String[] datos = linea.split(",");
 
                 if (Long.parseLong(datos[0]) == CVU) {
-                    System.out.println("Se ha encontrado el cliente");
                     reader.close();
                     return parseStringToCuenta(datos);
                 }

@@ -1,63 +1,76 @@
 package ar.edu.utn.frbb.tup.service.operaciones;
 
-import ar.edu.utn.frbb.tup.model.Banco;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.service.operaciones.modulos.*;
 
-import java.util.List;
 
 import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuOperaciones;
 
 public class Operaciones extends baseOperaciones {
 
-    public void operaciones (Banco banco) {
+    public void operaciones () {
         boolean seguir = true;
 
-        Cuenta cuenta = cuentaOperar();
+        if (!clienteDao.findAllClientes().isEmpty()) { //Si no hay Clientes entonces no se puede operar
+            if (!cuentaDao.findAllCuentas().isEmpty()) { //Si no hay Cuentas entonces no se puede operar
+                Cuenta cuenta = cuentaOperar();
 
+                if (cuenta == null) { // Si cuenta es null, significa que el usuario decidio irse o no tiene cuentas asociadas
+                    System.out.println("Saliendo...");
+                } else {
+                    while (seguir) {
 
-        if (cuenta == null) { // Si cuenta es null, significa que el usuario decidio irse o no tiene cuentas asociadas
-            System.out.println("Saliendo...");
-        } else {
-            while (seguir) {
+                        int opcion = menuOperaciones();
 
-                int opcion = menuOperaciones();
+                        switch (opcion) {
+                            case 1:
+                                //Deposito
+                                Deposito d = new Deposito();
+                                d.deposito(cuenta);
+                                break;
+                            case 2:
+                                //Retirar dinero
+                                Retiro r = new Retiro();
+                                r.retiro(cuenta);
+                                break;
+                            case 3:
+                                //Transferencia
+                                Cuenta cuentaDestino = cuentaATransferir();
 
-                switch (opcion) {
-                    case 1:
-                        //Deposito
-                        Deposito d = new Deposito();
-                        d.deposito(cuenta);
-                        break;
-                    case 2:
-                        //Retirar dinero
-                        Retiro r = new Retiro();
-                        r.retiro(cuenta);
-                        break;
-                    case 3:
-                        //Transferencia
-                        Cuenta cuentaDestino = cuentaATransferir();
+                                if (cuentaDestino != null) {
+                                    Transferencia t = new Transferencia();
+                                    t.transferencia(cuenta, cuentaDestino);
+                                }
+                                break;
+                            case 4:
+                                Consulta c = new Consulta();
+                                c.consulta(cuenta);
+                                break;
+                            case 5:
+                                MostrarMovimientos m = new MostrarMovimientos();
+                                m.mostrarMovimientos(cuenta);
+                                break;
+                            case 0:
 
-                        if (cuentaDestino != null) {
-                            Transferencia t = new Transferencia();
-                            t.transferencia(cuenta, cuentaDestino);
+                                seguir = false;
+                                break;
                         }
-                        break;
-                    case 4:
-                        Consulta c = new Consulta();
-                        c.consulta(cuenta);
-                        break;
-                    case 5:
-                        MostrarMovimientos m = new MostrarMovimientos();
-                        m.mostrarMovimientos(cuenta);
-                        break;
-                    case 0:
-
-                        seguir = false;
-                        break;
+                    }
                 }
+            } else {
+                System.out.println("----------------------------------------");
+                System.out.println("No hay cuentas registradas");
+                System.out.println("----------------------------------------");
+                System.out.println("Enter para seguir");
+                scanner.nextLine();
             }
+        } else {
+            System.out.println("----------------------------------------");
+            System.out.println("No hay clientes registrados");
+            System.out.println("----------------------------------------");
+            System.out.println("Enter para seguir");
+            scanner.nextLine();
         }
     }
 
@@ -74,7 +87,11 @@ public class Operaciones extends baseOperaciones {
             Cliente cliente = clienteDao.findCliente(dni);
 
             if (cliente == null){ //Verifico si el cliente existe
+                System.out.println("----------------------------------------");
                 System.out.println("No se encontro ningun cliente con el DNI dado");
+                System.out.println("----------------------------------------");
+                System.out.println("Enter para seguir");
+                scanner.nextLine();
                 break;
             }
 

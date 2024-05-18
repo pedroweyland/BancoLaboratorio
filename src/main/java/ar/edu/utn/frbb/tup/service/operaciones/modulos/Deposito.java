@@ -17,8 +17,8 @@ public class Deposito extends baseOperaciones {
         cuenta.setSaldo(cuenta.getSaldo() + monto); 
 
         //Tomo registro de la operacion que se hizo
-        Movimiento movimiento = crearMovimiento(tipoOperacion, monto);
-        cuenta.addMovimientos(movimiento);
+        Movimiento movimiento = crearMovimiento(tipoOperacion, monto, cuenta.getCVU());
+        movimientosDao.saveMovimiento(movimiento);
 
         System.out.println("----------------------------------------");
         System.out.println("Se ha realizado el deposito de $" + monto + " a la cuenta " + cuenta.getNombre());

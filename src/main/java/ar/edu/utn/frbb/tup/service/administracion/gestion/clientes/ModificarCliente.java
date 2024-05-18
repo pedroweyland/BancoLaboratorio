@@ -12,7 +12,7 @@ import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuModificacion;
 public class ModificarCliente extends BaseGestion {
 
     // Modificacion Cliente
-    public void modificarCliente(List<Cliente> clientes) {
+    public void modificarCliente() {
         boolean salir = false;
 
         while (!salir) {
@@ -31,9 +31,8 @@ public class ModificarCliente extends BaseGestion {
 
                 clienteDao.deleteCliente(dni); //Elimino el cliente Viejo del archivo
 
-                boolean seguir = true;
 
-                while (seguir) {
+                while (!salir) {
                     int opcion = menuModificacion();  //Usuario ingresa que quiere modificar
 
                     //Creo intancia de cliente Input para que el usuario modifique lo que eligio
@@ -66,13 +65,12 @@ public class ModificarCliente extends BaseGestion {
                             System.out.println("Mail modificado correctamente");
                             break;
                         case 0:
-                            seguir = false;
+                            //Guardo el cliente modificado en el archivo
+                            clienteDao.saveCliente(cliente);
+                            salir = true;
                             break;
                     }
-                    System.out.println(); //Espacio en blanco
                 }
-                //Guardo el cliente modificado en el archivo
-                clienteDao.saveCliente(cliente);
             }
         }
     }

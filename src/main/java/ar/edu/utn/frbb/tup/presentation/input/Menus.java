@@ -21,7 +21,7 @@ public class Menus extends BaseInput {
 
         String opcion = scanner.nextLine();
         while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 4) {
-            System.out.println("Opcion inválida. Por favor seleccione un número entre 0 y 3.");
+            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0 y 3.");
             opcion = scanner.nextLine();
         }
 
@@ -45,7 +45,7 @@ public class Menus extends BaseInput {
 
         String opcion = scanner.nextLine();
         while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 6) {
-            System.out.println("Opcion invalida. Por favor seleccione un número entre 0 y 5.");
+            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0 y 5.");
             opcion = scanner.nextLine();
         }
 

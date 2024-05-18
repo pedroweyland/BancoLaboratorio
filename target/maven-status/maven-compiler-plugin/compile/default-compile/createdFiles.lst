@@ -3,6 +3,7 @@ ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\ModificarCliente.cla
 ar\edu\utn\frbb\tup\service\operaciones\baseOperaciones.class
 ar\edu\utn\frbb\tup\App.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\DarAltaBaja.class
+ar\edu\utn\frbb\tup\persistence\CuentasDeClientesDao.class
 ar\edu\utn\frbb\tup\model\Persona.class
 ar\edu\utn\frbb\tup\model\Banco.class
 ar\edu\utn\frbb\tup\service\administracion\ClienteAdministracion.class
@@ -11,12 +12,15 @@ ar\edu\utn\frbb\tup\presentation\input\Menus.class
 ar\edu\utn\frbb\tup\model\Cliente.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\CrearCliente.class
 ar\edu\utn\frbb\tup\model\Movimiento.class
+ar\edu\utn\frbb\tup\persistence\CuentaDao.class
+ar\edu\utn\frbb\tup\persistence\MovimientosDao.class
 ar\edu\utn\frbb\tup\presentation\input\CuentaInput.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\MostrarCliente.class
 ar\edu\utn\frbb\tup\presentation\input\validator\Validaciones.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\EliminarCuenta.class
 ar\edu\utn\frbb\tup\service\MenuBanco.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\BaseGestion.class
+ar\edu\utn\frbb\tup\persistence\ClienteDao.class
 ar\edu\utn\frbb\tup\model\TipoCuenta.class
 ar\edu\utn\frbb\tup\service\operaciones\modulos\MostrarMovimientos.class
 ar\edu\utn\frbb\tup\presentation\input\ClienteInput.class

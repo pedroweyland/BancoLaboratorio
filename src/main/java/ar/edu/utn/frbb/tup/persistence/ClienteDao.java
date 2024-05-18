@@ -26,8 +26,6 @@ public class ClienteDao {
 
             if (!existe) {
                 writer.println("DNI, Nombre, Apellido, Direccion, Fecha nacimiento, Mail, Banco, Tipo Persona, Fecha alta");
-            } else {
-                System.out.println("El archivo ya existe");
             }
 
         } catch (IOException e) {
@@ -46,7 +44,6 @@ public class ClienteDao {
 
             writer.println(cliente.getDni() + "," + cliente.getNombre() + "," + cliente.getApellido() + "," + cliente.getDireccion() + "," + cliente.getFechaNacimiento() + "," + cliente.getMail() + "," + cliente.getBanco() + "," + cliente.getTipoPersona() + "," + cliente.getFechaAlta());
             writer.close();
-            System.out.println("Se ha escrito la persona en el archivo");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -103,7 +100,6 @@ public class ClienteDao {
                 String[] datos = linea.split(",");
 
                 if (Long.parseLong(datos[0]) == dni) {
-                    System.out.println("Se ha encontrado el cliente");
                     reader.close();
                     return parseStringToCliente(datos);
                 }
@@ -117,7 +113,7 @@ public class ClienteDao {
         return null;
     }
 
-    public List<Cliente> findAll(){
+    public List<Cliente> findAllClientes(){
         List<Cliente> clientes = new ArrayList<>();
 
         try {
