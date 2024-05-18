@@ -1,7 +1,7 @@
 package ar.edu.utn.frbb.tup;
 
-import ar.edu.utn.frbb.tup.banco.MenuBanco;
-import ar.edu.utn.frbb.tup.entidades.Banco;
+import ar.edu.utn.frbb.tup.service.MenuBanco;
+import ar.edu.utn.frbb.tup.model.Banco;
 
 public class App
 {
