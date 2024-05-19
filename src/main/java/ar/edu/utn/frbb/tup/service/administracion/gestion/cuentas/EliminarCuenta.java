@@ -4,8 +4,8 @@ import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 
-import java.util.List;
-import java.util.Set;
+import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirCvu;
+import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 
 public class EliminarCuenta extends BaseGestion {
 
@@ -42,9 +42,11 @@ public class EliminarCuenta extends BaseGestion {
                 if (cuenta == null) {
                     System.out.println("No existe la cuenta con el CVU: " + cvu);
                 } else {
-                    //Borro la cuenta en Cuentas
+                    //Borro la cuenta en Cuentas y la relacion
                     cuentaDao.deleteCuenta(cvu);
                     cuentasDeClientes.deleteRelacion(cvu);
+                    movimientosDao.deleteMovimiento(cvu);
+
                     System.out.println("----------------------------------------");
                     System.out.println("La cuenta se borro exitosamente");
                     System.out.println("----------------------------------------");

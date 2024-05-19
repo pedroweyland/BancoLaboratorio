@@ -5,6 +5,8 @@ import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.service.operaciones.modulos.*;
 
 
+import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirCvu;
+import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuOperaciones;
 
 public class Operaciones extends baseOperaciones {
@@ -101,7 +103,7 @@ public class Operaciones extends baseOperaciones {
                 long cvu = pedirCvu("Ahora ingrese el CVU de la cuenta en la que quiere operar: (0 para salir)");
                 if (cvu == 0) break;
 
-                if (cuentasDeClientes.relacionDniYCbu(dni, cvu)){
+                if (cuentasDeClientes.findRelacionDniYCbu(dni, cvu)){
                     Cuenta cuenta = cuentaDao.findCuenta(cvu);
 
                     if (cuenta != null) { //Verifico si la cuenta existe
@@ -120,7 +122,7 @@ public class Operaciones extends baseOperaciones {
                     }
                 } else {
                     System.out.println("----------------------------------------");
-                    System.out.println("El cliente no tiene cuentas asociadas");
+                    System.out.println("No se encuentra la cuenta con el CVU dado");
                     System.out.println("----------------------------------------");
                     System.out.println("Enter para seguir");
                     scanner.nextLine();

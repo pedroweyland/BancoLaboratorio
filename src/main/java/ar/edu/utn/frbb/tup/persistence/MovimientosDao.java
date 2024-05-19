@@ -17,13 +17,11 @@ public class MovimientosDao {
         try {
             //Me fijo si el archivo existe
             File archivo = new File(RUTA_ARCHIVO);
-            boolean existe = archivo.exists();
 
-            //Si no existe, lo creo y guardo el Encabezado para saber el orden de los datos
-            FileWriter fileWriter = new FileWriter(RUTA_ARCHIVO, true);
-            writer = new PrintWriter(fileWriter);
-
-            if (!existe) {
+            if (!archivo.exists()) {
+                //Si no existe, lo creo y guardo el Encabezado para saber el orden de los datos
+                FileWriter fileWriter = new FileWriter(RUTA_ARCHIVO, true);
+                writer = new PrintWriter(fileWriter);
                 writer.println("CVU Origen, fecha Operacion, hora Operacion, tipo operacion, monto");
             }
 
@@ -42,6 +40,38 @@ public class MovimientosDao {
             PrintWriter writer = new PrintWriter(archivo);
 
             writer.println(movimiento.getCVU() + "," + movimiento.getFechaOperacion() + "," + movimiento.getHoraOperacion() + "," + movimiento.getTipoOperacion() + "," + movimiento.getMonto());
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteMovimiento(Long cvu){
+        try {
+            File file = new File(RUTA_ARCHIVO);
+
+            StringBuilder contenido = new StringBuilder(); //Creo el contenido para guardar todoo el archivo menos el Cuenta que quiero eliminar
+            FileReader fileReader = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            //Primero agrego el encabezado al contenido,
+            String linea = reader.readLine();
+            contenido.append(linea).append("\n");
+
+            while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
+                String[] datos = linea.split(",");
+
+                if (Long.parseLong(datos[0]) != cvu){ //Voy agregando todas las lineas del Archivo excepto las lineas que tengo que eliminar con el CVU dado
+                    contenido.append(linea).append("\n"); //Agrego la linea al contenido
+                }
+            }
+
+            FileWriter fileWriter = new FileWriter(file);
+            PrintWriter writer = new PrintWriter(fileWriter);
+
+            //Escribo todoo el contenido excepto el movimiento que quiero eliminar
+            writer.write(contenido.toString());
+
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);

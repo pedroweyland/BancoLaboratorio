@@ -18,13 +18,11 @@ public class ClienteDao {
         try {
             //Me fijo si el archivo existe
             File archivo = new File(RUTA_ARCHIVO);
-            boolean existe = archivo.exists();
 
-            //Si no existe, lo creo y guardo el Encabezado para saber el orden de los datos
-            FileWriter fileWriter = new FileWriter(RUTA_ARCHIVO, true);
-            writer = new PrintWriter(fileWriter);
-
-            if (!existe) {
+            if (!archivo.exists()) {
+                //Si no existe, lo creo y guardo el Encabezado para saber el orden de los datos
+                FileWriter fileWriter = new FileWriter(RUTA_ARCHIVO, true);
+                writer = new PrintWriter(fileWriter);
                 writer.println("DNI, Nombre, Apellido, Direccion, Fecha nacimiento, Mail, Banco, Tipo Persona, Fecha alta");
             }
 
@@ -65,9 +63,7 @@ public class ClienteDao {
             while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
                 String[] datos = linea.split(",");
 
-                if (Long.parseLong(datos[0]) == dni){ //Si encuentro el dni que ingreso el cliente, no lo agrego en el contenido por ende lo elimino
-                    continue;
-                } else {
+                if (Long.parseLong(datos[0]) != dni){ //Voy agregando todas las lineas del Archivo excepto las lineas que tengo que eliminar con el DNI dado
                     contenido.append(linea).append("\n"); //Agrego la linea al contenido
                 }
             }

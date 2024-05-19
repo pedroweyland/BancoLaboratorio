@@ -4,6 +4,8 @@ import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.service.operaciones.baseOperaciones;
 
+import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.ingresarDinero;
+
 public class Retiro extends baseOperaciones {
     private final String tipoOperacion = "Retiro";
 

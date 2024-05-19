@@ -5,8 +5,7 @@ import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.presentation.input.CuentaInput;
 
-import java.util.List;
-import java.util.Set;
+import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 
 public class CrearCuenta extends BaseGestion {
     CuentaInput cuentaInput = new CuentaInput();

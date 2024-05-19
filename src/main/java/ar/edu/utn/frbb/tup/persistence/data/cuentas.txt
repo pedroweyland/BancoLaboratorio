@@ -1,4 +1,2 @@
 CVU, nombre, estado, saldo, fecha creacion, tipo de cuenta
-164061,pomoro,false,0.0,2024-05-18,CUENTA_AHORRO
-543378,carlito,true,2673.0,2024-05-18,CUENTA_AHORRO
-134347,peperino,true,1769.0,2024-05-18,CUENTA_AHORRO
+760373,aa,true,600.0,2024-05-18,CUENTA_AHORRO

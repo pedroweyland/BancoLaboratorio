@@ -1,11 +1,11 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
-import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 
 import java.util.List;
-import java.util.Set;
+
+import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 
 public class MostrarCuenta extends BaseGestion {
 
@@ -32,13 +32,13 @@ public class MostrarCuenta extends BaseGestion {
 
             } else {
                 int cantCuentas = 0;
-                List<Cuenta> cuentas = cuentaDao.findAllCuentas();
+                List<Long> cvuMostrar = cuentasDeClientes.getRelacionesDni(dni); //Guardo todos los CVU relacionados con el dni
 
-                for (Cuenta cuenta : cuentas) {
+                for (Long cvu : cvuMostrar) {
                     //Muestro en pantalla las cuentas que creo el cliente
                     System.out.println("------- Cuentas del cliente " + cliente.getNombre() + " -------");
 
-                    System.out.println(toString(cuenta)); //Muestro en pantalla las cuentas del cliente
+                    System.out.println(toString(cuentaDao.findCuenta(cvu))); //Muestro en pantalla las cuentas del cliente
                     cantCuentas++;
                 }
                 System.out.println("Tiene " + cantCuentas + " cuentas asociadas");

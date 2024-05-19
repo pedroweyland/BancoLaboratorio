@@ -1,8 +1,8 @@
 package ar.edu.utn.frbb.tup.persistence;
 
-import ar.edu.utn.frbb.tup.model.Cuenta;
-
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CuentasDeClientesDao {
     //Clase para tener tener la relacion que existe entre clientes y cuentas
@@ -15,13 +15,11 @@ public class CuentasDeClientesDao {
         try {
             //Me fijo si el archivo existe
             File archivo = new File(RUTA_ARCHIVO);
-            boolean existe = archivo.exists();
 
-            //Si no existe, lo creo y guardo el Encabezado para saber el orden de los datos
-            FileWriter fileWriter = new FileWriter(RUTA_ARCHIVO, true);
-            writer = new PrintWriter(fileWriter);
-
-            if (!existe) {
+            if (!archivo.exists()) {
+                //Si no existe, lo creo y guardo el Encabezado para saber el orden de los datos
+                FileWriter fileWriter = new FileWriter(RUTA_ARCHIVO, true);
+                writer = new PrintWriter(fileWriter);
                 writer.println("DNI, CVU");
             }
 
@@ -46,7 +44,8 @@ public class CuentasDeClientesDao {
         }
     }
 
-    public void deleteRelacion(Long CVU){
+    //Funcion para que elimine una relacion, osea cuando el cliente quiere eliminar una cuenta
+    public void deleteRelacion(Long cvu){
 
         try {
             File file = new File(RUTA_ARCHIVO);
@@ -62,9 +61,7 @@ public class CuentasDeClientesDao {
             while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
                 String[] datos = linea.split(",");
 
-                if (Long.parseLong(datos[1]) == CVU){ //Si encuentra el CVU que ingreso el cliente, no lo agrego en el contenido por ende lo elimino
-                    continue;
-                } else {
+                if (Long.parseLong(datos[1]) != cvu){ //Voy agregando todas las lineas del Archivo excepto las lineas que tengo que eliminar con el CVU dado
                     contenido.append(linea).append("\n"); //Agrego la linea al contenido
                 }
             }
@@ -76,6 +73,7 @@ public class CuentasDeClientesDao {
             writer.write(contenido.toString());
 
             writer.close();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -111,7 +109,36 @@ public class CuentasDeClientesDao {
         return false;
     }
 
-    public boolean relacionDniYCbu(long dni, Long cvu){
+    //Funcion para guardar todos los CVUs que tiene el dni ingresado
+    public List<Long> getRelacionesDni(Long dni){
+
+        List<Long> CvuRelacionados = new ArrayList<>();
+        try {
+            File file = new File(RUTA_ARCHIVO);
+
+            FileReader fileReader = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            //Primero agrego el encabezado al contenido,
+            String linea = reader.readLine();
+
+            while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
+                String[] datos = linea.split(",");
+
+                if (Long.parseLong(datos[0]) == dni){ //Agrego la el cvu relacionado con el dni
+                    CvuRelacionados.add(Long.parseLong(datos[1]));
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return CvuRelacionados;
+
+    }
+
+    public boolean findRelacionDniYCbu(long dni, Long cvu){
         //Funcion para Saber si el dni y cvu ingresado tienen relacion
         try {
             File file = new File(RUTA_ARCHIVO);

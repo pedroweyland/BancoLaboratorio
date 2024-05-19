@@ -18,13 +18,11 @@ public class CuentaDao {
         try {
             //Me fijo si el archivo existe
             File archivo = new File(RUTA_ARCHIVO);
-            boolean existe = archivo.exists();
 
-            //Si no existe, lo creo y guardo el Encabezado para saber el orden de los datos
-            FileWriter fileWriter = new FileWriter(RUTA_ARCHIVO, true);
-            writer = new PrintWriter(fileWriter);
-
-            if (!existe) {
+            if (!archivo.exists()) {
+                //Si no existe, lo creo y guardo el Encabezado para saber el orden de los datos
+                FileWriter fileWriter = new FileWriter(RUTA_ARCHIVO, true);
+                writer = new PrintWriter(fileWriter);
                 writer.println("CVU, nombre, estado, saldo, fecha creacion, tipo de cuenta");
             }
 
@@ -65,9 +63,7 @@ public class CuentaDao {
             while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
                 String[] datos = linea.split(",");
 
-                if (Long.parseLong(datos[0]) == CVU){ //Si encuentra el CVU que ingreso el cliente, no lo agrego en el contenido por ende lo elimino
-                    continue;
-                } else {
+                if (Long.parseLong(datos[0]) != CVU){ //Voy agregando todas las lineas del Archivo excepto las lineas que tengo que eliminar con el CVU dado
                     contenido.append(linea).append("\n"); //Agrego la linea al contenido
                 }
             }
@@ -83,6 +79,7 @@ public class CuentaDao {
             throw new RuntimeException(e);
         }
     }
+
 
     public Cuenta findCuenta(Long CVU) {
         try {

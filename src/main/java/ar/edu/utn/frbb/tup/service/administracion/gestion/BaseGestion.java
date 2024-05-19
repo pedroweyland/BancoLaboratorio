@@ -5,6 +5,7 @@ import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.CuentasDeClientesDao;
+import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 
 import java.util.List;
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class BaseGestion {
     protected ClienteDao clienteDao = new ClienteDao();
     protected CuentaDao cuentaDao = new CuentaDao();
     protected CuentasDeClientesDao cuentasDeClientes = new CuentasDeClientesDao();
+    protected MovimientosDao movimientosDao = new MovimientosDao();
 
     protected static void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -25,29 +27,7 @@ public class BaseGestion {
 
     //Funciones extras para reducir codigo
 
-
-    public Cliente encontrarCliente(List<Cliente> clientes, long dni){
-        //Funcion que encuentra cliente, retorna el cliente o Null si no lo encuentra
-
-        for (Cliente cliente : clientes) { //Busco en la lista clientes si existe el dni que puso el usuario
-            if (cliente.getDni() == dni){
-                return cliente;
-            }
-        }
-        return null;
-    }
-
-    public Cuenta encontrarCuenta(Set<Cuenta> cuentas, long cvu){
-        //Funcion que encuentra cuenta, retorna la cuenta o Null si no la encontro
-        for (Cuenta cuenta : cuentas){
-            if (cuenta.getCVU() == cvu){
-                return cuenta;
-            }
-        }
-        return null;
-    }
-
-    public long pedirDni(String texto){
+    /*public long pedirDni(String texto){
         //Funcion para que el usuario ingrese dni, valido y devuelve en tipo 'long'
 
         System.out.println(texto);
@@ -75,20 +55,8 @@ public class BaseGestion {
         return Long.parseLong(cvu);
     }
 
-    public boolean pedirOpcion(String texto){
-        //Pido opcion para ver si quiere dar de baja o de alta
-        System.out.println(texto);
-        String opcion = scanner.nextLine();
 
-        //Si ingresa otro tipo de letra vuelve error
-        while (!opcion.equalsIgnoreCase("a") && !opcion.equalsIgnoreCase("b")){
-            System.out.println("Error, ingrese A (Alta) o B (Baja)");
-            opcion = scanner.nextLine();
-        }
-
-        return opcion.equalsIgnoreCase("a");
-    }
-
+    */
     //Dependiendo que tipo de parametro se le pase usa una funcion o la otra
     public String toString(Cliente cliente) {
         return  "Nombre: " + cliente.getNombre() + "\n" +

@@ -1,12 +1,8 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 
-
-import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
-
-import java.util.List;
 
 public class CrearCliente extends BaseGestion {
     ClienteInput clienteInput = new ClienteInput();

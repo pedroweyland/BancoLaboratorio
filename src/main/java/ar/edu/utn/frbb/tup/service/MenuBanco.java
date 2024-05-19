@@ -35,7 +35,7 @@ public class MenuBanco extends BaseInput {
         movimientosDao.inicializarMovimientos();
 
         while(!salir){
-            //Usuario decida 
+            //Usuario decide
             int opcion = menuPrincipal();
             switch (opcion) {
                 case 1:

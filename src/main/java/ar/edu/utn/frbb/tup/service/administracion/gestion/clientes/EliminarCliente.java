@@ -1,16 +1,20 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
-import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 
 
 public class EliminarCliente extends BaseGestion {
 
     //Eliminar cliente
     public void eliminarCliente(){
+        List<Long> CvuEliminar = new ArrayList<>();
+
         boolean seguir = true;
 
         while (seguir) {
@@ -28,8 +32,16 @@ public class EliminarCliente extends BaseGestion {
                 System.out.println("------------ Cliente eliminado -----------");
                 System.out.println(toString(cliente)); //Muestro en pantalla el cliente eliminado
 
-                //Elimino el cliente del archivo
+                //Elimino el cliente, las relaciones que tienen esas cuentas, las cuentas, y movimientos que tiene en los archivos.txt
                 clienteDao.deleteCliente(cliente.getDni());
+                CvuEliminar = cuentasDeClientes.getRelacionesDni(cliente.getDni()); //Obtengo lista de los cvu que estan relacionados con el CVU
+
+                for (Long cvu : CvuEliminar){
+                    cuentaDao.deleteCuenta(cvu);
+                    cuentasDeClientes.deleteRelacion(cvu);
+                    movimientosDao.deleteMovimiento(cvu);
+                }
+
                 seguir = false;
             }
 
@@ -38,5 +50,4 @@ public class EliminarCliente extends BaseGestion {
             clearScreen();
         }
     }
-
 }

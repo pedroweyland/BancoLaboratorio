@@ -1,12 +1,10 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas;
 
-import ar.edu.utn.frbb.tup.persistence.CuentasDeClientesDao;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 
-import java.util.List;
-import java.util.Set;
+import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.*;
 
 public class DarAltaBaja extends BaseGestion {
 
@@ -27,35 +25,40 @@ public class DarAltaBaja extends BaseGestion {
             if (cliente == null) {
                 System.out.println("No existe ningun cliente con el DNI ingresado ");
 
-            } else if (!cuentasDeClientes.findRelacion(dni)) { //Valido si el cliente tiene cuentas o no el dni ingresado
-                System.out.println("Este cliente no tiene cuentas asociadas");
-                break;
             } else {
 
                 //Pido CVU de la cuenta que quiere eliminar
-                long cvu = pedirCvu("Escriba el CVU de la cuenta que quiere eliminar: (0 para salir) ");
+                long cvu = pedirCvu("Escriba el CVU de la cuenta que quiere dar de alta/baja: (0 para salir) ");
                 clearScreen();
                 if (cvu == 0) break; //Si escribe 0 termina con el bucle
 
-                //Devuelve la cuenta encontrada o Null si no la encontro
-                Cuenta cuenta = cuentaDao.findCuenta(cvu);
+                if (cuentasDeClientes.findRelacionDniYCbu(dni, cvu)) {
+                    //Devuelve la cuenta encontrada o Null si no la encontro
+                    Cuenta cuenta = cuentaDao.findCuenta(cvu);
 
-                if (cuenta == null) {
-                    System.out.println("No existe la cuenta con el CVU: " + cvu);
+                    if (cuenta == null) {
+                        System.out.println("No existe la cuenta con el CVU: " + cvu);
+                    } else {
+
+                        cuentaDao.deleteCuenta(cvu); //Borro la cuenta y la relacion ya que va ser actualizada
+
+                        //Si quiere dar de alta retorna True. si quiere dar de baja retorna False
+                        boolean opcion = pedirOpcion("Escriba (B) si quiere dar de Baja o (A) si quere dar de Alta");
+
+                        System.out.println("----------------------------------------");
+                        darAltaBaja(cuenta, opcion);
+                        System.out.println("----------------------------------------");
+
+                        cuentaDao.saveCuenta(cuenta); //Guardo la cuenta y la relacion actualizada
+                    }
+
                 } else {
-                    cuentaDao.deleteCuenta(cvu); //Borro la cuenta y la relacion ya que va ser actualizada
-
-                    //Si quiere dar de alta retorna True. si quiere dar de baja retorna False
-                    boolean opcion = pedirOpcion("Escriba (B) si quiere dar de Baja o (A) si quere dar de Alta");
-
                     System.out.println("----------------------------------------");
-                    darAltaBaja(cuenta, opcion);
+                    System.out.println("No se encuentra la cuenta con el CVU dado");
                     System.out.println("----------------------------------------");
 
-                    cuentaDao.saveCuenta(cuenta); //Guardo la cuenta y la relacion actualizada
                 }
                 seguir = false;
-
 
                 System.out.println("Enter para seguir");
                 scanner.nextLine();
