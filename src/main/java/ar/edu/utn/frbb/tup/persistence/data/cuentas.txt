@@ -1,2 +1,4 @@
-CVU, nombre, estado, saldo, fecha creacion, tipo de cuenta
-760373,aa,true,600.0,2024-05-18,CUENTA_AHORRO
+CVU, DNI titular, nombre, estado, saldo, fecha creacion, tipo de cuenta
+129179,123,Pomoro,false,0.0,2024-05-23,CUENTA_AHORRO
+883839,123,Peperino,true,400.0,2024-05-23,CUENTA_CORRIENTE
+526895,1234,Apoyo,true,600.0,2024-05-23,CUENTA_CORRIENTE

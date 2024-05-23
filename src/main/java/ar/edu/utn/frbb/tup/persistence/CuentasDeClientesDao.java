@@ -109,34 +109,7 @@ public class CuentasDeClientesDao {
         return false;
     }
 
-    //Funcion para guardar todos los CVUs que tiene el dni ingresado
-    public List<Long> getRelacionesDni(Long dni){
 
-        List<Long> CvuRelacionados = new ArrayList<>();
-        try {
-            File file = new File(RUTA_ARCHIVO);
-
-            FileReader fileReader = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fileReader);
-
-            //Primero agrego el encabezado al contenido,
-            String linea = reader.readLine();
-
-            while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
-                String[] datos = linea.split(",");
-
-                if (Long.parseLong(datos[0]) == dni){ //Agrego la el cvu relacionado con el dni
-                    CvuRelacionados.add(Long.parseLong(datos[1]));
-                }
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return CvuRelacionados;
-
-    }
 
     public boolean findRelacionDniYCbu(long dni, Long cvu){
         //Funcion para Saber si el dni y cvu ingresado tienen relacion

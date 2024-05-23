@@ -11,6 +11,7 @@ public class Deposito extends baseOperaciones {
     private final String tipoOperacion = "Deposito";
 
     public void deposito(Cuenta cuenta){
+
         cuentaDao.deleteCuenta(cuenta.getCVU()); //Borro la cuenta ya que va ser modificada
         //Pido el monto del deposito
         double monto = ingresarDinero("Ingrese el monto del deposito: ");

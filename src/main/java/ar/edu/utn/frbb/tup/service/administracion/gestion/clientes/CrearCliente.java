@@ -25,9 +25,9 @@ public class CrearCliente extends BaseGestion {
             System.out.println(toString(cliente));
 
         } else {
+            System.out.println("----------------------------------------");
             System.out.println("El cliente ya existe");
-            System.out.println(c.getCuentas());
-            System.out.println(c.getCuentas().toString());
+            System.out.println("----------------------------------------");
         }
 
 

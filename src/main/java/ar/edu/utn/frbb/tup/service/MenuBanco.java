@@ -28,9 +28,6 @@ public class MenuBanco extends BaseInput {
         CuentaDao cuentaDao = new CuentaDao();
         cuentaDao.inicializarCuentas();
 
-        CuentasDeClientesDao cuentasDeClientes = new CuentasDeClientesDao();
-        cuentasDeClientes.inicializarRelaciones();
-
         MovimientosDao movimientosDao = new MovimientosDao();
         movimientosDao.inicializarMovimientos();
 

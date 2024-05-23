@@ -78,7 +78,6 @@ public class Operaciones extends baseOperaciones {
 
     //Funcion para que el usaurio encuentre la cuenta que desea operar, y retorna la cuenta o null si no la encuentra
     public Cuenta cuentaOperar(){
-
         while (true) {
 
             //Pido el DNI del cliente, y busco si existe
@@ -94,43 +93,45 @@ public class Operaciones extends baseOperaciones {
                 System.out.println("----------------------------------------");
                 System.out.println("Enter para seguir");
                 scanner.nextLine();
+                clearScreen();
                 break;
             }
 
             while (true) { //Bucle while por si el usuario se equivoca del CVU y que intente de poner de vuelta CVU
 
-                //Pido el ID de la cuenta, y busco si existe
+                //Pido el CVU de la cuenta, y busco si existe
                 long cvu = pedirCvu("Ahora ingrese el CVU de la cuenta en la que quiere operar: (0 para salir)");
                 if (cvu == 0) break;
 
-                if (cuentasDeClientes.findRelacionDniYCbu(dni, cvu)){
-                    Cuenta cuenta = cuentaDao.findCuenta(cvu);
+                Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);
 
-                    if (cuenta != null) { //Verifico si la cuenta existe
-
-                        if (cuenta.getEstado()){
-                            clearScreen();
-                            return cuenta;
-                        } else {
-                            System.out.println("----------------------------------------");
-                            System.out.println("La cuenta esta de baja, no puede operar.");
-                            System.out.println("----------------------------------------");
-                            System.out.println("Enter para seguir");
-                            scanner.nextLine();
-                            return null;
-                        }
-                    }
-                } else {
+                if (cuenta == null) { //Verifico si la cuenta existe
                     System.out.println("----------------------------------------");
-                    System.out.println("No se encuentra la cuenta con el CVU dado");
+                    System.out.println("El Cliente no tiene ninguna cuenta con el CVU: " + cvu);
                     System.out.println("----------------------------------------");
                     System.out.println("Enter para seguir");
                     scanner.nextLine();
-                    break;
+                    clearScreen();
+                } else {
+
+                    if (cuenta.getEstado()){ //Si la cuenta esta activa retorno la cuenta si no retorno null
+                        clearScreen();
+                        return cuenta;
+
+                    } else {
+                        System.out.println("----------------------------------------");
+                        System.out.println("La cuenta esta de baja, no puede operar.");
+                        System.out.println("----------------------------------------");
+                        System.out.println("Enter para seguir");
+                        scanner.nextLine();
+                        clearScreen();
+                    }
                 }
             }
-            clearScreen();
+
         }
+
+
         return null;
     }
 

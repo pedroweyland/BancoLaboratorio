@@ -9,8 +9,10 @@ public class  Cuenta {
     private boolean estado;
     private double saldo;
     private long CVU;
+    private long dniTitular;
     private LocalDate fechaCreacion;
     private TipoCuenta tipoCuenta;
+
     private List<Movimiento> movimientos = new ArrayList<>();
 
     public String getNombre(){
@@ -66,5 +68,13 @@ public class  Cuenta {
 
     public void addMovimientos(Movimiento movimiento) {
         this.movimientos.add(movimiento);
+    }
+
+
+    public long getDniTitular() {
+        return dniTitular;
+    }
+    public void setDniTitular(long dniTitular) {
+        this.dniTitular = dniTitular;
     }
 }

@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class CuentaInput extends BaseInput {
 
-    public Cuenta creacionCuenta(){
+    public Cuenta creacionCuenta(long dniTitular){
         Random r = new Random();
         Cuenta cuenta = new Cuenta();
         //Creacion de cuenta para el cliente
@@ -22,6 +22,7 @@ public class CuentaInput extends BaseInput {
         cuenta.setSaldo(0);
 
         cuenta.setCVU(generarCVU(r)); //Creo un CVU random
+        cuenta.setDniTitular(dniTitular);
 
         cuenta.setFechaCreacion(LocalDate.now());
         cuenta.setTipoCuenta(ingresarTipoCuenta());

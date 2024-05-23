@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
+import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 
 import java.util.List;
@@ -24,32 +25,52 @@ public class MostrarCuenta extends BaseGestion {
 
 
             if (cliente == null) {
-                System.out.println("No existe ningun cliente con el DNI ingresado");
-
-            } else if (!cuentasDeClientes.findRelacion(dni)) { //Valido si es que el usuario no tiene cuentas
-                System.out.println("No tiene ninguna cuenta asociada");
-                break;
-
-            } else {
-                int cantCuentas = 0;
-                List<Long> cvuMostrar = cuentasDeClientes.getRelacionesDni(dni); //Guardo todos los CVU relacionados con el dni
-
-                for (Long cvu : cvuMostrar) {
-                    //Muestro en pantalla las cuentas que creo el cliente
-                    System.out.println("------- Cuentas del cliente " + cliente.getNombre() + " -------");
-
-                    System.out.println(toString(cuentaDao.findCuenta(cvu))); //Muestro en pantalla las cuentas del cliente
-                    cantCuentas++;
-                }
-                System.out.println("Tiene " + cantCuentas + " cuentas asociadas");
                 System.out.println("----------------------------------------");
+                System.out.println("No existe ningun cliente con el DNI ingresado");
+                System.out.println("----------------------------------------");
+            } else {
 
-                System.out.println("Enter para seguir");
-                scanner.nextLine();
-                clearScreen();
+                //Funcion que me devuelve una lista de los cvu que tiene el cliente para despues mostrarlo por pantalla
+                List<Long> cvuMostrar = cuentaDao.getRelacionesDni(dni);
+                List<Cuenta> cuentas = cuentaDao.findAllCuentas();
+
+                if (cvuMostrar.isEmpty()) {
+                    System.out.println("----------------------------------------");
+                    System.out.println("No tiene cuentas asociadas");
+                    System.out.println("----------------------------------------");
+                } else {
+                    int cantCuentas = 0;
+
+                    for (Cuenta cuenta : cuentas) {
+                        if (cuenta.getDniTitular() == dni) {
+                            //Muestro en pantalla las cuentas que creo el cliente
+                            System.out.println("------- Cuentas del cliente " + cliente.getNombre() + " -------");
+
+                            System.out.println(toString(cuenta)); //Muestro en pantalla las cuentas del cliente
+                            cantCuentas++;
+                        }
+                    }
+                    /*
+                    for (Long cvu : cvuMostrar) {
+
+
+                        //Muestro en pantalla las cuentas que creo el cliente
+                        System.out.println("------- Cuentas del cliente " + cliente.getNombre() + " -------");
+
+                        System.out.println(toString(cuentaDao.findCuentaDelCliente(cvu, dni))); //Muestro en pantalla las cuentas del cliente
+                        cantCuentas++;
+                    }
+                    */
+
+                    System.out.println("Tiene " + cantCuentas + " cuentas asociadas");
+                    System.out.println("----------------------------------------");
+                }
 
                 seguir = false;
             }
+            System.out.println("Enter para seguir");
+            scanner.nextLine();
+            clearScreen();
         }
     }
 }

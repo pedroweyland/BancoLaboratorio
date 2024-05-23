@@ -13,7 +13,6 @@ public class EliminarCliente extends BaseGestion {
 
     //Eliminar cliente
     public void eliminarCliente(){
-        List<Long> CvuEliminar = new ArrayList<>();
 
         boolean seguir = true;
 
@@ -32,16 +31,15 @@ public class EliminarCliente extends BaseGestion {
                 System.out.println("------------ Cliente eliminado -----------");
                 System.out.println(toString(cliente)); //Muestro en pantalla el cliente eliminado
 
-                //Elimino el cliente, las relaciones que tienen esas cuentas, las cuentas, y movimientos que tiene en los archivos.txt
+                //Elimino el cliente, las cuentas, y movimientos que tiene en los archivos.txt
                 clienteDao.deleteCliente(cliente.getDni());
-                CvuEliminar = cuentasDeClientes.getRelacionesDni(cliente.getDni()); //Obtengo lista de los cvu que estan relacionados con el CVU
+
+                List<Long> CvuEliminar = cuentaDao.getRelacionesDni(dni); //Obtengo lista de todos los CVUs a eliminar
 
                 for (Long cvu : CvuEliminar){
                     cuentaDao.deleteCuenta(cvu);
-                    cuentasDeClientes.deleteRelacion(cvu);
                     movimientosDao.deleteMovimiento(cvu);
                 }
-
                 seguir = false;
             }
 

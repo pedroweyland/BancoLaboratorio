@@ -23,7 +23,7 @@ public class CuentaDao {
                 //Si no existe, lo creo y guardo el Encabezado para saber el orden de los datos
                 FileWriter fileWriter = new FileWriter(RUTA_ARCHIVO, true);
                 writer = new PrintWriter(fileWriter);
-                writer.println("CVU, nombre, estado, saldo, fecha creacion, tipo de cuenta");
+                writer.println("CVU, DNI titular, nombre, estado, saldo, fecha creacion, tipo de cuenta");
             }
 
         } catch (IOException e) {
@@ -40,14 +40,14 @@ public class CuentaDao {
             FileWriter archivo = new FileWriter(RUTA_ARCHIVO, true);
             PrintWriter writer = new PrintWriter(archivo);
 
-            writer.println(cuenta.getCVU() + "," + cuenta.getNombre() + "," + cuenta.getEstado() + "," + cuenta.getSaldo() + "," + cuenta.getFechaCreacion() + "," + cuenta.getTipoCuenta());
+            writer.println(cuenta.getCVU() + "," + cuenta.getDniTitular() + "," + cuenta.getNombre() + "," + cuenta.getEstado() + "," + cuenta.getSaldo() + "," + cuenta.getFechaCreacion() + "," + cuenta.getTipoCuenta());
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void deleteCuenta(Long CVU){
+    public void deleteCuenta(long CVU){
 
         try {
             File file = new File(RUTA_ARCHIVO);
@@ -80,8 +80,7 @@ public class CuentaDao {
         }
     }
 
-
-    public Cuenta findCuenta(Long CVU) {
+    public Cuenta findCuenta(long CVU) {
         try {
             File file = new File(RUTA_ARCHIVO);
 
@@ -106,6 +105,36 @@ public class CuentaDao {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        //Retorno Null por si no lo encuentra
+        return null;
+    }
+
+    public Cuenta findCuentaDelCliente(long cvu, long dni){
+        //Funcion para encontrar la cuenta del cliente, se hace para que el usuario SOLO pueda eliminar la cuenta del cliente que le pertenece
+        try {
+            File file = new File(RUTA_ARCHIVO);
+
+            FileReader fileReader = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            String linea; //Leo el encabezado
+            linea = reader.readLine(); //Salto encabezado
+
+            while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
+
+                //Empiezo a leer las lineas de las relaciones, y cada linea la divido por comas con el '.split(",")', para tener los datos de las relaciones
+                String[] datos = linea.split(",");
+
+                //Retorno la cuenta si se encuentra la cuenta del cliente ingresado
+                if (Long.parseLong(datos[0]) == cvu && Long.parseLong(datos[1]) == dni) {
+                    return parseStringToCuenta(datos);
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //Retorno Null por si no lo encuentra
         return null;
     }
 
@@ -138,14 +167,43 @@ public class CuentaDao {
         return cuentas;
     }
 
+    public List<Long> getRelacionesDni(Long dni){
+        //Funcion para guardar todos los CVUs que tiene el dni ingresado
+
+        List<Long> CvuRelacionados = new ArrayList<>();
+        try {
+            File file = new File(RUTA_ARCHIVO);
+
+            FileReader fileReader = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            //Primero agrego el encabezado al contenido,
+            String linea = reader.readLine();
+
+            while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
+                String[] datos = linea.split(",");
+
+                if (Long.parseLong(datos[1]) == dni){ //Agrego la el cvu relacionado con el dni
+                    CvuRelacionados.add(Long.parseLong(datos[0]));
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return CvuRelacionados;
+
+    }
     public Cuenta parseStringToCuenta(String[] datos) {
         Cuenta cuenta = new Cuenta();
         cuenta.setCVU(Long.parseLong(datos[0]));
-        cuenta.setNombre(datos[1]);
-        cuenta.setEstado(Boolean.parseBoolean(datos[2]));
-        cuenta.setSaldo(Double.parseDouble(datos[3]));
-        cuenta.setFechaCreacion(LocalDate.parse(datos[4]));
-        cuenta.setTipoCuenta(TipoCuenta.valueOf(datos[5]));
+        cuenta.setDniTitular(Long.parseLong(datos[1]));
+        cuenta.setNombre(datos[2]);
+        cuenta.setEstado(Boolean.parseBoolean(datos[3]));
+        cuenta.setSaldo(Double.parseDouble(datos[4]));
+        cuenta.setFechaCreacion(LocalDate.parse(datos[5]));
+        cuenta.setTipoCuenta(TipoCuenta.valueOf(datos[6]));
 
         return cuenta;
     }

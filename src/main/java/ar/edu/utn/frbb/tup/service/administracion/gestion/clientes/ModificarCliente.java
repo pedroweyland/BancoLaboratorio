@@ -29,7 +29,6 @@ public class ModificarCliente extends BaseGestion {
 
                 clienteDao.deleteCliente(dni); //Elimino el cliente Viejo del archivo
 
-
                 while (!salir) {
                     int opcion = menuModificacion();  //Usuario ingresa que quiere modificar
 

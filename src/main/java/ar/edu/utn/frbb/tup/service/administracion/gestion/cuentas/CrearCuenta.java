@@ -28,11 +28,10 @@ public class CrearCuenta extends BaseGestion {
                 System.out.println("No se encontro ningun cliente con el dni dado");
             } else {
                 //Usuario ingresa los datos y se guarda en la variable cliente
-                Cuenta cuenta = cuentaInput.creacionCuenta();
+                Cuenta cuenta = cuentaInput.creacionCuenta(dni);
 
                 //Agrego la cuenta al archivo y guardo la relacion que tiene con las cuentas
                 cuentaDao.saveCuenta(cuenta);
-                cuentasDeClientes.saveRelacion(dni, cuenta.getCVU());
 
                 //Muestro en pantalla el resultado
                 System.out.println("----- Cuenta creada del cliente " + cliente.getNombre() + " -----");
