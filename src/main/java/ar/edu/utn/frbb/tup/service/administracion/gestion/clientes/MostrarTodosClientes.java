@@ -12,14 +12,11 @@ public class MostrarTodosClientes extends BaseGestion {
     // Mostrar todos los clientes
     public void mostrarTodosClientes() {
 
-        int contador = 1;
-        List<Cliente> clientes = clienteDao.findAllClientes();
-
         try {
+            //Leo toda la lista de clientes, si no hay clientes lanza una excepcion
+            List<Cliente> clientes = clienteDao.findAllClientes();
 
-            if (clientes.isEmpty()) { //Si la lista clientes esta vacia lanzo una exepcion (Ya que no hay nada que mostrar)
-                throw new ClientesVaciosException("No hay clientes registrados");
-            }
+            int contador = 1;
 
             for (Cliente cliente : clientes) {
                 System.out.println("------------ Cliente Nro " + contador + " ------------");

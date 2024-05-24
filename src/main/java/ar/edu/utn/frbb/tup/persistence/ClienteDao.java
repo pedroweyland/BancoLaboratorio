@@ -3,6 +3,9 @@ package ar.edu.utn.frbb.tup.persistence;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.TipoPersona;
+import ar.edu.utn.frbb.tup.model.exception.ClienteExistenteException;
+import ar.edu.utn.frbb.tup.model.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.model.exception.ClientesVaciosException;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -35,19 +38,29 @@ public class ClienteDao {
         }
     }
 
-    public void saveCliente(Cliente cliente) {
-        try {
-            FileWriter archivo = new FileWriter(RUTA_ARCHIVO, true);
+    public void saveCliente(Cliente cliente) throws ClienteExistenteException {
+        Cliente existente = findCliente(cliente.getDni());
+        if (existente != null) {
+            throw new ClienteExistenteException("El cliente ya existe");
+        }
+
+        try (FileWriter archivo = new FileWriter(RUTA_ARCHIVO, true);){ //En el try abre directamente el archivo, y cuadno termina cierra automaticamente el recurso
             PrintWriter writer = new PrintWriter(archivo);
 
             writer.println(cliente.getDni() + "," + cliente.getNombre() + "," + cliente.getApellido() + "," + cliente.getDireccion() + "," + cliente.getFechaNacimiento() + "," + cliente.getMail() + "," + cliente.getBanco() + "," + cliente.getTipoPersona() + "," + cliente.getFechaAlta());
-            writer.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void deleteCliente(Long dni){
+    public Cliente deleteCliente(Long dni) throws ClienteNoEncontradoException {
+         //Verifico que el cliente exista
+        Cliente existente = findCliente(dni);
+
+        if (existente == null) {
+            throw new ClienteNoEncontradoException("No existe ningun cliente con el DNI ingresado");
+        }
 
         try {
             File file = new File(RUTA_ARCHIVO);
@@ -78,9 +91,11 @@ public class ClienteDao {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return existente;
     }
 
     public Cliente findCliente(Long dni) {
+
         try {
             File file = new File(RUTA_ARCHIVO);
 
@@ -106,10 +121,11 @@ public class ClienteDao {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null; //Si no lo encuentra vuelve null
+
+        return null;
     }
 
-    public List<Cliente> findAllClientes(){
+    public List<Cliente> findAllClientes() throws ClientesVaciosException {
         List<Cliente> clientes = new ArrayList<>();
 
         try {
@@ -135,6 +151,10 @@ public class ClienteDao {
 
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        if (clientes.isEmpty()){ //Si la lista esta vacia significa que no hay clientes registrados
+            throw new ClientesVaciosException("No hay clientes registrados");
         }
         return clientes;
     }

@@ -9,34 +9,27 @@ public class CrearCliente extends BaseGestion {
     ClienteInput clienteInput = new ClienteInput();
 
     // Creacion Cliente
-    public void crearCliente() throws ClienteExistenteException {
+    public void crearCliente() {
         boolean existe = false;
 
         //Usuario ingresa los datos y se guarda en la variable cliente
         Cliente cliente = clienteInput.ingresoCliente();
 
-        //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
-        Cliente c = clienteDao.findCliente(cliente.getDni());
-
         try {
-
-            if (c != null) { //Si existe el cliente lanzo una excepcion
-                throw new ClienteExistenteException("El cliente ya existe");
-            }
-
-            clienteDao.saveCliente(cliente); //Guardo el cliente en el archivo
-
-            //Muestro en pantalla el resultado
+            //Guardo el cliente ingresado, si ya existe se lanza la excepcion por ende no se guarda y el catch agarra la excepcion
+            clienteDao.saveCliente(cliente);
             System.out.println("------- Cliente creado con exito -------");
             System.out.println(toString(cliente));
 
-        } catch (ClienteExistenteException e) { //Agarro la excepcion de que ya existe el cliente
+        } catch (ClienteExistenteException ex) {
             System.out.println("----------------------------------------");
-            System.out.println(e.getMessage());
+            System.out.println(ex.getMessage());
             System.out.println("----------------------------------------");
         } finally {
             System.out.println("Enter para seguir");
             scanner.nextLine();
             clearScreen();
         }
-    }}
+
+    }
+}

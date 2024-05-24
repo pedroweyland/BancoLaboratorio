@@ -22,16 +22,10 @@ public class ModificarCliente extends BaseGestion {
 
             clearScreen();
 
-            //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
-            Cliente cliente = clienteDao.findCliente(dni);
-
             try {
-
-                if (cliente == null) { //Si el cliente no existe lanzo una excepcion (Ya que no hay nada que modificar)
-                    throw new ClienteNoEncontradoException("No existe ningun cliente con el DNI ingresado");
-                }
-
-                clienteDao.deleteCliente(dni); //Elimino el cliente Viejo del archivo
+                //Elimino el cliente con el DNI ingresado, si no existe el cliente lanza una excepcion,
+                //Esta misma tambien retorna el cliente que fue eliminado para poder modificar
+                Cliente cliente = clienteDao.deleteCliente(dni);
 
                 while (!salir) {
 

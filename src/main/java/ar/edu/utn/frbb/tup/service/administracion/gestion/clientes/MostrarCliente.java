@@ -21,9 +21,8 @@ public class MostrarCliente extends BaseGestion {
             Cliente cliente = clienteDao.findCliente(dni);
 
             try {
-
-                if (cliente == null) { //Si el cliente no existe lanzo una excepcion (Ya que no hay nada que mostrar)
-                    throw new ClienteNoEncontradoException("No existe ningun cliente con el DNI ingresado");
+                if (cliente == null){
+                    throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
                 }
 
                 System.out.println("------------ Muestra cliente -----------");

@@ -2,6 +2,7 @@ package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
+import ar.edu.utn.frbb.tup.model.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.service.operaciones.modulos.*;
 
 
@@ -14,7 +15,9 @@ public class Operaciones extends baseOperaciones {
     public void operaciones () {
         boolean seguir = true;
 
-        if (!clienteDao.findAllClientes().isEmpty()) { //Si no hay Clientes entonces no se puede operar
+        try {
+            clienteDao.findAllClientes(); //Si hay clientes entonces se puede operar, si no hay vuelve excepciopn
+
             if (!cuentaDao.findAllCuentas().isEmpty()) { //Si no hay Cuentas entonces no se puede operar
                 Cuenta cuenta = cuentaOperar();
 
@@ -67,9 +70,9 @@ public class Operaciones extends baseOperaciones {
                 System.out.println("Enter para seguir");
                 scanner.nextLine();
             }
-        } else {
+        } catch (ClientesVaciosException ex){
             System.out.println("----------------------------------------");
-            System.out.println("No hay clientes registrados");
+            System.out.println(ex.getMessage());
             System.out.println("----------------------------------------");
             System.out.println("Enter para seguir");
             scanner.nextLine();

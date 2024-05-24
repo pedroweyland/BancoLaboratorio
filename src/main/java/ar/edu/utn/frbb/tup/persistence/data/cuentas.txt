@@ -1,1 +1,2 @@
 CVU, DNI titular, nombre, estado, saldo, fecha creacion, tipo de cuenta
+896289,123,peperino,true,10000.0,2024-05-24,CUENTA_CORRIENTE

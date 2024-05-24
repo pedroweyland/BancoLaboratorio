@@ -22,19 +22,16 @@ public class EliminarCliente extends BaseGestion {
 
             if (dni == 0) break; //Si escribe 0 termina con el bucle
 
-            //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
-            Cliente cliente = clienteDao.findCliente(dni);
-
             try {
-                if (cliente == null){ //Si el cliente no existe lanzo una excepcion (Ya que no hay nada que eliminar)
-                    throw new ClienteNoEncontradoException("No existe ningun cliente con el DNI ingresado");
-                }
+
+                //Elimino el cliente con el DNI ingresado, si no existe el cliente lanza una excepcion,
+                //devuelve el cliente eliminado para mostrar en pantalla
+                Cliente cliente = clienteDao.deleteCliente(dni);
 
                 System.out.println("------------ Cliente eliminado -----------");
                 System.out.println(toString(cliente)); //Muestro en pantalla el cliente eliminado
 
-                //Elimino el cliente, las cuentas, y movimientos que tiene en los archivos.txt
-                clienteDao.deleteCliente(cliente.getDni());
+                //Elimino las relaciones que tiene con las Cuentas y movimientos
 
                 List<Long> CvuEliminar = cuentaDao.getRelacionesDni(dni); //Obtengo lista de todos los CVUs a eliminar
 
@@ -44,9 +41,9 @@ public class EliminarCliente extends BaseGestion {
                 }
                 seguir = false;
 
-            } catch (ClienteNoEncontradoException e) {
+            } catch (ClienteNoEncontradoException ex) {
                 System.out.println("----------------------------------------");
-                System.out.println(e.getMessage());
+                System.out.println(ex.getMessage());
                 System.out.println("----------------------------------------");
             } finally {
                 System.out.println("Enter para seguir");
