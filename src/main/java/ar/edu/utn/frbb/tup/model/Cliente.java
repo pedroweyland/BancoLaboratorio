@@ -10,7 +10,6 @@ public class Cliente extends Persona{
     private String mail;
     private TipoPersona tipoPersona;
     private LocalDate fechaAlta;
-    private Set<Cuenta> cuentas = new HashSet<>();
 
     public String getBanco() {
         return banco;
@@ -33,13 +32,6 @@ public class Cliente extends Persona{
         this.fechaAlta = fechaAlta;
     }
 
-    public Set<Cuenta> getCuentas() {
-        return cuentas;
-    }
-    public void addCuenta(Cuenta cuenta) {
-        this.cuentas.add(cuenta);
-    }
-
     public String getMail() {
         return mail;
     }
@@ -47,8 +39,5 @@ public class Cliente extends Persona{
         this.mail = mail;
     }
 
-    @Override
-    public String toString() {
-        return "Cliente{" + "banco=" + banco + ", mail=" + mail + ", tipoPersona=" + tipoPersona + ", fechaAlta=" + fechaAlta + ", cuentas=" + cuentas + ", "+ getNombre();
-    }
+
 }

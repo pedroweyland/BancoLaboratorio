@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ar.utn.frbb.tup.AppTest" time="0.042" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ar.utn.frbb.tup.service.administracion.gestion.clientes.CrearCuentaTest" time="0.029" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\weyla\OneDrive\Escritorio\tup2024\target\test-classes;C:\Users\weyla\OneDrive\Escritorio\tup2024\target\classes;C:\Users\weyla\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\weyla\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="java.class.path" value="C:\Users\weyla\OneDrive\Escritorio\tup2024\target\test-classes;C:\Users\weyla\OneDrive\Escritorio\tup2024\target\classes;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\weyla\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\weyla\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\weyla\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\weyla\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter\5.11.0-M2\junit-jupiter-5.11.0-M2.jar;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.11.0-M2\junit-jupiter-params-5.11.0-M2.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -16,9 +16,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ES"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-21\bin"/>
-    <property name="sun.java.command" value="C:\Users\weyla\AppData\Local\Temp\surefire17755486682704134931\surefirebooter1037431680001800110.jar C:\Users\weyla\AppData\Local\Temp\surefire17755486682704134931 2024-05-23T02-19-28_942-jvmRun1 surefire18438592847957847207tmp surefire_01638945427542498998tmp"/>
+    <property name="sun.java.command" value="C:\Users\weyla\AppData\Local\Temp\surefire12885183332260668966\surefirebooter12414110929025453272.jar C:\Users\weyla\AppData\Local\Temp\surefire12885183332260668966 2024-05-24T03-55-52_668-jvmRun1 surefire3544586856549006699tmp surefire_06816083726006878561tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\weyla\OneDrive\Escritorio\tup2024\target\test-classes;C:\Users\weyla\OneDrive\Escritorio\tup2024\target\classes;C:\Users\weyla\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\weyla\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\weyla\OneDrive\Escritorio\tup2024\target\test-classes;C:\Users\weyla\OneDrive\Escritorio\tup2024\target\classes;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\weyla\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\weyla\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\weyla\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\weyla\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter\5.11.0-M2\junit-jupiter-5.11.0-M2.jar;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.11.0-M2\junit-jupiter-params-5.11.0-M2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\weyla"/>
     <property name="user.language" value="es"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\weyla\AppData\Local\Temp\surefire17755486682704134931\surefirebooter1037431680001800110.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\weyla\AppData\Local\Temp\surefire12885183332260668966\surefirebooter12414110929025453272.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.3+7-LTS-152"/>
@@ -60,5 +60,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="ar.utn.frbb.tup.AppTest" time="0.003"/>
+  <testcase name="testClienteSuccess" classname="ar.utn.frbb.tup.service.administracion.gestion.clientes.CrearCuentaTest" time="0.016"/>
 </testsuite>

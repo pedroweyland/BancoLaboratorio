@@ -1,6 +1,8 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
+import ar.edu.utn.frbb.tup.model.exception.ClienteExistenteException;
+import ar.edu.utn.frbb.tup.model.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
 
@@ -23,13 +25,16 @@ public class ModificarCliente extends BaseGestion {
             //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
             Cliente cliente = clienteDao.findCliente(dni);
 
-            if (cliente == null) {
-                System.out.println("No existe ningun cliente con el DNI ingresado");
-            } else {
+            try {
+
+                if (cliente == null) { //Si el cliente no existe lanzo una excepcion (Ya que no hay nada que modificar)
+                    throw new ClienteNoEncontradoException("No existe ningun cliente con el DNI ingresado");
+                }
 
                 clienteDao.deleteCliente(dni); //Elimino el cliente Viejo del archivo
 
                 while (!salir) {
+
                     int opcion = menuModificacion();  //Usuario ingresa que quiere modificar
 
                     //Creo intancia de cliente Input para que el usuario modifique lo que eligio
@@ -67,7 +72,20 @@ public class ModificarCliente extends BaseGestion {
                             salir = true;
                             break;
                     }
+                    if (opcion != 0){
+                        System.out.println("----------------------------------------");
+                        System.out.println("Enter para seguir");
+                        scanner.nextLine();
+                        clearScreen();
+                    }
                 }
+            }catch (ClienteNoEncontradoException ex) {
+                System.out.println("----------------------------------------");
+                System.out.println(ex.getMessage());
+                System.out.println("----------------------------------------");
+                System.out.println("Enter para seguir");
+                scanner.nextLine();
+                clearScreen();
             }
         }
     }

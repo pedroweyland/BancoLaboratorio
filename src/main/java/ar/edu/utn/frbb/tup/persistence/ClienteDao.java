@@ -106,7 +106,7 @@ public class ClienteDao {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return null; //Si no lo encuentra vuelve null
     }
 
     public List<Cliente> findAllClientes(){

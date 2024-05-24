@@ -5,16 +5,17 @@ C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\per
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\input\Menus.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\MostrarCuenta.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\TipoCuenta.java
+C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\exception\ClienteExistenteException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\DarAltaBaja.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\Operaciones.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\input\ClienteInput.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\MostrarCliente.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\baseOperaciones.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\CrearCliente.java
+C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\exception\ClienteNoEncontradoException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\persistence\ClienteDao.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\App.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\Cuenta.java
-C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\persistence\CuentasDeClientesDao.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\CrearCuenta.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\MostrarTodosClientes.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\Banco.java
@@ -33,5 +34,6 @@ C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\ser
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\modulos\MostrarMovimientos.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\modulos\Retiro.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\modulos\Transferencia.java
+C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\exception\ClientesVaciosException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\ClienteAdministracion.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\input\BaseInput.java

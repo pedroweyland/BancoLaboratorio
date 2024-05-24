@@ -2,7 +2,6 @@ package ar.edu.utn.frbb.tup.service;
 
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
-import ar.edu.utn.frbb.tup.persistence.CuentasDeClientesDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.service.administracion.ClienteAdministracion;
 import ar.edu.utn.frbb.tup.model.Banco;

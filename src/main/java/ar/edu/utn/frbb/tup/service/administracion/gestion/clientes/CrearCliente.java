@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 
+import ar.edu.utn.frbb.tup.model.exception.ClienteExistenteException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
@@ -8,7 +9,7 @@ public class CrearCliente extends BaseGestion {
     ClienteInput clienteInput = new ClienteInput();
 
     // Creacion Cliente
-    public void crearCliente() {
+    public void crearCliente() throws ClienteExistenteException {
         boolean existe = false;
 
         //Usuario ingresa los datos y se guarda en la variable cliente
@@ -17,23 +18,25 @@ public class CrearCliente extends BaseGestion {
         //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
         Cliente c = clienteDao.findCliente(cliente.getDni());
 
-        if (c == null){ //Si no existe el cliente lo agrego al banco y lo muestro
+        try {
+
+            if (c != null) { //Si existe el cliente lanzo una excepcion
+                throw new ClienteExistenteException("El cliente ya existe");
+            }
+
             clienteDao.saveCliente(cliente); //Guardo el cliente en el archivo
 
             //Muestro en pantalla el resultado
             System.out.println("------- Cliente creado con exito -------");
             System.out.println(toString(cliente));
 
-        } else {
+        } catch (ClienteExistenteException e) { //Agarro la excepcion de que ya existe el cliente
             System.out.println("----------------------------------------");
-            System.out.println("El cliente ya existe");
+            System.out.println(e.getMessage());
             System.out.println("----------------------------------------");
+        } finally {
+            System.out.println("Enter para seguir");
+            scanner.nextLine();
+            clearScreen();
         }
-
-
-        System.out.println("Enter para seguir");
-        scanner.nextLine();
-        clearScreen();
-    }
-
-}
+    }}

@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
+import ar.edu.utn.frbb.tup.model.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 public class EliminarCliente extends BaseGestion {
 
     //Eliminar cliente
-    public void eliminarCliente(){
+    public void eliminarCliente() {
 
         boolean seguir = true;
 
@@ -24,9 +25,10 @@ public class EliminarCliente extends BaseGestion {
             //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
             Cliente cliente = clienteDao.findCliente(dni);
 
-            if (cliente == null) {
-                System.out.println("No existe ningun cliente con el DNI ingresado");
-            } else {
+            try {
+                if (cliente == null){ //Si el cliente no existe lanzo una excepcion (Ya que no hay nada que eliminar)
+                    throw new ClienteNoEncontradoException("No existe ningun cliente con el DNI ingresado");
+                }
 
                 System.out.println("------------ Cliente eliminado -----------");
                 System.out.println(toString(cliente)); //Muestro en pantalla el cliente eliminado
@@ -41,11 +43,16 @@ public class EliminarCliente extends BaseGestion {
                     movimientosDao.deleteMovimiento(cvu);
                 }
                 seguir = false;
-            }
 
-            System.out.println("Enter para seguir");
-            scanner.nextLine();
-            clearScreen();
+            } catch (ClienteNoEncontradoException e) {
+                System.out.println("----------------------------------------");
+                System.out.println(e.getMessage());
+                System.out.println("----------------------------------------");
+            } finally {
+                System.out.println("Enter para seguir");
+                scanner.nextLine();
+                clearScreen();
+            }
         }
     }
 }
