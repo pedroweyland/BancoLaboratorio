@@ -1,12 +1,11 @@
 package ar.edu.utn.frbb.tup.service.administracion;
 
-import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.service.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas.*;
+import ar.edu.utn.frbb.tup.service.exception.CuentasVaciasException;
 
-import java.util.List;
 import java.util.Scanner;
 
 import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuCuenta;
@@ -25,38 +24,37 @@ public class CuentaAdministracion {
             clienteDao.findAllClientes();
 
             while (!salir) {
-                List<Cuenta> cuentas = cuentaDao.findAllCuentas();
                 int opcion = menuCuenta();
 
-                if (cuentas.isEmpty() && opcion != 1 && opcion != 0) {
-                    System.out.println("No hay Cuentas registradas");
-                } else {
+                if (opcion != 1 && opcion != 0) {
+                    //Leo toda la lista de cuentas, si no hay cuentas lanza una excepcion, no lanza exepcion cuando el usuario pone 0 ya que la va a crear
+                    cuentaDao.findAllCuentas();
+                }
 
-                    switch (opcion) {
-                        case 1:
-                            CrearCuenta crear = new CrearCuenta();
-                            crear.crearCuenta();
-                            break;
-                        case 2:
-                            EliminarCuenta eliminar = new EliminarCuenta();
-                            eliminar.eliminarCuenta();
-                            break;
-                        case 3:
-                            MostrarCuenta mostrar = new MostrarCuenta();
-                            mostrar.mostrarCuenta();
-                            break;
-                        case 4:
-                            DarAltaBaja altaBaja = new DarAltaBaja();
-                            altaBaja.gestionarEstado();
-                            break;
-                        case 0:
-                            System.out.println("Saliendo...");
-                            salir = true;
-                            break;
-                    }
+                switch (opcion) {
+                    case 1:
+                        CrearCuenta crear = new CrearCuenta();
+                        crear.crearCuenta();
+                        break;
+                    case 2:
+                        EliminarCuenta eliminar = new EliminarCuenta();
+                        eliminar.eliminarCuenta();
+                        break;
+                    case 3:
+                        MostrarCuenta mostrar = new MostrarCuenta();
+                        mostrar.mostrarCuenta();
+                        break;
+                    case 4:
+                        DarAltaBaja altaBaja = new DarAltaBaja();
+                        altaBaja.gestionarEstado();
+                        break;
+                    case 0:
+                        System.out.println("Saliendo...");
+                        salir = true;
+                        break;
                 }
             }
-        } catch (ClientesVaciosException ex){
+        } catch (ClientesVaciosException | CuentasVaciasException ex){
             System.out.println("----------------------------------------");
             System.out.println(ex.getMessage());
             System.out.println("----------------------------------------");

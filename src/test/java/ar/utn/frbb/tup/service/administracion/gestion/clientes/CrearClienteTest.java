@@ -15,12 +15,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CrearClienteTest {
 
     private static ClienteDao clienteDao;
-    private static Cliente cliente;
 
     @BeforeAll
     public static void setUp(){
         clienteDao = new ClienteDao();
-        cliente = new Cliente();
+
+    }
+
+    @Test
+    public void testClienteSuccess() throws ClienteNoEncontradoException {
+        Cliente cliente = new Cliente();
         cliente.setNombre("Pepo");
         cliente.setApellido("Weyland");
         cliente.setDireccion("Berutti");
@@ -33,10 +37,6 @@ public class CrearClienteTest {
         cliente.setFechaAlta(LocalDate.now());
 
         clienteDao.saveCliente(cliente);
-    }
-
-    @Test
-    public void testClienteSuccess() throws ClienteNoEncontradoException {
 
         //Testeo si el cliente se ha creado correctamente en mi archivo
         assertNotNull(clienteDao.findCliente(cliente.getDni()));
@@ -51,6 +51,20 @@ public class CrearClienteTest {
 
     @Test
     public void testClienteExistenteException() throws ClienteNoEncontradoException {
+        Cliente cliente = new Cliente();
+        cliente.setNombre("Pepo");
+        cliente.setApellido("Weyland");
+        cliente.setDireccion("Berutti");
+        cliente.setDni(45501926);
+        cliente.setFechaNacimiento(LocalDate.of(2004, 1, 21));
+
+        cliente.setMail("weylandpedro@gmail.com");
+        cliente.setBanco("Macro");
+        cliente.setTipoPersona(TipoPersona.PERSONA_FISICA);
+        cliente.setFechaAlta(LocalDate.now());
+
+        clienteDao.saveCliente(cliente);
+
         Cliente clienteNuevo = new Cliente();
 
         clienteNuevo.setNombre("Carlitos");

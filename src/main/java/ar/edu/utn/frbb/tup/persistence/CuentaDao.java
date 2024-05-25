@@ -3,7 +3,9 @@ package ar.edu.utn.frbb.tup.persistence;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
+import ar.edu.utn.frbb.tup.service.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.service.exception.CuentaExistenteException;
+import ar.edu.utn.frbb.tup.service.exception.CuentasVaciasException;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -36,13 +38,7 @@ public class CuentaDao {
         }
     }
 
-    public void saveCuenta(Cuenta cuenta) throws CuentaExistenteException {
-        Cuenta existente = findCuenta(cuenta.getCVU());
-
-        if (existente != null) {
-            throw new CuentaExistenteException("La cuenta ya existe");
-        }
-
+    public void saveCuenta(Cuenta cuenta) {
         try (FileWriter archivo = new FileWriter(RUTA_ARCHIVO, true);){
 
             PrintWriter writer = new PrintWriter(archivo);
@@ -145,8 +141,9 @@ public class CuentaDao {
         return null;
     }
 
-    public List<Cuenta> findAllCuentas() {
+    public List<Cuenta> findAllCuentas() throws CuentasVaciasException {
         List<Cuenta> cuentas = new ArrayList<>();
+
         try {
 
             File file = new File(RUTA_ARCHIVO);
@@ -171,6 +168,11 @@ public class CuentaDao {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        if (cuentas.isEmpty()){ //Si la lista esta vacia significa que no hay clientes registrados
+            throw new CuentasVaciasException("No hay cuentas registradas");
+        }
+
         return cuentas;
     }
 
@@ -208,6 +210,7 @@ public class CuentaDao {
         cuenta.setDniTitular(Long.parseLong(datos[1]));
         cuenta.setNombre(datos[2]);
         cuenta.setEstado(Boolean.parseBoolean(datos[3]));
+
         cuenta.setSaldo(Double.parseDouble(datos[4]));
         cuenta.setFechaCreacion(LocalDate.parse(datos[5]));
         cuenta.setTipoCuenta(TipoCuenta.valueOf(datos[6]));

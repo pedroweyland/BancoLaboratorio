@@ -18,7 +18,6 @@ public class EliminarClienteTest {
     @BeforeAll
     public static void setUp(){
         clienteDao = new ClienteDao();
-
     }
 
     @Test

@@ -44,7 +44,7 @@ public class CrearCuenta extends BaseGestion {
 
                 seguir = false;
 
-            } catch (ClienteNoEncontradoException | CuentaExistenteException e) {
+            } catch (ClienteNoEncontradoException e) {
                 System.out.println("----------------------------------------");
                 System.out.println(e.getMessage());
                 System.out.println("----------------------------------------");

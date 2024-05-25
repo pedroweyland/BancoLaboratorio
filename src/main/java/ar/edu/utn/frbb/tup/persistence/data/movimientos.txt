@@ -1,1 +1,3 @@
 CVU Origen, fecha Operacion, hora Operacion, tipo operacion, monto
+924905,2024-05-25,00:40:53.315867900,Consulta,0.0
+924905,2024-05-25,00:41:06.052488700,Deposito,100.0

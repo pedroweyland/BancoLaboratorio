@@ -4,14 +4,14 @@ ar\edu\utn\frbb\tup\service\operaciones\baseOperaciones.class
 ar\edu\utn\frbb\tup\App.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\DarAltaBaja.class
 ar\edu\utn\frbb\tup\model\Persona.class
+ar\edu\utn\frbb\tup\service\exception\ClientesVaciosException.class
+ar\edu\utn\frbb\tup\service\exception\CuentaNoEncontradaException.class
 ar\edu\utn\frbb\tup\model\Banco.class
 ar\edu\utn\frbb\tup\service\administracion\ClienteAdministracion.class
 ar\edu\utn\frbb\tup\service\operaciones\modulos\Consulta.class
 ar\edu\utn\frbb\tup\presentation\input\Menus.class
 ar\edu\utn\frbb\tup\model\Cliente.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\CrearCliente.class
-ar\edu\utn\frbb\tup\model\exception\ClienteExistenteException.class
-ar\edu\utn\frbb\tup\model\exception\ClienteNoEncontradoException.class
 ar\edu\utn\frbb\tup\model\Movimiento.class
 ar\edu\utn\frbb\tup\persistence\CuentaDao.class
 ar\edu\utn\frbb\tup\persistence\MovimientosDao.class
@@ -22,6 +22,8 @@ ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\EliminarCuenta.class
 ar\edu\utn\frbb\tup\service\MenuBanco.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\BaseGestion.class
 ar\edu\utn\frbb\tup\persistence\ClienteDao.class
+ar\edu\utn\frbb\tup\service\exception\ClienteExistenteException.class
+ar\edu\utn\frbb\tup\service\exception\ClienteNoEncontradoException.class
 ar\edu\utn\frbb\tup\model\TipoCuenta.class
 ar\edu\utn\frbb\tup\service\operaciones\modulos\MostrarMovimientos.class
 ar\edu\utn\frbb\tup\presentation\input\ClienteInput.class
@@ -32,8 +34,9 @@ ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\EliminarCliente.clas
 ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\CrearCuenta.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\MostrarTodosClientes.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\MostrarCuenta.class
-ar\edu\utn\frbb\tup\model\exception\ClientesVaciosException.class
 ar\edu\utn\frbb\tup\service\administracion\CuentaAdministracion.class
 ar\edu\utn\frbb\tup\model\Cuenta.class
+ar\edu\utn\frbb\tup\service\exception\CuentaExistenteException.class
 ar\edu\utn\frbb\tup\service\operaciones\modulos\Transferencia.class
 ar\edu\utn\frbb\tup\model\TipoPersona.class
+ar\edu\utn\frbb\tup\service\exception\CuentasVaciasException.class
