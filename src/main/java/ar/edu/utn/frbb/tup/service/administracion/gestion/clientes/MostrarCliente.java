@@ -1,7 +1,7 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
-import ar.edu.utn.frbb.tup.model.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 
 import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;

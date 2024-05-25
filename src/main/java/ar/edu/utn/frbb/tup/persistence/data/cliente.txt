@@ -1,2 +1,2 @@
 DNI, Nombre, Apellido, Direccion, Fecha nacimiento, Mail, Banco, Tipo Persona, Fecha alta
-123,carlito,we,be,2002-02-02,a,a,PERSONA_FISICA,2020-02-02
+1,Carlito,Esmela,a,2002-02-02,a,Macro,PERSONA_FISICA,2020-02-02

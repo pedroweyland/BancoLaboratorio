@@ -21,6 +21,7 @@ public class Validaciones {
             LocalDate.parse(str);
             return true;
         } catch (DateTimeParseException e) {
+
             return false;
         }
 

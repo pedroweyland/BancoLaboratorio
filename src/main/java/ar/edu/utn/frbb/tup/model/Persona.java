@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Persona {
     private String nombre;

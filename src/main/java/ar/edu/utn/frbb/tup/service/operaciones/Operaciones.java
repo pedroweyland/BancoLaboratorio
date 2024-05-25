@@ -2,7 +2,7 @@ package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.model.exception.ClientesVaciosException;
+import ar.edu.utn.frbb.tup.service.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.service.operaciones.modulos.*;
 
 

@@ -3,6 +3,7 @@ package ar.edu.utn.frbb.tup.persistence;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
+import ar.edu.utn.frbb.tup.service.exception.CuentaExistenteException;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -35,13 +36,19 @@ public class CuentaDao {
         }
     }
 
-    public void saveCuenta(Cuenta cuenta) {
-        try {
-            FileWriter archivo = new FileWriter(RUTA_ARCHIVO, true);
+    public void saveCuenta(Cuenta cuenta) throws CuentaExistenteException {
+        Cuenta existente = findCuenta(cuenta.getCVU());
+
+        if (existente != null) {
+            throw new CuentaExistenteException("La cuenta ya existe");
+        }
+
+        try (FileWriter archivo = new FileWriter(RUTA_ARCHIVO, true);){
+
             PrintWriter writer = new PrintWriter(archivo);
 
             writer.println(cuenta.getCVU() + "," + cuenta.getDniTitular() + "," + cuenta.getNombre() + "," + cuenta.getEstado() + "," + cuenta.getSaldo() + "," + cuenta.getFechaCreacion() + "," + cuenta.getTipoCuenta());
-            writer.close();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

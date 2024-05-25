@@ -2,8 +2,8 @@ package ar.utn.frbb.tup.service.administracion.gestion.clientes;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.TipoPersona;
-import ar.edu.utn.frbb.tup.model.exception.ClienteExistenteException;
-import ar.edu.utn.frbb.tup.model.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.service.exception.ClienteExistenteException;
+import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,20 +12,15 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CrearCuentaTest {
+public class CrearClienteTest {
 
     private static ClienteDao clienteDao;
-
+    private static Cliente cliente;
 
     @BeforeAll
     public static void setUp(){
         clienteDao = new ClienteDao();
-    }
-
-    @Test
-    public void testClienteSuccess() throws ClienteExistenteException, ClienteNoEncontradoException {
-        Cliente cliente = new Cliente();
-
+        cliente = new Cliente();
         cliente.setNombre("Pepo");
         cliente.setApellido("Weyland");
         cliente.setDireccion("Berutti");
@@ -38,35 +33,24 @@ public class CrearCuentaTest {
         cliente.setFechaAlta(LocalDate.now());
 
         clienteDao.saveCliente(cliente);
+    }
 
-        assertNotNull(clienteDao.findCliente(cliente.getDni()));
+    @Test
+    public void testClienteSuccess() throws ClienteNoEncontradoException {
+
         //Testeo si el cliente se ha creado correctamente en mi archivo
+        assertNotNull(clienteDao.findCliente(cliente.getDni()));
 
+        //Elimino el cliente que fue guardado previamente
         Cliente aux = clienteDao.deleteCliente(cliente.getDni());
 
-        assertNull(clienteDao.findCliente(cliente.getDni()));
         //Testeo si el cliente se ha eliminado correctamente en mi archivo
-
+        assertNull(clienteDao.findCliente(cliente.getDni()));
 
     }
 
     @Test
-    public void testClienteExistenteException() throws ClienteExistenteException, ClienteNoEncontradoException {
-        Cliente cliente = new Cliente();
-
-        cliente.setNombre("Pepo");
-        cliente.setApellido("Weyland");
-        cliente.setDireccion("Berutti");
-        cliente.setDni(45501926);
-        cliente.setFechaNacimiento(LocalDate.of(2004, 1, 21));
-
-        cliente.setMail("weylandpedro@gmail.com");
-        cliente.setBanco("Macro");
-        cliente.setTipoPersona(TipoPersona.PERSONA_FISICA);
-        cliente.setFechaAlta(LocalDate.now());
-
-        clienteDao.saveCliente(cliente);
-
+    public void testClienteExistenteException() throws ClienteNoEncontradoException {
         Cliente clienteNuevo = new Cliente();
 
         clienteNuevo.setNombre("Carlitos");
@@ -86,7 +70,9 @@ public class CrearCuentaTest {
         //Elimino el cliente que fue guardado previamente
         Cliente aux = clienteDao.deleteCliente(cliente.getDni());
 
-
+        //Testeo si el cliente se ha eliminado correctamente en mi archivo
+        assertNull(clienteDao.findCliente(cliente.getDni()));
 
     }
+
 }

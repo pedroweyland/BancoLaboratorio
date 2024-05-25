@@ -1,8 +1,7 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
-import ar.edu.utn.frbb.tup.model.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.model.exception.ClientesVaciosException;
+import ar.edu.utn.frbb.tup.service.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 
 import java.util.List;

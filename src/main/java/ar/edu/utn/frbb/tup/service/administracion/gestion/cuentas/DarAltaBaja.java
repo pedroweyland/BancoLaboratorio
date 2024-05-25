@@ -3,6 +3,10 @@ package ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
+import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.service.exception.CuentaExistenteException;
+import ar.edu.utn.frbb.tup.service.exception.CuentaNoEncontradaException;
+import com.sun.tools.attach.AttachNotSupportedException;
 
 import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.*;
 
@@ -21,7 +25,46 @@ public class DarAltaBaja extends BaseGestion {
             //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
             Cliente cliente = clienteDao.findCliente(dni);
 
+            try {
+                if (cliente == null) {
+                    throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
+                }
 
+                //Pido CVU de la cuenta que quiere eliminar
+                long cvu = pedirCvu("Escriba el CVU de la cuenta que quiere dar de alta/baja: (0 para salir) ");
+                clearScreen();
+
+                if (cvu == 0) break; //Si escribe 0 termina con el bucle
+
+                //Funcion que devuelve la cuenta encontrada o vuelve Null si no lo encontro, solo devuelve las cuentas que tiene asocida el cliente
+                Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);
+
+                if (cuenta == null) {
+                    throw new CuentaNoEncontradaException("El Cliente no tiene ninguna cuenta con el CVU: " + cvu);
+                }
+
+                cuentaDao.deleteCuenta(cvu); //Borro la cuenta ya que va ser actualizada
+
+                //Si quiere dar de alta retorna True. si quiere dar de baja retorna False
+                boolean opcion = pedirOpcion("Escriba (B) si quiere dar de Baja o (A) si quere dar de Alta");
+
+                System.out.println("----------------------------------------");
+                darAltaBaja(cuenta, opcion);
+                System.out.println("----------------------------------------");
+
+                cuentaDao.saveCuenta(cuenta); //Guardo la cuenta y la relacion actualizada
+
+                seguire = false;
+
+            } catch (ClienteNoEncontradoException | CuentaNoEncontradaException e) {
+                System.out.println("----------------------------------------");
+                System.out.println(e.getMessage());
+                System.out.println("----------------------------------------");
+            } finally {
+                System.out.println("Enter para seguir");
+                scanner.nextLine();
+                clearScreen();
+            }
             if (cliente == null) {
                 System.out.println("No existe ningun cliente con el DNI ingresado ");
 

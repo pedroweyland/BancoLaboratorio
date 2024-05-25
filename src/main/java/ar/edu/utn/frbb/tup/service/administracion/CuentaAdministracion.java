@@ -1,11 +1,10 @@
 package ar.edu.utn.frbb.tup.service.administracion;
 
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.model.exception.ClientesVaciosException;
+import ar.edu.utn.frbb.tup.service.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas.*;
-import ar.edu.utn.frbb.tup.model.Cliente;
 
 import java.util.List;
 import java.util.Scanner;

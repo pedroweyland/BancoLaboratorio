@@ -1,7 +1,6 @@
 package ar.edu.utn.frbb.tup.service.administracion;
 
 
-import ar.edu.utn.frbb.tup.model.exception.ClienteExistenteException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.clientes.*;
 
 import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuCliente;

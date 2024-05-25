@@ -3,9 +3,9 @@ package ar.edu.utn.frbb.tup.persistence;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.TipoPersona;
-import ar.edu.utn.frbb.tup.model.exception.ClienteExistenteException;
-import ar.edu.utn.frbb.tup.model.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.model.exception.ClientesVaciosException;
+import ar.edu.utn.frbb.tup.service.exception.ClienteExistenteException;
+import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.service.exception.ClientesVaciosException;
 
 import java.io.*;
 import java.time.LocalDate;
