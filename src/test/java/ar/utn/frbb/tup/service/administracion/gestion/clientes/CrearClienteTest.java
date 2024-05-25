@@ -19,7 +19,7 @@ public class CrearClienteTest {
     @BeforeAll
     public static void setUp(){
         clienteDao = new ClienteDao();
-
+        clienteDao.inicializarClientes();
     }
 
     @Test

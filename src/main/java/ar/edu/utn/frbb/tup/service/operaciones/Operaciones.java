@@ -2,8 +2,7 @@ package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.service.exception.ClientesVaciosException;
-import ar.edu.utn.frbb.tup.service.exception.CuentasVaciasException;
+import ar.edu.utn.frbb.tup.service.exception.*;
 import ar.edu.utn.frbb.tup.service.operaciones.modulos.*;
 
 
@@ -22,7 +21,7 @@ public class Operaciones extends baseOperaciones {
 
             Cuenta cuenta = cuentaOperar();
 
-            if (cuenta == null) { // Si cuenta es null, significa que el usuario decidio irse o no tiene cuentas asociadas
+            if (cuenta == null) { // Si cuenta es null, significa que el usuario decidio irse
                 System.out.println("Saliendo...");
             } else {
                 while (seguir) {
@@ -42,12 +41,11 @@ public class Operaciones extends baseOperaciones {
                             break;
                         case 3:
                             //Transferencia
+                            //Usuario ingresa a quien quiere transferir, vuelve una excepcion si la cuenta no fue encontrada
                             Cuenta cuentaDestino = cuentaATransferir();
 
-                            if (cuentaDestino != null) {
-                                Transferencia t = new Transferencia();
-                                t.transferencia(cuenta, cuentaDestino);
-                            }
+                            Transferencia t = new Transferencia();
+                            t.transferencia(cuenta, cuentaDestino);
                             break;
                         case 4:
                             Consulta c = new Consulta();
@@ -63,75 +61,52 @@ public class Operaciones extends baseOperaciones {
                         }
                     }
                 }
-        } catch (ClientesVaciosException | CuentasVaciasException ex){
+        } catch (ClientesVaciosException | CuentasVaciasException | CuentaNoEncontradaException | ClienteNoEncontradoException | CuentaEstaDeBajaException ex){
             System.out.println("----------------------------------------");
             System.out.println(ex.getMessage());
             System.out.println("----------------------------------------");
             System.out.println("Enter para seguir");
             scanner.nextLine();
+            clearScreen();
         }
     }
 
     //Funcion para que el usaurio encuentre la cuenta que desea operar, y retorna la cuenta o null si no la encuentra
-    public Cuenta cuentaOperar(){
+    public Cuenta cuentaOperar() throws ClienteNoEncontradoException, CuentaNoEncontradaException, CuentaEstaDeBajaException {
         while (true) {
 
             //Pido el DNI del cliente, y busco si existe
             long dni = pedirDni("Para realizar una operacion ingrese el DNI del cliente: (0 para salir)");
             if (dni == 0) break; //Si escribe 0 termina con el bucle
 
-
             Cliente cliente = clienteDao.findCliente(dni);
 
-            if (cliente == null){ //Verifico si el cliente existe
-                System.out.println("----------------------------------------");
-                System.out.println("No se encontro ningun cliente con el DNI dado");
-                System.out.println("----------------------------------------");
-                System.out.println("Enter para seguir");
-                scanner.nextLine();
-                clearScreen();
-                break;
+            if (cliente == null){ //Si no se encuentra el cliente lanza una excepcion
+                throw new ClienteNoEncontradoException("No se encontro ningun cliente con el DNI dado");
             }
 
-            while (true) { //Bucle while por si el usuario se equivoca del CVU y que intente de poner de vuelta CVU
+            //Pido el CVU de la cuenta, y busco si existe
+            long cvu = pedirCvu("Ahora ingrese el CVU de la cuenta en la que quiere operar: (0 para salir)");
+            if (cvu == 0) break;
 
-                //Pido el CVU de la cuenta, y busco si existe
-                long cvu = pedirCvu("Ahora ingrese el CVU de la cuenta en la que quiere operar: (0 para salir)");
-                if (cvu == 0) break;
+            Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);
 
-                Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);
-
-                if (cuenta == null) { //Verifico si la cuenta existe
-                    System.out.println("----------------------------------------");
-                    System.out.println("El Cliente no tiene ninguna cuenta con el CVU: " + cvu);
-                    System.out.println("----------------------------------------");
-                    System.out.println("Enter para seguir");
-                    scanner.nextLine();
-                    clearScreen();
-                } else {
-
-                    if (cuenta.getEstado()){ //Si la cuenta esta activa retorno la cuenta si no retorno null
-                        clearScreen();
-                        return cuenta;
-
-                    } else {
-                        System.out.println("----------------------------------------");
-                        System.out.println("La cuenta esta de baja, no puede operar.");
-                        System.out.println("----------------------------------------");
-                        System.out.println("Enter para seguir");
-                        scanner.nextLine();
-                        clearScreen();
-                    }
-                }
+            if (cuenta == null) { //Si no se encontro la cuenta lanza una excepcion
+                throw new CuentaNoEncontradaException("El Cliente no tiene ninguna cuenta con el CVU: " + cvu);
             }
+
+            if (!cuenta.getEstado()){ //Si la cuenta esta dada de baja lanzo una excepcion
+                throw new CuentaEstaDeBajaException("La cuenta esta de baja, no puede operar.");
+            }
+
+            clearScreen();
+            return cuenta;
 
         }
-
-
         return null;
     }
 
-    public Cuenta cuentaATransferir() {
+    public Cuenta cuentaATransferir() throws CuentaNoEncontradaException {
 
         long cvu = pedirCvu("Ingrese el CVU de la cuenta a transferir: (0 para salir)");
 
@@ -143,8 +118,8 @@ public class Operaciones extends baseOperaciones {
         Cuenta cuenta = cuentaDao.findCuenta(cvu);
 
         if (cuenta == null){
-            System.out.println("No se encontro ninguna cuenta con el CVU dado " + cvu);
-            return null;
+            throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvu);
+
         } else {
             return cuenta;
         }

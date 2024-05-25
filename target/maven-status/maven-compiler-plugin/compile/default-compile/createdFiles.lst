@@ -7,12 +7,15 @@ ar\edu\utn\frbb\tup\model\Persona.class
 ar\edu\utn\frbb\tup\service\exception\ClientesVaciosException.class
 ar\edu\utn\frbb\tup\service\exception\CuentaNoEncontradaException.class
 ar\edu\utn\frbb\tup\model\Banco.class
+ar\edu\utn\frbb\tup\service\exception\MismaCuentaException.class
 ar\edu\utn\frbb\tup\service\administracion\ClienteAdministracion.class
 ar\edu\utn\frbb\tup\service\operaciones\modulos\Consulta.class
 ar\edu\utn\frbb\tup\presentation\input\Menus.class
 ar\edu\utn\frbb\tup\model\Cliente.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\CrearCliente.class
+ar\edu\utn\frbb\tup\service\exception\CuentaEstaDeBajaException.class
 ar\edu\utn\frbb\tup\model\Movimiento.class
+ar\edu\utn\frbb\tup\service\exception\CuentaSinDineroException.class
 ar\edu\utn\frbb\tup\persistence\CuentaDao.class
 ar\edu\utn\frbb\tup\persistence\MovimientosDao.class
 ar\edu\utn\frbb\tup\presentation\input\CuentaInput.class

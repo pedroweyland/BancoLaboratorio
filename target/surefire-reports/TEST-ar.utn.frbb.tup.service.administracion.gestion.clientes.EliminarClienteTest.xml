@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ES"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-21\bin"/>
-    <property name="sun.java.command" value="C:\Users\weyla\AppData\Local\Temp\surefire17399508259734636406\surefirebooter99284068128013810.jar C:\Users\weyla\AppData\Local\Temp\surefire17399508259734636406 2024-05-25T00-58-08_457-jvmRun1 surefire4475289285754307347tmp surefire_011717563200802071646tmp"/>
+    <property name="sun.java.command" value="C:\Users\weyla\AppData\Local\Temp\surefire4815975886184519771\surefirebooter12654730519089490442.jar C:\Users\weyla\AppData\Local\Temp\surefire4815975886184519771 2024-05-25T17-23-41_672-jvmRun1 surefire14310248317440753002tmp surefire_0905309171673883095tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\weyla\OneDrive\Escritorio\tup2024\target\test-classes;C:\Users\weyla\OneDrive\Escritorio\tup2024\target\classes;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\weyla\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\weyla\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\weyla\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\weyla\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter\5.11.0-M2\junit-jupiter-5.11.0-M2.jar;C:\Users\weyla\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.11.0-M2\junit-jupiter-params-5.11.0-M2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\weyla\AppData\Local\Temp\surefire17399508259734636406\surefirebooter99284068128013810.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\weyla\AppData\Local\Temp\surefire4815975886184519771\surefirebooter12654730519089490442.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.3+7-LTS-152"/>

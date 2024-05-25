@@ -10,8 +10,10 @@ C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\ser
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\exception\ClientesVaciosException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\DarAltaBaja.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\exception\ClienteExistenteException.java
+C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\exception\MismaCuentaException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\Operaciones.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\input\ClienteInput.java
+C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\exception\CuentaSinDineroException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\MostrarCliente.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\baseOperaciones.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\CrearCliente.java
@@ -39,4 +41,5 @@ C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\ser
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\modulos\Retiro.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\modulos\Transferencia.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\ClienteAdministracion.java
+C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\exception\CuentaEstaDeBajaException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\input\BaseInput.java
