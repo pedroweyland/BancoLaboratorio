@@ -36,6 +36,7 @@ C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\ser
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\exception\ClienteNoEncontradoException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\BaseGestion.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\Cliente.java
+C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\persistence\BaseDao.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\CuentaAdministracion.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\modulos\MostrarMovimientos.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\modulos\Retiro.java

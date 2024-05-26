@@ -45,9 +45,8 @@ public class EliminarCuenta extends BaseGestion {
                 cuentaDao.deleteCuenta(cvu);
                 movimientosDao.deleteMovimiento(cvu);
 
-                System.out.println("----------------------------------------");
-                System.out.println("La cuenta se borro exitosamente");
-                System.out.println("----------------------------------------");
+                System.out.println("------------ Cuenta eliminada -----------");
+                System.out.println(toString(cuenta));
 
                 break;
 

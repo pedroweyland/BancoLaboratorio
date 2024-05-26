@@ -1,3 +1,2 @@
 DNI, Nombre, Apellido, Direccion, Fecha nacimiento, Mail, Banco, Tipo Persona, Fecha alta
-123,Juan,Esmela,Alem,2002-02-02,juanEsmela,Macro,PERSONA_FISICA,2020-02-02
-12345,pedro,weyland,berutti,2001-02-02,weylandpedro@gmail.com,Santander,PERSONA_FISICA,2020-02-02
+45501926,Pepo,Weyland,Berutti,2004-01-21,weylandpedro@gmail.com,Macro,PERSONA_FISICA,2024-05-26

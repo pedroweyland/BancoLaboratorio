@@ -1,6 +1,7 @@
 ar\edu\utn\frbb\tup\presentation\input\BaseInput.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\ModificarCliente.class
 ar\edu\utn\frbb\tup\service\operaciones\baseOperaciones.class
+ar\edu\utn\frbb\tup\persistence\BaseDao.class
 ar\edu\utn\frbb\tup\App.class
 ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\DarAltaBaja.class
 ar\edu\utn\frbb\tup\model\Persona.class

@@ -1,10 +1,8 @@
 package ar.edu.utn.frbb.tup.persistence;
 
-import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
-import ar.edu.utn.frbb.tup.service.exception.ClientesVaciosException;
-import ar.edu.utn.frbb.tup.service.exception.CuentaExistenteException;
+import ar.edu.utn.frbb.tup.service.exception.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.service.exception.CuentasVaciasException;
 
 import java.io.*;
@@ -12,104 +10,37 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CuentaDao {
+public class CuentaDao extends BaseDao<Cuenta> {
     private final String RUTA_ARCHIVO = "src/main/java/ar/edu/utn/frbb/tup/persistence/data/cuentas.txt";
 
     public void inicializarCuentas(){
-
-        PrintWriter writer = null;
-        try {
-            //Me fijo si el archivo existe
-            File archivo = new File(RUTA_ARCHIVO);
-
-            if (!archivo.exists()) {
-                //Si no existe, lo creo y guardo el Encabezado para saber el orden de los datos
-                FileWriter fileWriter = new FileWriter(RUTA_ARCHIVO, true);
-                writer = new PrintWriter(fileWriter);
-                writer.println("CVU, DNI titular, nombre, estado, saldo, fecha creacion, tipo de cuenta");
-            }
-
-        } catch (IOException e) {
-            System.out.println("No se pudo abrir el archivo");
-        } finally {
-            if (writer != null) {
-                writer.close();
-            }
-        }
+        String encabezado = "CVU, DNI titular, nombre, estado, saldo, fecha creacion, tipo de cuenta";
+        inicializarArchivo(encabezado, RUTA_ARCHIVO);
     }
 
-    public void saveCuenta(Cuenta cuenta) {
-        try (FileWriter archivo = new FileWriter(RUTA_ARCHIVO, true);){
+    public void saveCuenta(Cuenta cuenta){
+        String infoAguardar = cuenta.getCVU() + "," + cuenta.getDniTitular() + "," + cuenta.getNombre() + "," + cuenta.getEstado() + "," + cuenta.getSaldo() + "," + cuenta.getFechaCreacion() + "," + cuenta.getTipoCuenta();
 
-            PrintWriter writer = new PrintWriter(archivo);
-
-            writer.println(cuenta.getCVU() + "," + cuenta.getDniTitular() + "," + cuenta.getNombre() + "," + cuenta.getEstado() + "," + cuenta.getSaldo() + "," + cuenta.getFechaCreacion() + "," + cuenta.getTipoCuenta());
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        saveInfo(infoAguardar, RUTA_ARCHIVO);
     }
 
     public void deleteCuenta(long CVU){
+        deleteInfo(CVU, RUTA_ARCHIVO);
 
-        try {
-            File file = new File(RUTA_ARCHIVO);
-
-            StringBuilder contenido = new StringBuilder(); //Creo el contenido para guardar todoo el archivo menos el Cuenta que quiero eliminar
-            FileReader fileReader = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fileReader);
-
-            //Primero agrego el encabezado al contenido,
-            String linea = reader.readLine();
-            contenido.append(linea).append("\n");
-
-            while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
-                String[] datos = linea.split(",");
-
-                if (Long.parseLong(datos[0]) != CVU){ //Voy agregando todas las lineas del Archivo excepto las lineas que tengo que eliminar con el CVU dado
-                    contenido.append(linea).append("\n"); //Agrego la linea al contenido
-                }
-            }
-
-            FileWriter fileWriter = new FileWriter(file);
-            PrintWriter writer = new PrintWriter(fileWriter);
-
-            //Escribo todoo el contenido excepto la cuenta que quiero eliminar
-            writer.write(contenido.toString());
-
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    public Cuenta findCuenta(long CVU) {
-        try {
-            File file = new File(RUTA_ARCHIVO);
+    public Cuenta findCuenta(long CVU){
+        return findInfo(CVU, RUTA_ARCHIVO);
+    }
 
-            FileReader fileReader = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fileReader);
+    public List<Cuenta> findAllCuentas() throws CuentasVaciasException{
+        List<Cuenta> cuentas = findAllInfo(RUTA_ARCHIVO);
 
-            String linea; //Leo el encabezado
-            linea = reader.readLine(); //Salto encabezado
-
-            while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
-
-                //Empiezo a leer las lineas de las cuentas, y cada linea la divido por comas con el '.split(",")', para tener los datos de la cuenta
-                String[] datos = linea.split(",");
-
-                if (Long.parseLong(datos[0]) == CVU) {
-                    reader.close();
-                    return parseStringToCuenta(datos);
-                }
-            }
-            reader.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (cuentas.isEmpty()){ //Si la lista esta vacia significa que no hay clientes registrados
+            throw new CuentasVaciasException("No hay cuentas registradas");
         }
-        //Retorno Null por si no lo encuentra
-        return null;
+
+        return cuentas;
     }
 
     public Cuenta findCuentaDelCliente(long cvu, long dni){
@@ -130,7 +61,7 @@ public class CuentaDao {
 
                 //Retorno la cuenta si se encuentra la cuenta del cliente ingresado
                 if (Long.parseLong(datos[0]) == cvu && Long.parseLong(datos[1]) == dni) {
-                    return parseStringToCuenta(datos);
+                    return parseDatosToObjet(datos);
                 }
             }
 
@@ -139,41 +70,6 @@ public class CuentaDao {
         }
         //Retorno Null por si no lo encuentra
         return null;
-    }
-
-    public List<Cuenta> findAllCuentas() throws CuentasVaciasException {
-        List<Cuenta> cuentas = new ArrayList<>();
-
-        try {
-
-            File file = new File(RUTA_ARCHIVO);
-
-            FileReader fileReader = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fileReader);
-
-            String linea; //Leo el encabezado
-            linea = reader.readLine(); //Salto encabezado
-
-            while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
-
-                //Empiezo a leer las lineas de las cuentas, y cada linea la divido por comas con el '.split(",")', para tener los datos de la cuenta
-                String[] datos = linea.split(",");
-
-                //Guardo en una lista todos las cuentas
-                cuentas.add(parseStringToCuenta(datos));
-
-            }
-            reader.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        if (cuentas.isEmpty()){ //Si la lista esta vacia significa que no hay clientes registrados
-            throw new CuentasVaciasException("No hay cuentas registradas");
-        }
-
-        return cuentas;
     }
 
     public List<Long> getRelacionesDni(Long dni){
@@ -204,7 +100,10 @@ public class CuentaDao {
         return CvuRelacionados;
 
     }
-    public Cuenta parseStringToCuenta(String[] datos) {
+
+    //Funcion para parsear los datos leidos del archivo a un objeto tipo 'Cuenta'
+    @Override
+    public Cuenta parseDatosToObjet(String[] datos){
         Cuenta cuenta = new Cuenta();
         cuenta.setCVU(Long.parseLong(datos[0]));
         cuenta.setDniTitular(Long.parseLong(datos[1]));

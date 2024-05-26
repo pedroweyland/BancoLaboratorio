@@ -15,6 +15,7 @@ public class MostrarCliente extends BaseGestion {
         while (seguir) {
             long dni = pedirDni("Escriba el DNI del usuario que quiere ver: (0 para salir)");
 
+            clearScreen();
             if (dni == 0) break; //Si escribe 0 termina con el bucle
 
             //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro

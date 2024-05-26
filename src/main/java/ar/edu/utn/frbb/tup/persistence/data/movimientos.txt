@@ -1,7 +1,0 @@
-CVU Origen, fecha Operacion, hora Operacion, tipo operacion, monto
-831688,2024-05-25,17:05:10.655082500,Consulta,0.0
-831688,2024-05-25,17:05:41.933202400,Deposito,100.0
-831688,2024-05-25,17:10:14.862804700,Consulta,0.0
-831688,2024-05-25,17:10:18.064865800,Transferencia a la cuenta pomoro,100.0
-157761,2024-05-25,17:10:18.064865800,Deposito recibido de la cuenta peperino,100.0
-831688,2024-05-25,17:10:38.310467200,Consulta,0.0

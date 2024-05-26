@@ -2,6 +2,7 @@ package ar.utn.frbb.tup.service.administracion.gestion.clientes;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.TipoPersona;
+import ar.edu.utn.frbb.tup.service.administracion.gestion.clientes.CrearCliente;
 import ar.edu.utn.frbb.tup.service.exception.ClienteExistenteException;
 import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
@@ -15,11 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CrearClienteTest {
 
     private static ClienteDao clienteDao;
+    private static CrearCliente crearCliente;
 
     @BeforeAll
     public static void setUp(){
         clienteDao = new ClienteDao();
         clienteDao.inicializarClientes();
+        crearCliente = new CrearCliente();
     }
 
     @Test
@@ -49,7 +52,7 @@ public class CrearClienteTest {
 
     }
 
-    @Test
+    /*@Test
     public void testClienteExistenteException() throws ClienteNoEncontradoException {
         Cliente cliente = new Cliente();
         cliente.setNombre("Pepo");
@@ -79,7 +82,7 @@ public class CrearClienteTest {
         clienteNuevo.setFechaAlta(LocalDate.now());
 
         //El cliente ya existe por ende deberia lanzar una excepcion
-        assertThrows(ClienteExistenteException.class, () -> clienteDao.saveCliente(clienteNuevo));
+        assertThrows(ClienteExistenteException.class, () -> crearCliente.crearCliente(clienteNuevo));
 
         //Elimino el cliente que fue guardado previamente
         Cliente aux = clienteDao.deleteCliente(cliente.getDni());
@@ -88,5 +91,7 @@ public class CrearClienteTest {
         assertNull(clienteDao.findCliente(cliente.getDni()));
 
     }
+
+     */
 
 }

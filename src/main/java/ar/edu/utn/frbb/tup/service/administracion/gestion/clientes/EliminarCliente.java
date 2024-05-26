@@ -19,6 +19,8 @@ public class EliminarCliente extends BaseGestion {
         while (seguir) {
             long dni = pedirDni("Escriba el DNI al cliente que quiere eliminar: (0 para salir) ");
 
+            clearScreen();
+
             if (dni == 0) break; //Si escribe 0 termina con el bucle
 
             try {

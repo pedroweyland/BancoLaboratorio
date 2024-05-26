@@ -17,9 +17,9 @@ public class ModificarCliente extends BaseGestion {
         while (!salir) {
             long dni = pedirDni("Escriba el DNI para el cliente que quiere modificar: (0 para salir)");
 
-            if (dni == 0) break;
-
             clearScreen();
+
+            if (dni == 0) break;
 
             try {
                 //Elimino el cliente con el DNI ingresado, si no existe el cliente lanza una excepcion,

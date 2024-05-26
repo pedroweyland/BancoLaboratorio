@@ -8,74 +8,21 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovimientosDao {
+public class MovimientosDao extends BaseDao<Movimiento>{
     private final String RUTA_ARCHIVO = "src/main/java/ar/edu/utn/frbb/tup/persistence/data/movimientos.txt";
 
     public void inicializarMovimientos(){
-        PrintWriter writer = null;
-
-        try {
-            //Me fijo si el archivo existe
-            File archivo = new File(RUTA_ARCHIVO);
-
-            if (!archivo.exists()) {
-                //Si no existe, lo creo y guardo el Encabezado para saber el orden de los datos
-                FileWriter fileWriter = new FileWriter(RUTA_ARCHIVO, true);
-                writer = new PrintWriter(fileWriter);
-                writer.println("CVU Origen, fecha Operacion, hora Operacion, tipo operacion, monto");
-            }
-
-        } catch (IOException e) {
-            System.out.println("No se pudo abrir el archivo");
-        } finally {
-            if (writer != null) {
-                writer.close();
-            }
-        }
+        String encabezado = "CVU Origen, fecha Operacion, hora Operacion, tipo operacion, monto";
+        inicializarArchivo(encabezado, RUTA_ARCHIVO);
     }
 
-    public void saveMovimiento(Movimiento movimiento) {
-        try {
-            FileWriter archivo = new FileWriter(RUTA_ARCHIVO, true);
-            PrintWriter writer = new PrintWriter(archivo);
-
-            writer.println(movimiento.getCVU() + "," + movimiento.getFechaOperacion() + "," + movimiento.getHoraOperacion() + "," + movimiento.getTipoOperacion() + "," + movimiento.getMonto());
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void saveMovimiento(Movimiento movimiento){
+        String infoAguardar = movimiento.getCVU() + "," + movimiento.getFechaOperacion() + "," + movimiento.getHoraOperacion() + "," + movimiento.getTipoOperacion() + "," + movimiento.getMonto();
+        saveInfo(infoAguardar, RUTA_ARCHIVO);
     }
 
     public void deleteMovimiento(Long cvu){
-        try {
-            File file = new File(RUTA_ARCHIVO);
-
-            StringBuilder contenido = new StringBuilder(); //Creo el contenido para guardar todoo el archivo menos el Cuenta que quiero eliminar
-            FileReader fileReader = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fileReader);
-
-            //Primero agrego el encabezado al contenido,
-            String linea = reader.readLine();
-            contenido.append(linea).append("\n");
-
-            while ((linea = reader.readLine()) != null) { //Condicion para que lea el archivo hasta el final y lo guarde en la variable linea
-                String[] datos = linea.split(",");
-
-                if (Long.parseLong(datos[0]) != cvu){ //Voy agregando todas las lineas del Archivo excepto las lineas que tengo que eliminar con el CVU dado
-                    contenido.append(linea).append("\n"); //Agrego la linea al contenido
-                }
-            }
-
-            FileWriter fileWriter = new FileWriter(file);
-            PrintWriter writer = new PrintWriter(fileWriter);
-
-            //Escribo todoo el contenido excepto el movimiento que quiero eliminar
-            writer.write(contenido.toString());
-
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        deleteInfo(cvu, RUTA_ARCHIVO);
     }
 
     public List<Movimiento> findMovimientos(long CVU){
@@ -97,7 +44,7 @@ public class MovimientosDao {
 
                 if (Long.parseLong(datos[0]) == CVU){
                     //Guardo en una lista todos los movimientos del cvu ingresado
-                    movimientos.add(parseStringToMovimiento(datos));
+                    movimientos.add(parseDatosToObjet(datos));
                 }
 
             }
@@ -109,7 +56,9 @@ public class MovimientosDao {
         return movimientos;
     }
 
-    public Movimiento parseStringToMovimiento(String[] datos){
+    //Funcion para parsear los datos leidos del archivo a un objeto tipo 'Movimiento'
+    @Override
+    public Movimiento parseDatosToObjet(String[] datos){
         Movimiento movimiento = new Movimiento();
 
         movimiento.setCVU(Long.parseLong(datos[0]));
