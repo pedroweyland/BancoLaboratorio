@@ -16,13 +16,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CrearClienteTest {
 
     private static ClienteDao clienteDao;
-    private static CrearCliente crearCliente;
 
     @BeforeAll
     public static void setUp(){
         clienteDao = new ClienteDao();
         clienteDao.inicializarClientes();
-        crearCliente = new CrearCliente();
     }
 
     @Test
@@ -45,15 +43,15 @@ public class CrearClienteTest {
         assertNotNull(clienteDao.findCliente(cliente.getDni()));
 
         //Elimino el cliente que fue guardado previamente
-        Cliente aux = clienteDao.deleteCliente(cliente.getDni());
+        clienteDao.deleteCliente(cliente.getDni());
 
         //Testeo si el cliente se ha eliminado correctamente en mi archivo
         assertNull(clienteDao.findCliente(cliente.getDni()));
 
     }
 
-    /*@Test
-    public void testClienteExistenteException() throws ClienteNoEncontradoException {
+    @Test
+    public void testClienteExistenteException() throws ClienteNoEncontradoException{
         Cliente cliente = new Cliente();
         cliente.setNombre("Pepo");
         cliente.setApellido("Weyland");
@@ -81,17 +79,11 @@ public class CrearClienteTest {
         clienteNuevo.setTipoPersona(TipoPersona.PERSONA_FISICA);
         clienteNuevo.setFechaAlta(LocalDate.now());
 
-        //El cliente ya existe por ende deberia lanzar una excepcion
-        assertThrows(ClienteExistenteException.class, () -> crearCliente.crearCliente(clienteNuevo));
+        assertThrows(ClienteExistenteException.class, () -> clienteDao.saveCliente(clienteNuevo));
 
-        //Elimino el cliente que fue guardado previamente
-        Cliente aux = clienteDao.deleteCliente(cliente.getDni());
-
-        //Testeo si el cliente se ha eliminado correctamente en mi archivo
-        assertNull(clienteDao.findCliente(cliente.getDni()));
+        clienteDao.deleteCliente(cliente.getDni());
 
     }
 
-     */
 
 }

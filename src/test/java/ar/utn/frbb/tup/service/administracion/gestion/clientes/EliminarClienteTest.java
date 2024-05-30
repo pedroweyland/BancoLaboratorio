@@ -38,7 +38,8 @@ public class EliminarClienteTest {
         clienteDao.saveCliente(cliente);
 
         //Elimino mi cliente
-        Cliente aux = clienteDao.deleteCliente(cliente.getDni());
+        clienteDao.deleteCliente(cliente.getDni());
+
         //Testo si el cliente se elimino correctamente
         assertNull(clienteDao.findCliente(cliente.getDni()));
     }
