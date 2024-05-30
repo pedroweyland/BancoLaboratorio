@@ -16,17 +16,9 @@ public class CrearCliente extends BaseGestion {
         crearCliente(cliente);
     }
 
-
     public void crearCliente(Cliente cliente) {
 
         try {
-            //Primero busco si el cliente ya existia previamente, si existia lanzo una excepcion
-            Cliente existente = clienteDao.findCliente(cliente.getDni());
-
-            if (existente != null){
-                throw new ClienteExistenteException("El cliente ya existe");
-            }
-
             //Guardo el cliente ingresado, si ya existe se lanza la excepcion por ende no se guarda y el catch agarra la excepcion
             clienteDao.saveCliente(cliente);
             System.out.println("------- Cliente creado con exito -------");

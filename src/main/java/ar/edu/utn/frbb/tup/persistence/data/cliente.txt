@@ -1,2 +1,1 @@
 DNI, Nombre, Apellido, Direccion, Fecha nacimiento, Mail, Banco, Tipo Persona, Fecha alta
-45501926,Pepo,Weyland,Berutti,2004-01-21,weylandpedro@gmail.com,Macro,PERSONA_FISICA,2024-05-26

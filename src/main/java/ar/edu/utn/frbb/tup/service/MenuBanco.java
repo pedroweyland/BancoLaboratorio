@@ -4,7 +4,6 @@ import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.service.administracion.ClienteAdministracion;
-import ar.edu.utn.frbb.tup.model.Banco;
 import ar.edu.utn.frbb.tup.service.administracion.CuentaAdministracion;
 import ar.edu.utn.frbb.tup.presentation.input.BaseInput;
 import ar.edu.utn.frbb.tup.service.operaciones.Operaciones;
@@ -17,7 +16,7 @@ public class MenuBanco extends BaseInput {
     private boolean salir = false;
 
 
-    public void menuInicio(Banco banco){
+    public void menuInicio(){
         //Inicio del banco
 
         //Inicializo los archivos de cliente, cuentas, las relaciones que hay entre estas mismas y los movimientos
