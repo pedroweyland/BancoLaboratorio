@@ -3,12 +3,13 @@ package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 
-
+@Service
 public class EliminarCliente extends BaseGestion {
 
     //Eliminar cliente

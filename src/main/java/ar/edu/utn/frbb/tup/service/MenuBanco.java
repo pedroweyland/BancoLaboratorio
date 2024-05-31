@@ -3,30 +3,42 @@ package ar.edu.utn.frbb.tup.service;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
+import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
 import ar.edu.utn.frbb.tup.service.administracion.ClienteAdministracion;
 import ar.edu.utn.frbb.tup.service.administracion.CuentaAdministracion;
 import ar.edu.utn.frbb.tup.presentation.input.BaseInput;
 import ar.edu.utn.frbb.tup.service.operaciones.Operaciones;
+import org.springframework.stereotype.Component;
 
 import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuPrincipal;
 
-
+@Component
 public class MenuBanco extends BaseInput {
+
+    ClienteAdministracion cliente;
+    CuentaAdministracion cuenta;
+    Operaciones operaciones;
+    ClienteDao clienteDao;
+    CuentaDao cuentaDao;
+    MovimientosDao movimientosDao;
 
     private boolean salir = false;
 
+    public MenuBanco(ClienteAdministracion cliente, CuentaAdministracion cuenta, Operaciones operaciones, ClienteDao clienteDao, CuentaDao cuentaDao, MovimientosDao movimientosDao) {
+        this.cliente = cliente;
+        this.cuenta = cuenta;
+        this.operaciones = operaciones;
+        this.clienteDao = clienteDao;
+        this.cuentaDao = cuentaDao;
+        this.movimientosDao = movimientosDao;
+    }
 
     public void menuInicio(){
         //Inicio del banco
 
         //Inicializo los archivos de cliente, cuentas, las relaciones que hay entre estas mismas y los movimientos
-        ClienteDao clienteDao = new ClienteDao();
         clienteDao.inicializarClientes();
-
-        CuentaDao cuentaDao = new CuentaDao();
         cuentaDao.inicializarCuentas();
-
-        MovimientosDao movimientosDao = new MovimientosDao();
         movimientosDao.inicializarMovimientos();
 
         while(!salir){
@@ -34,15 +46,12 @@ public class MenuBanco extends BaseInput {
             int opcion = menuPrincipal();
             switch (opcion) {
                 case 1:
-                    ClienteAdministracion cliente = new ClienteAdministracion();
                     cliente.clienteAdministracion();
                     break;
                 case 2:
-                    CuentaAdministracion cuenta = new CuentaAdministracion();
                     cuenta.cuentaAdministracion();
                     break;
                 case 3:
-                    Operaciones operaciones = new Operaciones();
                     operaciones.operaciones();
                     break;
                 case 0:

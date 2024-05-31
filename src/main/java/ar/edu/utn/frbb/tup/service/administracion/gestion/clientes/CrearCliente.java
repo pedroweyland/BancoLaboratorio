@@ -4,12 +4,19 @@ import ar.edu.utn.frbb.tup.service.exception.ClienteExistenteException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CrearCliente extends BaseGestion {
-    ClienteInput clienteInput = new ClienteInput();
+    ClienteInput clienteInput;
+
+    public CrearCliente(ClienteInput clienteInput) {
+        this.clienteInput = clienteInput;
+    }
 
     // Creacion Cliente - la creacion del cliente y el guardado de este mismo
-    public void crearCliente(){
+
+        public void crearCliente(){
         //Usuario ingresa los datos y se guarda en la variable cliente
         Cliente cliente = clienteInput.ingresoCliente();
 

@@ -3,9 +3,12 @@ package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
+import org.springframework.stereotype.Service;
 
 import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 
+
+@Service
 public class MostrarCliente extends BaseGestion {
 
     // Mostrar un cliente en especifico

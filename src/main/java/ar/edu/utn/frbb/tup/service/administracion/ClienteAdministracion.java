@@ -2,11 +2,27 @@ package ar.edu.utn.frbb.tup.service.administracion;
 
 
 import ar.edu.utn.frbb.tup.service.administracion.gestion.clientes.*;
+import org.springframework.stereotype.Component;
 
 import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuCliente;
 
+@Component
 public class ClienteAdministracion {
+    CrearCliente crear;
+    ModificarCliente modificar;
+    EliminarCliente eliminar;
+    MostrarCliente mostrar;
+    MostrarTodosClientes mostrarTodos;
+
     private boolean salir = false;
+
+    public ClienteAdministracion(CrearCliente crear, ModificarCliente modificar, EliminarCliente eliminar, MostrarCliente mostrar, MostrarTodosClientes mostrarTodos) {
+        this.crear = crear;
+        this.modificar = modificar;
+        this.eliminar = eliminar;
+        this.mostrar = mostrar;
+        this.mostrarTodos = mostrarTodos;
+    }
 
     //Funcion que administra los clientes del banco
     public void clienteAdministracion() {
@@ -16,23 +32,18 @@ public class ClienteAdministracion {
 
             switch (opcion) {
                 case 1:
-                    CrearCliente crear = new CrearCliente();
                     crear.crearCliente();
                     break;
                 case 2:
-                    ModificarCliente mod = new ModificarCliente();
-                    mod.modificarCliente();
+                    modificar.modificarCliente();
                     break;
                 case 3:
-                    EliminarCliente eliminar = new EliminarCliente();
                     eliminar.eliminarCliente();
                     break;
                 case 4:
-                    MostrarCliente mostrar = new MostrarCliente();
                     mostrar.mostrarCliente();
                     break;
                 case 5:
-                    MostrarTodosClientes mostrarTodos = new MostrarTodosClientes();
                     mostrarTodos.mostrarTodosClientes();
                     break;
                 case 0:
@@ -41,7 +52,6 @@ public class ClienteAdministracion {
                     break;
             }
         }
-
     }
 }
 

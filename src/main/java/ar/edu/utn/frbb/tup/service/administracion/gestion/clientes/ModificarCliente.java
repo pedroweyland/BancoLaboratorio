@@ -5,11 +5,19 @@ import ar.edu.utn.frbb.tup.service.exception.ClienteExistenteException;
 import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
+import org.springframework.stereotype.Service;
 
 import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuModificacion;
 
+
+@Service
 public class ModificarCliente extends BaseGestion {
+    ClienteInput mod;
+
+    public ModificarCliente(ClienteInput mod) {
+        this.mod = mod;
+    }
 
     // Modificacion Cliente
     public void modificarCliente() {
@@ -30,9 +38,6 @@ public class ModificarCliente extends BaseGestion {
                 while (!salir) {
 
                     int opcion = menuModificacion();  //Usuario ingresa que quiere modificar
-
-                    //Creo intancia de cliente Input para que el usuario modifique lo que eligio
-                    ClienteInput mod = new ClienteInput();
 
                     //Switch para modifcar los datos del cliente
                     switch (opcion) {

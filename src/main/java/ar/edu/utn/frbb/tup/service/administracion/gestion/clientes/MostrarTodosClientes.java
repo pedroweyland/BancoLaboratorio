@@ -3,9 +3,12 @@ package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.service.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+@Service
 public class MostrarTodosClientes extends BaseGestion {
 
     // Mostrar todos los clientes
@@ -32,8 +35,5 @@ public class MostrarTodosClientes extends BaseGestion {
             scanner.nextLine();
             clearScreen();
         }
-
-
     }
-
 }
