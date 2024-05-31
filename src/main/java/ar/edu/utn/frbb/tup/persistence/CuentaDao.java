@@ -2,14 +2,15 @@ package ar.edu.utn.frbb.tup.persistence;
 
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
-import ar.edu.utn.frbb.tup.service.exception.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.service.exception.CuentasVaciasException;
+import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class CuentaDao extends BaseDao<Cuenta> {
     private final String RUTA_ARCHIVO = "src/main/java/ar/edu/utn/frbb/tup/persistence/data/cuentas.txt";
 

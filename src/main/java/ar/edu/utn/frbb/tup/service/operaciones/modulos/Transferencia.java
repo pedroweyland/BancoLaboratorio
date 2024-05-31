@@ -2,17 +2,29 @@ package ar.edu.utn.frbb.tup.service.operaciones.modulos;
 
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Movimiento;
+import ar.edu.utn.frbb.tup.persistence.CuentaDao;
+import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.service.exception.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.service.exception.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.service.exception.CuentaSinDineroException;
 import ar.edu.utn.frbb.tup.service.exception.MismaCuentaException;
 import ar.edu.utn.frbb.tup.service.operaciones.baseOperaciones;
+import org.springframework.stereotype.Service;
 
 import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.ingresarDinero;
 
+@Service
 public class Transferencia extends baseOperaciones {
+    CuentaDao cuentaDao;
+    MovimientosDao movimientosDao;
+
     private final String tipoOperacion = "Transferencia a la cuenta ";
     private final String tipoOperacionDestino = "Deposito recibido de la cuenta ";
+
+    public Transferencia(CuentaDao cuentaDao, MovimientosDao movimientosDao) {
+        this.cuentaDao = cuentaDao;
+        this.movimientosDao = movimientosDao;
+    }
 
     public void transferencia(Cuenta cuentaOrigen, Cuenta cuentaDestino){
 

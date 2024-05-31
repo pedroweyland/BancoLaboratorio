@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.persistence;
 
 import ar.edu.utn.frbb.tup.model.Movimiento;
+import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -8,6 +9,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class MovimientosDao extends BaseDao<Movimiento>{
     private final String RUTA_ARCHIVO = "src/main/java/ar/edu/utn/frbb/tup/persistence/data/movimientos.txt";
 

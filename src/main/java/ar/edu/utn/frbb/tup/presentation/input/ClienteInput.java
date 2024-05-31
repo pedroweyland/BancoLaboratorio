@@ -2,11 +2,13 @@ package ar.edu.utn.frbb.tup.presentation.input;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.TipoPersona;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 import static ar.edu.utn.frbb.tup.presentation.input.validator.Validaciones.*;
 
+@Component
 public class ClienteInput extends BaseInput {
 
     public Cliente ingresoCliente() {

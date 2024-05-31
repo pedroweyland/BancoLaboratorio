@@ -2,17 +2,12 @@ package ar.edu.utn.frbb.tup.service.administracion.gestion;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.persistence.ClienteDao;
-import ar.edu.utn.frbb.tup.persistence.CuentaDao;
-import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 
 import java.util.Scanner;
 
+
 public class BaseGestion {
     protected Scanner scanner = new Scanner(System.in);
-    protected ClienteDao clienteDao = new ClienteDao();
-    protected CuentaDao cuentaDao = new CuentaDao();
-    protected MovimientosDao movimientosDao = new MovimientosDao();
 
     protected static void clearScreen() {
         System.out.print("\033[H\033[2J");

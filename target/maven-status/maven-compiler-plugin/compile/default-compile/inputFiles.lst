@@ -1,5 +1,6 @@
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\input\validator\Validaciones.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\persistence\MovimientosDao.java
+C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\ApplicationConfig.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\EliminarCliente.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\persistence\CuentaDao.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\input\Menus.java
@@ -23,7 +24,6 @@ C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\ser
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\Cuenta.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\cuentas\CrearCuenta.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\gestion\clientes\MostrarTodosClientes.java
-C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\Banco.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\Persona.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\input\CuentaInput.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\MenuBanco.java

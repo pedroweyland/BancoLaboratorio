@@ -1,9 +1,12 @@
 package ar.edu.utn.frbb.tup.presentation.input;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Scanner;
 
 import static ar.edu.utn.frbb.tup.presentation.input.validator.Validaciones.esNumero;
 
+@Component
 public class Menus extends BaseInput {
 
     public static int menuPrincipal() {

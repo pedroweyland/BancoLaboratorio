@@ -2,15 +2,28 @@ package ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
+import ar.edu.utn.frbb.tup.persistence.ClienteDao;
+import ar.edu.utn.frbb.tup.persistence.CuentaDao;
+import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
+import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.presentation.input.CuentaInput;
 import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.service.exception.CuentaExistenteException;
+import org.springframework.stereotype.Service;
 
 import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 
+@Service
 public class CrearCuenta extends BaseGestion {
-    CuentaInput cuentaInput = new CuentaInput();
+    ClienteDao clienteDao;
+    CuentaDao cuentaDao;
+    CuentaInput cuentaInput;
+
+    public CrearCuenta(ClienteDao clienteDao, CuentaDao cuentaDao, CuentaInput cuentaInput) {
+        this.clienteDao = clienteDao;
+        this.cuentaDao = cuentaDao;
+        this.cuentaInput = cuentaInput;
+    }
 
     public void crearCuenta() {
 
@@ -53,29 +66,6 @@ public class CrearCuenta extends BaseGestion {
                 scanner.nextLine();
                 clearScreen();
             }
-            /*
-            if (cliente == null) { //Si cliente es == null significa que no se encontro
-                System.out.println("No se encontro ningun cliente con el dni dado");
-            } else {
-                //Usuario ingresa los datos y se guarda en la variable cliente
-                Cuenta cuenta = cuentaInput.creacionCuenta(dni);
-
-                //Agrego la cuenta al archivo y guardo la relacion que tiene con las cuentas
-                cuentaDao.saveCuenta(cuenta);
-
-                //Muestro en pantalla el resultado
-                System.out.println("----- Cuenta creada del cliente " + cliente.getNombre() + " -----");
-                System.out.println(toString(cuenta));
-                System.out.println("-------- Cuenta creada con exito --------");
-                System.out.println("----------------------------------------");
-
-                seguir = false;
-
-                System.out.println("Enter para seguir");
-                scanner.nextLine();
-                clearScreen();
-            }
-            */
         }
     }
 }

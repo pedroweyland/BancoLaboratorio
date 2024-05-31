@@ -2,15 +2,39 @@ package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
+import ar.edu.utn.frbb.tup.model.Movimiento;
+import ar.edu.utn.frbb.tup.persistence.ClienteDao;
+import ar.edu.utn.frbb.tup.persistence.CuentaDao;
+import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.service.exception.*;
 import ar.edu.utn.frbb.tup.service.operaciones.modulos.*;
+import org.springframework.stereotype.Component;
 
 
 import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirCvu;
 import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuOperaciones;
 
+@Component
 public class Operaciones extends baseOperaciones {
+
+    Deposito deposito;
+    Retiro retiro;
+    Transferencia transferencia;
+    Consulta consulta;
+    MostrarMovimientos movimientos;
+    ClienteDao clienteDao;
+    CuentaDao cuentaDao;
+
+    public Operaciones(Deposito deposito, Retiro retiro, Transferencia transferencia, Consulta consulta, MostrarMovimientos movimientos, ClienteDao clienteDao, CuentaDao cuentaDao) {
+        this.deposito = deposito;
+        this.retiro = retiro;
+        this.transferencia = transferencia;
+        this.consulta = consulta;
+        this.movimientos = movimientos;
+        this.clienteDao = clienteDao;
+        this.cuentaDao = cuentaDao;
+    }
 
     public void operaciones () {
         boolean seguir = true;
@@ -31,29 +55,24 @@ public class Operaciones extends baseOperaciones {
                     switch (opcion) {
                         case 1:
                             //Deposito
-                            Deposito d = new Deposito();
-                            d.deposito(cuenta);
+                            deposito.deposito(cuenta);
                             break;
                         case 2:
                             //Retirar dinero
-                            Retiro r = new Retiro();
-                            r.retiro(cuenta);
+                            retiro.retiro(cuenta);
                             break;
                         case 3:
                             //Transferencia
                             //Usuario ingresa a quien quiere transferir, vuelve una excepcion si la cuenta no fue encontrada
                             Cuenta cuentaDestino = cuentaATransferir();
 
-                            Transferencia t = new Transferencia();
-                            t.transferencia(cuenta, cuentaDestino);
+                            transferencia.transferencia(cuenta, cuentaDestino);
                             break;
                         case 4:
-                            Consulta c = new Consulta();
-                            c.consulta(cuenta);
+                            consulta.consulta(cuenta);
                             break;
                         case 5:
-                            MostrarMovimientos m = new MostrarMovimientos();
-                            m.mostrarMovimientos(cuenta);
+                            movimientos.mostrarMovimientos(cuenta);
                             break;
                         case 0:
                             seguir = false;

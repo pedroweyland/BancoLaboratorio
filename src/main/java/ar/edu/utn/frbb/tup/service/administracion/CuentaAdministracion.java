@@ -5,16 +5,32 @@ import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas.*;
 import ar.edu.utn.frbb.tup.service.exception.CuentasVaciasException;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuCuenta;
 
+@Component
 public class CuentaAdministracion {
-    private boolean salir = false;
-    ClienteDao clienteDao = new ClienteDao();
-    CuentaDao cuentaDao = new CuentaDao();
+    CrearCuenta crear;
+    DarAltaBaja altaBaja;
+    EliminarCuenta eliminar;
+    MostrarCuenta mostrar;
+    ClienteDao clienteDao;
+    CuentaDao cuentaDao;
     Scanner scanner = new Scanner(System.in);
+
+    private boolean salir = false;
+
+    public CuentaAdministracion(CrearCuenta crear, DarAltaBaja altaBaja, EliminarCuenta eliminar, MostrarCuenta mostrar, ClienteDao clienteDao, CuentaDao cuentaDao) {
+        this.crear = crear;
+        this.altaBaja = altaBaja;
+        this.eliminar = eliminar;
+        this.mostrar = mostrar;
+        this.clienteDao = clienteDao;
+        this.cuentaDao = cuentaDao;
+    }
 
     //Funcion que administra las cuentas de los clientes
     public void cuentaAdministracion() {
@@ -33,19 +49,15 @@ public class CuentaAdministracion {
 
                 switch (opcion) {
                     case 1:
-                        CrearCuenta crear = new CrearCuenta();
                         crear.crearCuenta();
                         break;
                     case 2:
-                        EliminarCuenta eliminar = new EliminarCuenta();
                         eliminar.eliminarCuenta();
                         break;
                     case 3:
-                        MostrarCuenta mostrar = new MostrarCuenta();
                         mostrar.mostrarCuenta();
                         break;
                     case 4:
-                        DarAltaBaja altaBaja = new DarAltaBaja();
                         altaBaja.gestionarEstado();
                         break;
                     case 0:

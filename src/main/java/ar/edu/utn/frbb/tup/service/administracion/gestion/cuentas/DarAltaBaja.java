@@ -1,17 +1,27 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas;
 
+import ar.edu.utn.frbb.tup.persistence.ClienteDao;
+import ar.edu.utn.frbb.tup.persistence.CuentaDao;
+import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
+import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.service.exception.CuentaExistenteException;
 import ar.edu.utn.frbb.tup.service.exception.CuentaNoEncontradaException;
-import com.sun.tools.attach.AttachNotSupportedException;
+import org.springframework.stereotype.Service;
 
 import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.*;
 
+@Service
 public class DarAltaBaja extends BaseGestion {
+    ClienteDao clienteDao;
+    CuentaDao cuentaDao;
 
+    public DarAltaBaja(ClienteDao clienteDao, CuentaDao cuentaDao) {
+        this.clienteDao = clienteDao;
+        this.cuentaDao = cuentaDao;
+    }
 
     public void gestionarEstado () {
         boolean seguir = true;

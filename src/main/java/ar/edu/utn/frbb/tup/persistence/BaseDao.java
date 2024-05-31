@@ -1,7 +1,5 @@
 package ar.edu.utn.frbb.tup.persistence;
 
-import ar.edu.utn.frbb.tup.model.Cliente;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

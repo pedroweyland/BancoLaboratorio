@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
+import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.service.exception.ClienteExistenteException;
 import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
@@ -14,8 +15,11 @@ import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuModificacion;
 @Service
 public class ModificarCliente extends BaseGestion {
     ClienteInput mod;
+    ClienteDao clienteDao;
 
-    public ModificarCliente(ClienteInput mod) {
+
+    public ModificarCliente(ClienteDao clienteDao, ClienteInput mod) {
+        this.clienteDao = clienteDao;
         this.mod = mod;
     }
 

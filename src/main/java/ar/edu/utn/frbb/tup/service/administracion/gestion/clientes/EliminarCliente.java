@@ -1,6 +1,10 @@
 package ar.edu.utn.frbb.tup.service.administracion.gestion.clientes;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
+import ar.edu.utn.frbb.tup.model.Cuenta;
+import ar.edu.utn.frbb.tup.persistence.ClienteDao;
+import ar.edu.utn.frbb.tup.persistence.CuentaDao;
+import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import org.springframework.stereotype.Service;
@@ -11,6 +15,16 @@ import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 
 @Service
 public class EliminarCliente extends BaseGestion {
+
+    ClienteDao clienteDao;
+    CuentaDao cuentaDao;
+    MovimientosDao movimientosDao;
+
+    public EliminarCliente(ClienteDao clienteDao, CuentaDao cuentaDao, MovimientosDao movimientosDao) {
+        this.clienteDao = clienteDao;
+        this.cuentaDao = cuentaDao;
+        this.movimientosDao = movimientosDao;
+    }
 
     //Eliminar cliente
     public void eliminarCliente() {

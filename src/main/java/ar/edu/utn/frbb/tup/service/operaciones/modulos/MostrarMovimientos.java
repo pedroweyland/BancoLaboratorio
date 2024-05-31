@@ -2,11 +2,20 @@ package ar.edu.utn.frbb.tup.service.operaciones.modulos;
 
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Movimiento;
+import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.service.operaciones.baseOperaciones;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MostrarMovimientos extends baseOperaciones {
+    MovimientosDao movimientosDao;
+
+    public MostrarMovimientos(MovimientosDao movimientosDao) {
+        this.movimientosDao = movimientosDao;
+    }
 
     public void mostrarMovimientos(Cuenta cuenta){
         List<Movimiento> movimientos = movimientosDao.findMovimientos(cuenta.getCVU());

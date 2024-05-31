@@ -4,6 +4,7 @@ import ar.edu.utn.frbb.tup.service.MenuBanco;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+
 public class App
 {
     public static void main(String[] args)
@@ -15,9 +16,6 @@ public class App
 
         processor.menuInicio();
 
-        //MenuBanco menuBanco = new MenuBanco();
-
-        //enuBanco.menuInicio();
     }
 
 }

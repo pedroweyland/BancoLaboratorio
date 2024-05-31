@@ -2,15 +2,26 @@ package ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
+import ar.edu.utn.frbb.tup.persistence.ClienteDao;
+import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
 import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.service.exception.CuentasVaciasException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
 
+@Service
 public class MostrarCuenta extends BaseGestion {
+    ClienteDao clienteDao;
+    CuentaDao cuentaDao;
+
+    public MostrarCuenta(ClienteDao clienteDao, CuentaDao cuentaDao) {
+        this.clienteDao = clienteDao;
+        this.cuentaDao = cuentaDao;
+    }
 
     public void mostrarCuenta() {
 
