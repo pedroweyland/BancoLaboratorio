@@ -1,11 +1,14 @@
-package ar.edu.utn.frbb.tup.presentation.input;
+package ar.edu.utn.frbb.tup.presentation;
+
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 import static ar.edu.utn.frbb.tup.presentation.input.validator.Validaciones.esDouble;
 import static ar.edu.utn.frbb.tup.presentation.input.validator.Validaciones.esNumeroLong;
 
-public class BaseInput {
+@Component
+public class BasePresentation {
 
     protected Scanner scanner = new Scanner(System.in);
 

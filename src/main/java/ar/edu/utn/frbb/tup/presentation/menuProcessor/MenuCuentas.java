@@ -1,48 +1,50 @@
-package ar.edu.utn.frbb.tup.service.administracion;
+package ar.edu.utn.frbb.tup.presentation.menuProcessor;
 
-import ar.edu.utn.frbb.tup.service.exception.ClientesVaciosException;
-import ar.edu.utn.frbb.tup.persistence.ClienteDao;
-import ar.edu.utn.frbb.tup.persistence.CuentaDao;
-import ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas.*;
-import ar.edu.utn.frbb.tup.service.exception.CuentasVaciasException;
+import ar.edu.utn.frbb.tup.presentation.BasePresentation;
+import ar.edu.utn.frbb.tup.service.handler.ClienteService;
+import ar.edu.utn.frbb.tup.service.handler.CuentaService;
+import ar.edu.utn.frbb.tup.service.administracion.cuentas.CrearCuenta;
+import ar.edu.utn.frbb.tup.service.administracion.cuentas.DarAltaBaja;
+import ar.edu.utn.frbb.tup.service.administracion.cuentas.EliminarCuenta;
+import ar.edu.utn.frbb.tup.service.administracion.cuentas.MostrarCuenta;
+import ar.edu.utn.frbb.tup.exception.ClientesVaciosException;
+import ar.edu.utn.frbb.tup.exception.CuentasVaciasException;
 import org.springframework.stereotype.Component;
 
-import java.util.Scanner;
-
-import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuCuenta;
+import static ar.edu.utn.frbb.tup.presentation.menuProcessor.Menus.menuCuenta;
 
 @Component
-public class CuentaAdministracion {
+public class MenuCuentas extends BasePresentation {
     CrearCuenta crear;
-    DarAltaBaja altaBaja;
     EliminarCuenta eliminar;
     MostrarCuenta mostrar;
-    ClienteDao clienteDao;
-    CuentaDao cuentaDao;
-    Scanner scanner = new Scanner(System.in);
+    DarAltaBaja altaBaja;
+    ClienteService clienteService;
+    CuentaService cuentaService;
 
-    public CuentaAdministracion(CrearCuenta crear, DarAltaBaja altaBaja, EliminarCuenta eliminar, MostrarCuenta mostrar, ClienteDao clienteDao, CuentaDao cuentaDao) {
+    public MenuCuentas(CrearCuenta crear, EliminarCuenta eliminar, MostrarCuenta mostrar, DarAltaBaja darAltaBaja, ClienteService clienteService, CuentaService cuentaService) {
         this.crear = crear;
-        this.altaBaja = altaBaja;
         this.eliminar = eliminar;
         this.mostrar = mostrar;
-        this.clienteDao = clienteDao;
-        this.cuentaDao = cuentaDao;
+        this.altaBaja = darAltaBaja;
+        this.clienteService = clienteService;
+        this.cuentaService = cuentaService;
+
     }
 
     //Funcion que administra las cuentas de los clientes
-    public void cuentaAdministracion() {
+    public void menuCuentas() {
         boolean salir = false;
         try {
             //Leo toda la lista de clientes, si no hay clientes lanza una excepcion ya que no se puede crear cuentas sin clientes
-            clienteDao.findAllClientes();
+            clienteService.findAllClientes();
 
             while (!salir) {
                 int opcion = menuCuenta();
 
                 if (opcion != 1 && opcion != 0) {
-                    //Leo toda la lista de cuentas, si no hay cuentas lanza una excepcion, no lanza exepcion cuando el usuario pone 0 ya que la va a crear
-                    cuentaDao.findAllCuentas();
+                    //Leo toda la lista de cuentas, si no hay cuentas lanza una excepcion, no lanza exepcion cuando el usuario pone 1 ya que la va a crear o 0 ya que va a salir
+                    cuentaService.findAllCuentas();
                 }
 
                 switch (opcion) {
@@ -72,5 +74,4 @@ public class CuentaAdministracion {
             scanner.nextLine();
         }
     }
-
 }

@@ -1,21 +1,23 @@
-package ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas;
+package ar.edu.utn.frbb.tup.service.administracion.cuentas;
 
+import ar.edu.utn.frbb.tup.exception.CuentasVaciasException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
-import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
-import ar.edu.utn.frbb.tup.service.administracion.gestion.clientes.EliminarCliente;
-import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.service.exception.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracion;
+import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
 import org.springframework.stereotype.Service;
 
-import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirCvu;
-import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
+import java.util.List;
+
+import static ar.edu.utn.frbb.tup.presentation.BasePresentation.pedirCvu;
+import static ar.edu.utn.frbb.tup.presentation.BasePresentation.pedirDni;
 
 @Service
-public class EliminarCuenta extends BaseGestion {
+public class EliminarCuenta extends BaseAdministracion {
     ClienteDao clienteDao;
     CuentaDao cuentaDao;
     MovimientosDao movimientosDao;
@@ -42,6 +44,12 @@ public class EliminarCuenta extends BaseGestion {
                     //Lanzo excepcion si el cliente no fue encontrado
                     throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
                 }
+
+                List<Long> cuentasCvu = cuentaDao.getRelacionesDni(dni); //Valido si el DNI tiene cuentas asociadas
+                if (cuentasCvu.isEmpty()) {
+                    throw new CuentasVaciasException("No hay cuentas asociadas al cliente con DNI: " + dni);
+                }
+
                 //Pido CVU de la cuenta que quiere eliminar
                 long cvu = pedirCvu("Escriba el CVU de la cuenta que quiere eliminar: (0 para salir) ");
                 clearScreen();
@@ -63,9 +71,8 @@ public class EliminarCuenta extends BaseGestion {
                 System.out.println("------------ Cuenta eliminada -----------");
                 System.out.println(toString(cuenta));
 
-                break;
 
-            } catch (ClienteNoEncontradoException | CuentaNoEncontradaException e) {
+            } catch (ClienteNoEncontradoException | CuentaNoEncontradaException | CuentasVaciasException e) {
                 System.out.println("----------------------------------------");
                 System.out.println(e.getMessage());
                 System.out.println("----------------------------------------");

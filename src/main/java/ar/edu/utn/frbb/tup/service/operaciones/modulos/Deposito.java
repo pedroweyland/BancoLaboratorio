@@ -7,19 +7,19 @@ import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.service.operaciones.baseOperaciones;
 import org.springframework.stereotype.Service;
 
-import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.ingresarDinero;
+import static ar.edu.utn.frbb.tup.presentation.BasePresentation.ingresarDinero;
 
 @Service
 public class Deposito extends baseOperaciones {
     CuentaDao cuentaDao;
     MovimientosDao movimientosDao;
 
+    private final String tipoOperacion = "Deposito";
+
     public Deposito(CuentaDao cuentaDao, MovimientosDao movimientosDao) {
         this.cuentaDao = cuentaDao;
         this.movimientosDao = movimientosDao;
     }
-
-    private final String tipoOperacion = "Deposito";
 
     public void deposito(Cuenta cuenta){
 

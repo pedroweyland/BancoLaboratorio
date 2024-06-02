@@ -1,6 +1,6 @@
 package ar.edu.utn.frbb.tup;
 
-import ar.edu.utn.frbb.tup.service.MenuBanco;
+import ar.edu.utn.frbb.tup.presentation.menuProcessor.MenuBanco;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -11,11 +11,9 @@ public class App
     {
         ConfigurableApplicationContext applicationContext = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 
-
         MenuBanco processor = applicationContext.getBean(MenuBanco.class);
 
         processor.menuInicio();
 
     }
-
 }

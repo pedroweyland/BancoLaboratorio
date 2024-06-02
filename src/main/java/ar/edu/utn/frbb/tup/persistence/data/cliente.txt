@@ -1,4 +1,0 @@
-DNI, Nombre, Apellido, Direccion, Fecha nacimiento, Mail, Banco, Tipo Persona, Fecha alta
-12345,apoyo,respeto,berutti,2002-02-02,a,a,PERSONA_FISICA,2020-02-02
-123,Pepo,Weyland,berutti,2002-02-02,a,a,PERSONA_FISICA,2020-02-02
-123456,carlototeve,a,a,2002-02-02,a,a,PERSONA_FISICA,2020-02-02

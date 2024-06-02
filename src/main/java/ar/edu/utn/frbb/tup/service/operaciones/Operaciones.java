@@ -1,19 +1,17 @@
 package ar.edu.utn.frbb.tup.service.operaciones;
 
+import ar.edu.utn.frbb.tup.exception.*;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
-import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
-import ar.edu.utn.frbb.tup.service.exception.*;
 import ar.edu.utn.frbb.tup.service.operaciones.modulos.*;
 import org.springframework.stereotype.Component;
 
 
-import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirCvu;
-import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.pedirDni;
-import static ar.edu.utn.frbb.tup.presentation.input.Menus.menuOperaciones;
+import static ar.edu.utn.frbb.tup.presentation.BasePresentation.pedirCvu;
+import static ar.edu.utn.frbb.tup.presentation.BasePresentation.pedirDni;
+import static ar.edu.utn.frbb.tup.presentation.menuProcessor.Menus.menuOperaciones;
 
 @Component
 public class Operaciones extends baseOperaciones {
@@ -34,60 +32,6 @@ public class Operaciones extends baseOperaciones {
         this.movimientos = movimientos;
         this.clienteDao = clienteDao;
         this.cuentaDao = cuentaDao;
-    }
-
-    public void operaciones () {
-        boolean seguir = true;
-
-        try {
-            clienteDao.findAllClientes(); //Si hay clientes entonces se puede operar, si no hay vuelve excepcion
-            cuentaDao.findAllCuentas(); //Si hay cuentas entonces se puede operar, si no hay vuelve excepcion
-
-            Cuenta cuenta = cuentaOperar();
-
-            if (cuenta == null) { // Si cuenta es null, significa que el usuario decidio irse
-                System.out.println("Saliendo...");
-            } else {
-                while (seguir) {
-
-                    int opcion = menuOperaciones();
-
-                    switch (opcion) {
-                        case 1:
-                            //Deposito
-                            deposito.deposito(cuenta);
-                            break;
-                        case 2:
-                            //Retirar dinero
-                            retiro.retiro(cuenta);
-                            break;
-                        case 3:
-                            //Transferencia
-                            //Usuario ingresa a quien quiere transferir, vuelve una excepcion si la cuenta no fue encontrada
-                            Cuenta cuentaDestino = cuentaATransferir();
-
-                            transferencia.transferencia(cuenta, cuentaDestino);
-                            break;
-                        case 4:
-                            consulta.consulta(cuenta);
-                            break;
-                        case 5:
-                            movimientos.mostrarMovimientos(cuenta);
-                            break;
-                        case 0:
-                            seguir = false;
-                            break;
-                        }
-                    }
-                }
-        } catch (ClientesVaciosException | CuentasVaciasException | CuentaNoEncontradaException | ClienteNoEncontradoException | CuentaEstaDeBajaException ex){
-            System.out.println("----------------------------------------");
-            System.out.println(ex.getMessage());
-            System.out.println("----------------------------------------");
-            System.out.println("Enter para seguir");
-            scanner.nextLine();
-            clearScreen();
-        }
     }
 
     //Funcion para que el usaurio encuentre la cuenta que desea operar, y retorna la cuenta o null si no la encuentra

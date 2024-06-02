@@ -1,13 +1,14 @@
-package ar.edu.utn.frbb.tup.presentation.input;
+package ar.edu.utn.frbb.tup.presentation.menuProcessor;
 
+import ar.edu.utn.frbb.tup.presentation.BasePresentation;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-import static ar.edu.utn.frbb.tup.presentation.input.validator.Validaciones.esNumero;
+
 
 @Component
-public class Menus extends BaseInput {
+public class Menus extends BasePresentation {
     private static Scanner scanner = new Scanner(System.in);
 
     public static int menuPrincipal() {
@@ -21,15 +22,11 @@ public class Menus extends BaseInput {
         System.out.println("---------------------------------------");
         System.out.print(" Ingrese su opcion (0-3): ");
 
-        String opcion = scanner.nextLine();
-        while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 4) {
-            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0 y 3.");
-            opcion = scanner.nextLine();
-        }
+        int opcion = obtenerOpcionValida(3); //Pido una opcion valida, que este entre 0 y 3
 
         clearScreen();
 
-        return Integer.parseInt(opcion);
+        return opcion;
     }
 
     public static int menuCliente() {
@@ -45,15 +42,11 @@ public class Menus extends BaseInput {
         System.out.println("---------------------------------------");
         System.out.print(" Ingrese su Opcion (0-5): ");
 
-        String opcion = scanner.nextLine();
-        while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 6) {
-            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0 y 5.");
-            opcion = scanner.nextLine();
-        }
+        int opcion = obtenerOpcionValida(5); //Pido una opcion valida, que este entre 0 y 5
 
         clearScreen();
 
-        return Integer.parseInt(opcion);
+        return opcion;
     }
 
     public static int menuCuenta() {
@@ -66,16 +59,12 @@ public class Menus extends BaseInput {
         System.out.println("| 0. Salir                            |");
         System.out.println("---------------------------------------");
         System.out.print(" Ingrese su Opcion (0-4): ");
-        String opcion = scanner.nextLine();
 
-        while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 5) { // Valido si es numero y si esta entre 0 y 4
-            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0-4.");
-            opcion = scanner.nextLine();
-        }
+        int opcion = obtenerOpcionValida(4); //Pido una opcion valida, que este entre 0 y 4
 
         clearScreen();
 
-        return Integer.parseInt(opcion);
+        return opcion;
     }
 
     public static int menuOperaciones() {
@@ -90,14 +79,12 @@ public class Menus extends BaseInput {
         System.out.println("| 0. Salir                             |");
         System.out.println("---------------------------------------");
         System.out.print(" Ingrese su Opcion (0-5): ");
-        String opcion = scanner.nextLine();
 
-        while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 6) { // Valido si es numero y si esta entre 0 y 5
-            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0-5.");
-            opcion = scanner.nextLine();
-        }
+        int opcion = obtenerOpcionValida(5); //Pido una opcion valida, que este entre 0 y 5
+
         clearScreen();
-        return Integer.parseInt(opcion);
+
+        return opcion;
     }
 
     public static int menuModificacion(){
@@ -113,16 +100,27 @@ public class Menus extends BaseInput {
         System.out.println("-------------------------------------------");
         System.out.print(" Ingrese su Opcion (0-6): ");
 
-        String opcion = scanner.nextLine();
-        while (!esNumero(opcion) || Integer.parseInt(opcion) < 0 || Integer.parseInt(opcion) >= 7) {
-            System.out.println("Opcion invalida. Por favor seleccione un numero entre 0 y 6.");
-            opcion = scanner.nextLine();
-        }
+        int opcion = obtenerOpcionValida(6); //Pido una opcion valida, que este entre 0 y 6
 
         clearScreen();
 
-        return Integer.parseInt(opcion);
-
+        return opcion;
     }
 
+    private static int obtenerOpcionValida(int max) {
+        int opcion;
+        while (true) {
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+                if (opcion >= 0 && opcion <= max) {
+                    break;
+                } else {
+                    System.out.println("Opcion invalida. Por favor seleccione un numero entre " + 0 + "-" + max);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Opcion invalida. Por favor seleccione un numero entre " + 0 + "-" + max);
+            }
+        }
+        return opcion;
+    }
 }

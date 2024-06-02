@@ -1,20 +1,18 @@
-package ar.edu.utn.frbb.tup.service.administracion.gestion.cuentas;
+package ar.edu.utn.frbb.tup.service.administracion.cuentas;
 
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
-import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
-import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
-import ar.edu.utn.frbb.tup.service.administracion.gestion.BaseGestion;
+import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracion;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.service.exception.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
 import org.springframework.stereotype.Service;
 
-import static ar.edu.utn.frbb.tup.presentation.input.BaseInput.*;
+import static ar.edu.utn.frbb.tup.presentation.BasePresentation.*;
 
 @Service
-public class DarAltaBaja extends BaseGestion {
+public class DarAltaBaja extends BaseAdministracion {
     ClienteDao clienteDao;
     CuentaDao cuentaDao;
 

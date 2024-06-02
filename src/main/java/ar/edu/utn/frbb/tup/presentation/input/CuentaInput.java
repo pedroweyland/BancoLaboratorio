@@ -2,6 +2,7 @@ package ar.edu.utn.frbb.tup.presentation.input;
 
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
+import ar.edu.utn.frbb.tup.presentation.BasePresentation;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import java.util.Random;
 
 
 @Component
-public class CuentaInput extends BaseInput {
+public class CuentaInput extends BasePresentation {
 
     public Cuenta creacionCuenta(long dniTitular){
         Random r = new Random();

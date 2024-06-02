@@ -2,7 +2,8 @@ package ar.edu.utn.frbb.tup.presentation.input;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.TipoPersona;
-import ar.edu.utn.frbb.tup.service.administracion.gestion.clientes.CrearCliente;
+import ar.edu.utn.frbb.tup.presentation.BasePresentation;
+import ar.edu.utn.frbb.tup.service.administracion.clientes.CrearCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +12,12 @@ import java.time.LocalDate;
 import static ar.edu.utn.frbb.tup.presentation.input.validator.Validaciones.*;
 
 @Component
-public class ClienteInput extends BaseInput {
+public class ClienteInput extends BasePresentation {
 
-    //@Autowired
-    //CrearCliente crearCliente;
+    @Autowired
+    CrearCliente crearCliente;
 
-    public Cliente ingresoCliente() {
+    public void ingresoCliente() {
 
         Cliente cliente = new Cliente();
         clearScreen();
@@ -36,8 +37,8 @@ public class ClienteInput extends BaseInput {
 
         clearScreen();
 
-        //crearCliente.crearCliente(cliente);
-        return cliente;
+        crearCliente.crearCliente(cliente);
+
     }
 
     public String ingresarNombre() {

@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 public class Consulta extends baseOperaciones {
     MovimientosDao movimientosDao;
 
+    private final String tipoOperacion = "Consulta";
+
     public Consulta(MovimientosDao movimientosDao) {
         this.movimientosDao = movimientosDao;
     }
-
-    private final String tipoOperacion = "Consulta";
 
     public void consulta(Cuenta cuenta){
 

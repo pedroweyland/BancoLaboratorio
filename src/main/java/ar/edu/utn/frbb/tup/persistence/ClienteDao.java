@@ -2,9 +2,9 @@ package ar.edu.utn.frbb.tup.persistence;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.TipoPersona;
-import ar.edu.utn.frbb.tup.service.exception.ClienteExistenteException;
-import ar.edu.utn.frbb.tup.service.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.service.exception.ClientesVaciosException;
+import ar.edu.utn.frbb.tup.exception.ClienteExistenteException;
+import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.exception.ClientesVaciosException;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
