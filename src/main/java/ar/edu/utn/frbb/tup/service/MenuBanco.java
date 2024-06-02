@@ -44,6 +44,7 @@ public class MenuBanco extends BaseInput {
         while(!salir){
             //Usuario decide
             int opcion = menuPrincipal();
+
             switch (opcion) {
                 case 1:
                     cliente.clienteAdministracion();

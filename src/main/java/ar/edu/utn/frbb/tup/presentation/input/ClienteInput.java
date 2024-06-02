@@ -2,6 +2,8 @@ package ar.edu.utn.frbb.tup.presentation.input;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.TipoPersona;
+import ar.edu.utn.frbb.tup.service.administracion.gestion.clientes.CrearCliente;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -10,6 +12,9 @@ import static ar.edu.utn.frbb.tup.presentation.input.validator.Validaciones.*;
 
 @Component
 public class ClienteInput extends BaseInput {
+
+    //@Autowired
+    //CrearCliente crearCliente;
 
     public Cliente ingresoCliente() {
 
@@ -30,6 +35,8 @@ public class ClienteInput extends BaseInput {
         cliente.setFechaAlta(ingresarFechaAlta(fechaNacimiento));
 
         clearScreen();
+
+        //crearCliente.crearCliente(cliente);
         return cliente;
     }
 

@@ -17,13 +17,15 @@ public class CrearCliente extends BaseGestion {
         this.clienteInput = clienteInput;
     }
 
-    // Creacion Cliente - la creacion del cliente y el guardado de este mismo
+    //Creacion Cliente - la creacion del cliente y el guardado de este mismo
     public void crearCliente(){
         //Usuario ingresa los datos y se guarda en la variable cliente
         Cliente cliente = clienteInput.ingresoCliente();
 
         crearCliente(cliente);
     }
+
+
 
     public void crearCliente(Cliente cliente) {
 

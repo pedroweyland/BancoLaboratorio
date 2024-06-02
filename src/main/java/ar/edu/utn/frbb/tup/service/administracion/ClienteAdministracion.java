@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.service.administracion;
 
 
+import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
 import ar.edu.utn.frbb.tup.service.administracion.gestion.clientes.*;
 import org.springframework.stereotype.Component;
 
@@ -13,19 +14,21 @@ public class ClienteAdministracion {
     EliminarCliente eliminar;
     MostrarCliente mostrar;
     MostrarTodosClientes mostrarTodos;
+    ClienteInput clienteInput;
 
-    private boolean salir = false;
 
-    public ClienteAdministracion(CrearCliente crear, ModificarCliente modificar, EliminarCliente eliminar, MostrarCliente mostrar, MostrarTodosClientes mostrarTodos) {
+    public ClienteAdministracion(CrearCliente crear, ModificarCliente modificar, EliminarCliente eliminar, MostrarCliente mostrar, MostrarTodosClientes mostrarTodos, ClienteInput clienteInput) {
         this.crear = crear;
         this.modificar = modificar;
         this.eliminar = eliminar;
         this.mostrar = mostrar;
         this.mostrarTodos = mostrarTodos;
+        this.clienteInput = clienteInput;
     }
 
     //Funcion que administra los clientes del banco
     public void clienteAdministracion() {
+        boolean salir = false;
 
         while (!salir) {
             int opcion = menuCliente();
@@ -54,5 +57,3 @@ public class ClienteAdministracion {
         }
     }
 }
-
-

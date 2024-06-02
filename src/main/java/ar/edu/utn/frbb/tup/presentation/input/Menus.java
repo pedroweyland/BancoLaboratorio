@@ -8,10 +8,9 @@ import static ar.edu.utn.frbb.tup.presentation.input.validator.Validaciones.esNu
 
 @Component
 public class Menus extends BaseInput {
+    private static Scanner scanner = new Scanner(System.in);
 
     public static int menuPrincipal() {
-        Scanner scanner = new Scanner(System.in);
-        clearScreen();
 
         System.out.println("---------------------------------------");
         System.out.println("| Bienveido a la aplicacion de Banco! |");
@@ -32,8 +31,8 @@ public class Menus extends BaseInput {
 
         return Integer.parseInt(opcion);
     }
+
     public static int menuCliente() {
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("---------------------------------------");
         System.out.println("|    Bienveido al menu de Cliente!    |");
@@ -58,7 +57,6 @@ public class Menus extends BaseInput {
     }
 
     public static int menuCuenta() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("---------------------------------------");
         System.out.println("|    Bienveido al menu de Cuenta!     |");
         System.out.println("| 1. Crear una nueva Cuenta           |");
@@ -81,7 +79,7 @@ public class Menus extends BaseInput {
     }
 
     public static int menuOperaciones() {
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("---------------------------------------");
         System.out.println("|    Bienveido al menu de Operaciones! |");
         System.out.println("| 1. Depositar                         |");
@@ -103,7 +101,6 @@ public class Menus extends BaseInput {
     }
 
     public static int menuModificacion(){
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("---------- Modifique su cliente ----------");
         System.out.println("| 1. Nombre                               |");

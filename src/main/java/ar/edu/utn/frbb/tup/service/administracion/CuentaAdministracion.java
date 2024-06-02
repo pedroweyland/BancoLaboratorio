@@ -21,8 +21,6 @@ public class CuentaAdministracion {
     CuentaDao cuentaDao;
     Scanner scanner = new Scanner(System.in);
 
-    private boolean salir = false;
-
     public CuentaAdministracion(CrearCuenta crear, DarAltaBaja altaBaja, EliminarCuenta eliminar, MostrarCuenta mostrar, ClienteDao clienteDao, CuentaDao cuentaDao) {
         this.crear = crear;
         this.altaBaja = altaBaja;
@@ -34,7 +32,7 @@ public class CuentaAdministracion {
 
     //Funcion que administra las cuentas de los clientes
     public void cuentaAdministracion() {
-
+        boolean salir = false;
         try {
             //Leo toda la lista de clientes, si no hay clientes lanza una excepcion ya que no se puede crear cuentas sin clientes
             clienteDao.findAllClientes();
