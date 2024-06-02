@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
+import ar.edu.utn.frbb.tup.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
@@ -64,6 +65,7 @@ public class EliminarCliente extends BaseAdministracion {
                 System.out.println("Enter para seguir");
                 scanner.nextLine();
                 clearScreen();
+
             }
         }
     }

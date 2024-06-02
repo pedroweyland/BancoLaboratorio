@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
+import ar.edu.utn.frbb.tup.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
@@ -34,6 +35,7 @@ public class ModificarCliente extends BaseAdministracion {
             if (dni == 0) break;
 
             try {
+
                 //Elimino el cliente con el DNI ingresado, si no existe el cliente lanza una excepcion,
                 //Esta misma tambien retorna el cliente que fue eliminado para poder modificar
                 Cliente cliente = clienteDao.deleteCliente(dni);
@@ -91,5 +93,4 @@ public class ModificarCliente extends BaseAdministracion {
             }
         }
     }
-
 }
