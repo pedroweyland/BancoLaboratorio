@@ -1,3 +1,4 @@
+ar\edu\utn\frbb\tup\exception\ClienteFechaDeAltaInvalidaException.class
 ar\edu\utn\frbb\tup\service\administracion\cuentas\MostrarCuenta.class
 ar\edu\utn\frbb\tup\service\operaciones\baseOperaciones.class
 ar\edu\utn\frbb\tup\service\administracion\clientes\ModificarCliente.class
@@ -35,10 +36,11 @@ ar\edu\utn\frbb\tup\model\Persona.class
 ar\edu\utn\frbb\tup\exception\MismaCuentaException.class
 ar\edu\utn\frbb\tup\exception\CuentaSinDineroException.class
 ar\edu\utn\frbb\tup\model\Cliente.class
-ar\edu\utn\frbb\tup\presentation\input\validator\Validaciones.class
+ar\edu\utn\frbb\tup\presentation\validator\Validaciones.class
 ar\edu\utn\frbb\tup\model\TipoCuenta.class
 ar\edu\utn\frbb\tup\presentation\input\ClienteInput.class
 ar\edu\utn\frbb\tup\service\administracion\cuentas\CrearCuenta.class
+ar\edu\utn\frbb\tup\exception\ClienteMenorDeEdadException.class
 ar\edu\utn\frbb\tup\service\handler\CuentaService.class
 ar\edu\utn\frbb\tup\service\administracion\clientes\EliminarCliente.class
 ar\edu\utn\frbb\tup\presentation\menuProcessor\MenuClientes.class

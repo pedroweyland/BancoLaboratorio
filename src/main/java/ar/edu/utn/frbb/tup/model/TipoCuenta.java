@@ -14,7 +14,7 @@ public enum TipoCuenta {
         return descripcion;
     }
 
-    public static TipoCuenta fromString(String text) {
+    public static TipoCuenta fromString(String text) throws IllegalArgumentException {
         for (TipoCuenta tipo : TipoCuenta.values()) {
             if (tipo.descripcion.equalsIgnoreCase(text)) {
                 return tipo;

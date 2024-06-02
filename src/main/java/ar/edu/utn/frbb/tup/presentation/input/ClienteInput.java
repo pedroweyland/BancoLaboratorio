@@ -1,5 +1,7 @@
 package ar.edu.utn.frbb.tup.presentation.input;
 
+import ar.edu.utn.frbb.tup.exception.ClienteFechaDeAltaInvalidaException;
+import ar.edu.utn.frbb.tup.exception.ClienteMenorDeEdadException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.TipoPersona;
 import ar.edu.utn.frbb.tup.presentation.BasePresentation;
@@ -8,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
-import static ar.edu.utn.frbb.tup.presentation.input.validator.Validaciones.*;
+import static ar.edu.utn.frbb.tup.presentation.validator.Validaciones.*;
 
 @Component
 public class ClienteInput extends BasePresentation {
-
+    private Scanner scanner = new Scanner(System.in);
     @Autowired
     CrearCliente crearCliente;
 
@@ -57,48 +61,65 @@ public class ClienteInput extends BasePresentation {
     }
 
     public long ingresarDni() {
-        System.out.println("Ingrese el dni del cliente: ");
-        String dni = scanner.nextLine();
-        while (!esNumeroLong(dni)) {
-            System.out.println("Dni invalido. Ingrese el dni del cliente: ");
-            dni = scanner.nextLine();
+        long dni;
+        while (true) {
+            try {
+                System.out.println("Ingrese el dni del cliente: ");
+                String dniStr = scanner.nextLine();
+
+                dni = esNumeroLong(dniStr);
+
+                if (dni < 10000000 || dni > 99999999) {
+                    throw new NumberFormatException("El dni debe tener 8 digitos");
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("---------------------------------------");
+                System.out.println(e.getMessage());
+                System.out.println("---------------------------------------");
+            }
         }
-        return Long.parseLong(dni);
+        return dni;
     }
 
     public LocalDate ingresarFechaNacimiento() {
-        System.out.println("Ingrese la fecha de nacimiento del cliente (Formato: YYYY-MM-DD): ");
-        String fechaNacimiento = scanner.nextLine();
+        LocalDate fechaNacimiento = null;
+        while (true) {
+            try {
+                System.out.println("Ingrese la fecha de nacimiento del cliente (Formato: YYYY-MM-DD): ");
+                String fechaNacimientoStr = scanner.nextLine();
 
-        while (!esFechaValida(fechaNacimiento)) {
-            System.out.println("Fecha de nacimiento invalida. Ingrese la fecha de nacimiento del cliente (Formato: YYYY-MM-DD): ");
-            fechaNacimiento = scanner.nextLine();
+                //Valido si la fecha ingresada es correcta
+                fechaNacimiento = esFechaValida(fechaNacimientoStr);
+                //Valido si el cliente es mayor de edad
+                esMayor(fechaNacimiento);
+
+                break;
+
+            } catch (DateTimeParseException | ClienteMenorDeEdadException e) {
+                System.out.println("---------------------------------------");
+                System.out.println(e.getMessage());
+                System.out.println("---------------------------------------");
+            }
         }
-
-        while (!esMayor(LocalDate.parse(fechaNacimiento))) {
-            System.out.println("Tiene que ser mayor de edad para ser cliente. (Formato: YYYY-MM-DD): ");
-            fechaNacimiento = scanner.nextLine();
-        }
-
-        return LocalDate.parse(fechaNacimiento);
+        return fechaNacimiento;
     }
 
     public TipoPersona ingresarTipoPersona() {
-        String tipoPersonaStr = null;
-        boolean entradaValida = false;
 
-        while (!entradaValida) {
+        while (true) {
             try {
                 System.out.println("Ingrese el tipo de persona Fisica(F) o Juridica(J): ");
-                tipoPersonaStr = scanner.nextLine().toUpperCase();
+                String tipoPersonaStr = scanner.nextLine().toUpperCase();
+
                 return TipoPersona.fromString(tipoPersonaStr); //Retorno el tipo persona
             } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage());
-                System.out.println("Por favor, ingrese un valor valido (F o J).");
+                System.out.println("---------------------------------------");
+                System.out.println(e.getMessage());
+                System.out.println("---------------------------------------");
             }
         }
-        // Esto nunca debería ocurrir si el bucle funciona correctamente
-        return null;
+
     }
 
     public String ingresarBanco() {
@@ -112,14 +133,26 @@ public class ClienteInput extends BasePresentation {
     }
 
     public LocalDate ingresarFechaAlta(LocalDate fechaNacimiento) {
-        System.out.println("Ingrese la fecha de alta del cliente (Formato: YYYY-MM-DD): ");
-        String fechaAlta = scanner.nextLine();
+        LocalDate fechaAlta = null;
 
+        while (true) {
+            try {
+                System.out.println("Ingrese la fecha de alta del cliente (Formato: YYYY-MM-DD): ");
+                String fechaAltaStr = scanner.nextLine();
+                //Valido si la fecha ingresada es correcta
+                fechaAlta = esFechaValida(fechaAltaStr);
 
-        while (!esFechaAltaValida(fechaAlta, fechaNacimiento)) {
-            fechaAlta = scanner.nextLine();
+                //Valido si la fecha de alta es mayor a la fecha de nacimiento (diferencia de 18 años)
+                esFechaAltaValida(fechaAlta, fechaNacimiento);
+
+                break;
+            } catch (DateTimeParseException | ClienteFechaDeAltaInvalidaException e) {
+                System.out.println("---------------------------------------");
+                System.out.println(e.getMessage());
+                System.out.println("---------------------------------------");
+            }
         }
 
-        return LocalDate.parse(fechaAlta);
+        return fechaAlta;
     }
 }

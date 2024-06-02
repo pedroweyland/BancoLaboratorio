@@ -1,4 +1,3 @@
-C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\input\validator\Validaciones.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\persistence\MovimientosDao.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\clientes\MostrarCliente.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\persistence\CuentaDao.java
@@ -12,12 +11,14 @@ C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\exc
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\input\CuentaInput.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\modulos\Consulta.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\exception\ClienteExistenteException.java
+C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\exception\ClienteFechaDeAltaInvalidaException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\cuentas\CrearCuenta.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\Movimiento.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\modulos\Deposito.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\exception\CuentaNoEncontradaException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\Cliente.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\clientes\CrearCliente.java
+C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\validator\Validaciones.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\modulos\MostrarMovimientos.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\presentation\menuProcessor\MenuOperaciones.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\exception\CuentasVaciasException.java
@@ -33,6 +34,7 @@ C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\pre
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\exception\CuentaExistenteException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\persistence\ClienteDao.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\App.java
+C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\exception\ClienteMenorDeEdadException.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\Cuenta.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\model\Persona.java
 C:\Users\weyla\OneDrive\Escritorio\tup2024\src\main\java\ar\edu\utn\frbb\tup\service\administracion\clientes\EliminarCliente.java

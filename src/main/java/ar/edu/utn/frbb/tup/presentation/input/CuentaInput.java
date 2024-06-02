@@ -7,10 +7,12 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Random;
+import java.util.Scanner;
 
 
 @Component
 public class CuentaInput extends BasePresentation {
+    private Scanner scanner = new Scanner(System.in);
 
     public Cuenta creacionCuenta(long dniTitular){
         Random r = new Random();
@@ -40,20 +42,20 @@ public class CuentaInput extends BasePresentation {
     }
 
     public TipoCuenta ingresarTipoCuenta(){
-        String tipoCuentaStr = null;
-        boolean entradaValida = false;
 
-        while (!entradaValida) {
+        while (true) {
             try {
                 System.out.println("Ingrese el tipo de cuenta Corriente(C) o Ahorro(A): ");
-                tipoCuentaStr = scanner.nextLine().toUpperCase();
-                return TipoCuenta.fromString(tipoCuentaStr); //Retorno el tipo persona
+                String tipoCuentaStr = scanner.nextLine().toUpperCase();
+
+                return TipoCuenta.fromString(tipoCuentaStr); //Retorno el tipo Cuenta
             } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage());
-                System.out.println("Por favor, ingrese un valor valido (C o A).");
+                System.out.println("---------------------------------------");
+                System.out.println(e.getMessage());
+                System.out.println("---------------------------------------");
             }
         }
-        return null;
+
     }
 
     public long generarCVU(Random r) {
