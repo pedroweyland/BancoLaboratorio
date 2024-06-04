@@ -2,6 +2,7 @@ package ar.edu.utn.frbb.tup.presentation;
 
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
+import ar.edu.utn.frbb.tup.model.Movimiento;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
@@ -29,8 +30,8 @@ public class BasePresentation {
                 String dniStr = scanner.nextLine();
 
                 dni = esNumeroLong(dniStr);
-
-                if (dni < 10000000 || dni > 99999999) {
+                //Cuando ingrese 0 no queremos que tire exception ya que el usuario va querer salir
+                if (dni != 0 && (dni < 10000000 || dni > 99999999)) {
                     throw new NumberFormatException("El dni debe tener 8 digitos");
                 }
                 break;
@@ -54,9 +55,10 @@ public class BasePresentation {
 
                 cvu = esNumeroLong(dniStr);
 
-                if (cvu < 100000 || cvu > 999999) {
+                if (cvu != 0 && (cvu < 100000 || cvu > 999999)) {
                     throw new NumberFormatException("El dni debe tener 6 digitos");
                 }
+
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("---------------------------------------");
@@ -130,6 +132,14 @@ public class BasePresentation {
                 "DNI titular: " + cuenta.getDniTitular() + "\n" +
                 "Fecha de Creacion: " + cuenta.getFechaCreacion() + "\n" +
                 "Tipo de cuenta: " + cuenta.getTipoCuenta() + "\n" +
+                "----------------------------------------";
+    }
+
+    public String toString(Movimiento movimiento){
+        return "Fecha de operacion: " + movimiento.getFechaOperacion() + "\n" +
+                "Hora de operacion: " + movimiento.getHoraOperacion() + "\n" +
+                "Tipo de movimiento: " + movimiento.getTipoOperacion() + "\n" +
+                "Monto del movimiento: " + movimiento.getMonto() + "\n" +
                 "----------------------------------------";
     }
 }

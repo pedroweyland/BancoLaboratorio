@@ -31,35 +31,27 @@ public class Operaciones extends baseOperaciones {
 
     //Funcion para que el usaurio encuentre la cuenta que desea operar, y retorna la cuenta o null si no la encuentra
     public Cuenta cuentaOperar(long dni, long cvu) throws ClienteNoEncontradoException, CuentaNoEncontradaException, CuentaEstaDeBajaException {
-        while (true) {
 
-            Cliente cliente = clienteDao.findCliente(dni);
+        Cliente cliente = clienteDao.findCliente(dni);
 
-            if (cliente == null){ //Si no se encuentra el cliente lanza una excepcion
-                throw new ClienteNoEncontradoException("No se encontro ningun cliente con el DNI dado");
-            }
-
-            Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);
-
-            if (cuenta == null) { //Si no se encontro la cuenta lanza una excepcion
-                throw new CuentaNoEncontradaException("El Cliente no tiene ninguna cuenta con el CVU: " + cvu);
-            }
-
-            if (!cuenta.getEstado()){ //Si la cuenta esta dada de baja lanzo una excepcion
-                throw new CuentaEstaDeBajaException("La cuenta esta de baja, no puede operar.");
-            }
-
-            return cuenta;
-
+        if (cliente == null) { //Si no se encuentra el cliente lanza una excepcion
+            throw new ClienteNoEncontradoException("No se encontro ningun cliente con el DNI dado");
         }
+
+        Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);
+
+        if (cuenta == null) { //Si no se encontro la cuenta lanza una excepcion
+            throw new CuentaNoEncontradaException("El Cliente no tiene ninguna cuenta con el CVU: " + cvu);
+        }
+
+        if (!cuenta.getEstado()) { //Si la cuenta esta dada de baja lanzo una excepcion
+            throw new CuentaEstaDeBajaException("La cuenta esta de baja, no puede operar.");
+        }
+        return cuenta;
+
     }
 
     public Cuenta cuentaATransferir(long cvu) throws CuentaNoEncontradaException {
-
-        if (cvu == 0) {
-            System.out.println("Saliendo...");
-            return null;
-        }
 
         Cuenta cuenta = cuentaDao.findCuenta(cvu);
 

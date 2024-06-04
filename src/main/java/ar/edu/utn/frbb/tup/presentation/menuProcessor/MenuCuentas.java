@@ -57,6 +57,7 @@ public class MenuCuentas extends BasePresentation {
                 switch (opcion) {
                     case 1:
                         dni = pedirDni("Escriba el DNI del cliente para crearle una cuenta: (0 para salir)");
+                        if (dni == 0) break;
                         cuenta = crear.crearCuenta(dni);
                         if (cuenta != null)
                             System.out.println(toString(cuenta, "------------ Cuenta Creada Con Exito -----------"));
@@ -65,8 +66,10 @@ public class MenuCuentas extends BasePresentation {
                     case 2:
                         dni = pedirDni("Escriba el DNI al cliente para eliminar una cuenta: (0 para salir) ");
                         clearScreen();
+                        if (dni == 0) break;
                         cvu = pedirCvu("Escriba el CVU de la cuenta que quiere eliminar: (0 para salir) ");
                         clearScreen();
+                        if (cvu == 0) break;
 
                         cuenta = eliminar.eliminarCuenta(dni, cvu);
                         if (cuenta != null)
@@ -75,6 +78,9 @@ public class MenuCuentas extends BasePresentation {
 
                     case 3:
                         dni = pedirDni("Escriba el DNI del cliente para ver sus cuentas: (0 para salir)");
+                        clearScreen();
+                        if (dni == 0) break;
+
                         List<Cuenta> cuentas = mostrar.mostrarCuenta(dni);
 
                         if (cuentas != null) {
@@ -87,8 +93,11 @@ public class MenuCuentas extends BasePresentation {
                     case 4:
                         dni = pedirDni("Escriba el DNI del cliente para dar de Alta/Baja: (0 para salir)");
                         clearScreen();
+                        if (dni == 0) break;
                         cvu = pedirCvu("Escriba el CVU de la cuenta que quiere dar de Alta/Baja: (0 para salir) ");
                         clearScreen();
+                        if (cvu == 0) break;
+
                         boolean opc = pedirOpcion("Escriba (B) si quiere dar de Baja o (A) si quere dar de Alta");
                         clearScreen();
                         altaBaja.gestionarEstado(dni, cvu, opc);

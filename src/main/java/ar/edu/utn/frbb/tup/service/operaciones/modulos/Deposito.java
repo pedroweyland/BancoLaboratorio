@@ -21,11 +21,9 @@ public class Deposito extends baseOperaciones {
         this.movimientosDao = movimientosDao;
     }
 
-    public void deposito(Cuenta cuenta){
+    public void deposito(Cuenta cuenta, double monto){
 
         cuentaDao.deleteCuenta(cuenta.getCVU()); //Borro la cuenta ya que va ser modificada
-        //Pido el monto del deposito
-        double monto = ingresarDinero("Ingrese el monto del deposito: ");
 
         //Sumo el monto al saldo que tenia la cuenta
         cuenta.setSaldo(cuenta.getSaldo() + monto); 

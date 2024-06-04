@@ -10,7 +10,7 @@ public class Movimiento {
     private String tipoOperacion;
     private double monto;
 
-    public Long getCVU() {
+    public long getCVU() {
         return CVU;
     }
     public void setCVU(Long CVU) {

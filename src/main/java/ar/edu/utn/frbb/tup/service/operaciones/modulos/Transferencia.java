@@ -25,7 +25,7 @@ public class Transferencia extends baseOperaciones {
         this.movimientosDao = movimientosDao;
     }
 
-    public void transferencia(Cuenta cuentaOrigen, Cuenta cuentaDestino){
+    public void transferencia(Cuenta cuentaOrigen, Cuenta cuentaDestino, double monto){
 
         try {
             if (cuentaOrigen.getCVU() == cuentaDestino.getCVU()){ ////Lanzo excepcion cuando la cuenta destino es igual a la origen
@@ -34,8 +34,6 @@ public class Transferencia extends baseOperaciones {
             if (!cuentaDestino.getEstado()){ //Lanzo excepcion cuando la cuenta destino esta dada de baja
                 throw new CuentaEstaDeBajaException("La cuenta a transferir esta dada de baja");
             }
-
-            double monto = ingresarDinero("Ingrese el monto a transferir a la cuenta " + cuentaDestino.getNombre() + ": ");
 
             if (monto > cuentaOrigen.getSaldo()){ //Lanzo excepcion cuando no tiene dinero para trnsferir
                 throw new CuentaSinDineroException("No hay suficiente dinero en la cuenta " + cuentaOrigen.getNombre() + ", su saldo es de $" + cuentaOrigen.getSaldo());

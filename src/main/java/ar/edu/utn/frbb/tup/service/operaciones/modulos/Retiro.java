@@ -22,16 +22,12 @@ public class Retiro extends baseOperaciones {
         this.movimientosDao = movimientosDao;
     }
 
-    public void retiro(Cuenta cuenta) {
+    public void retiro(Cuenta cuenta, double monto) {
 
         try {
             if (cuenta.getSaldo() == 0){ //Si no tiene dinero para retirar lanzo una excepcion
                 throw new CuentaSinDineroException("No tiene dinero en esta cuenta para retirar");
             }
-
-            //Pido el monto del retiro
-            double monto = ingresarDinero("Ingrese el monto del retiro: ");
-
 
             if (cuenta.getSaldo() < monto){ //Si no le alcanza el dinero para retirar lanza una excepcion
                 throw new CuentaSinDineroException("No puede retirar ese monto, su saldo es de $" + cuenta.getSaldo());

@@ -54,12 +54,14 @@ public class MenuClientes extends BasePresentation {
                     case 2:
                         dni = pedirDni("Escriba el DNI para el cliente que quiere modificar: (0 para salir)");
                         clearScreen();
+                        if (dni == 0) break;
                         modificar.modificarCliente(dni);
                         break;
 
                     case 3:
                         dni = pedirDni("Escriba el DNI para el cliente que quiere eliminar: (0 para salir)");
                         clearScreen();
+                        if (dni == 0) break;
 
                         cliente = eliminar.eliminarCliente(dni);
                         if (cliente != null) System.out.println(toString(cliente, "------------ Cliente eliminado -----------"));
@@ -68,6 +70,8 @@ public class MenuClientes extends BasePresentation {
                     case 4:
                         dni = pedirDni("Escriba el DNI para el cliente que quiere mostrar: (0 para salir)");
                         clearScreen();
+                        if (dni == 0) break;
+
                         cliente = mostrar.mostrarCliente(dni);
                         if (cliente != null) System.out.println(toString(cliente, "------------ Muestra cliente -----------"));
 

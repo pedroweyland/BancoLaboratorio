@@ -7,6 +7,7 @@ import ar.edu.utn.frbb.tup.service.operaciones.baseOperaciones;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,34 +18,26 @@ public class MostrarMovimientos extends baseOperaciones {
         this.movimientosDao = movimientosDao;
     }
 
-    public void mostrarMovimientos(Cuenta cuenta){
+    public List<Movimiento> mostrarMovimientos(Cuenta cuenta){
         List<Movimiento> movimientos = movimientosDao.findMovimientos(cuenta.getCVU());
 
         if (!movimientos.isEmpty()) { //Valido si la cuenta tiene movimientos o no
+            List<Movimiento> auxMovimiento = new ArrayList<>();
 
             //Recorro la lista de movivmientos para ir mostrando uno por uno
-            System.out.println("---------- Movimientos de la cuenta " + cuenta.getNombre() + " ----------");
             for (Movimiento movimiento : movimientos) {
-                System.out.println(mostrarMovimiento(movimiento));
-                System.out.println("---------------------------------------------------------");
+                if (cuenta.getCVU() == movimiento.getCVU()) {
+                    auxMovimiento.add(movimiento);
+                }
             }
-
+            return auxMovimiento;
         } else {
             System.out.println("La cuenta no tiene movimientos asociados");
 
         }
 
-        System.out.println("Enter para seguir");
-        scanner.nextLine();
-        clearScreen();
+        return null;
 
-    }
-
-    public String mostrarMovimiento(Movimiento movimiento){
-        return "Fecha de operacion: " + movimiento.getFechaOperacion() + "\n" +
-                "Hora de operacion: " + movimiento.getHoraOperacion() + "\n" +
-                "Tipo de movimiento: " + movimiento.getTipoOperacion() + "\n" +
-                "Monto del movimiento: " + movimiento.getMonto();
     }
 
 
