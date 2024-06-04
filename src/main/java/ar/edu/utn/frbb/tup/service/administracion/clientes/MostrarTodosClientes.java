@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class MostrarTodosClientes extends BaseAdministracion {
     ClienteDao clienteDao;

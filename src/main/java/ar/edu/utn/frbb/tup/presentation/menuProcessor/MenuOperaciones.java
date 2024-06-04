@@ -39,8 +39,15 @@ public class MenuOperaciones extends BasePresentation {
         try {
             clienteService.findAllClientes(); //Si hay clientes entonces se puede operar, si no hay vuelve excepcion
             cuentaService.findAllCuentas(); //Si hay cuentas entonces se puede operar, si no hay vuelve excepcion
+            long dni, cvu;
 
-            Cuenta cuenta = operaciones.cuentaOperar();
+            clearScreen();
+            dni = pedirDni("Para realizar una operacion ingrese el DNI del cliente: (0 para salir)");
+            clearScreen();
+            cvu = pedirCvu("Para realizar una operacion ingrese el CVU de la cuenta: (0 para salir)");
+            clearScreen();
+
+            Cuenta cuenta = operaciones.cuentaOperar(dni, cvu);
 
             if (cuenta == null) { // Si cuenta es null, significa que el usuario decidio irse
                 System.out.println("Saliendo...");
@@ -60,8 +67,9 @@ public class MenuOperaciones extends BasePresentation {
                             break;
                         case 3:
                             //Transferencia
+                            long cvuDestino = pedirCvu("Ingrese el CVU de la cuenta a transferir: (0 para salir)");
                             //Usuario ingresa a quien quiere transferir, vuelve una excepcion si la cuenta no fue encontrada
-                            Cuenta cuentaDestino = operaciones.cuentaATransferir();
+                            Cuenta cuentaDestino = operaciones.cuentaATransferir(cvuDestino);
 
                             transferencia.transferencia(cuenta, cuentaDestino);
                             break;

@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static ar.edu.utn.frbb.tup.presentation.BasePresentation.pedirDni;
-
 @Service
 public class EliminarCliente extends BaseAdministracion {
 
@@ -26,46 +24,34 @@ public class EliminarCliente extends BaseAdministracion {
     }
 
     //Eliminar cliente
-    public void eliminarCliente() {
+    public void eliminarCliente(long dni) {
 
-        boolean seguir = true;
+        try {
 
-        while (seguir) {
-            long dni = pedirDni("Escriba el DNI al cliente que quiere eliminar: (0 para salir) ");
+            //Elimino el cliente con el DNI ingresado, si no existe el cliente lanza una excepcion,
+            //devuelve el cliente eliminado para mostrar en pantalla
+            Cliente cliente = clienteDao.deleteCliente(dni);
 
-            clearScreen();
+            System.out.println("------------ Cliente eliminado -----------");
+            System.out.println(toString(cliente)); //Muestro en pantalla el cliente eliminado
 
-            if (dni == 0) break; //Si escribe 0 termina con el bucle
+            //Elimino las relaciones que tiene con las Cuentas y movimientos
 
-            try {
+            List<Long> CvuEliminar = cuentaDao.getRelacionesDni(dni); //Obtengo lista de todos los CVUs a eliminar
 
-                //Elimino el cliente con el DNI ingresado, si no existe el cliente lanza una excepcion,
-                //devuelve el cliente eliminado para mostrar en pantalla
-                Cliente cliente = clienteDao.deleteCliente(dni);
-
-                System.out.println("------------ Cliente eliminado -----------");
-                System.out.println(toString(cliente)); //Muestro en pantalla el cliente eliminado
-
-                //Elimino las relaciones que tiene con las Cuentas y movimientos
-
-                List<Long> CvuEliminar = cuentaDao.getRelacionesDni(dni); //Obtengo lista de todos los CVUs a eliminar
-
-                for (Long cvu : CvuEliminar){
-                    cuentaDao.deleteCuenta(cvu);
-                    movimientosDao.deleteMovimiento(cvu);
-                }
-                seguir = false;
-
-            } catch (ClienteNoEncontradoException ex) {
-                System.out.println("----------------------------------------");
-                System.out.println(ex.getMessage());
-                System.out.println("----------------------------------------");
-            } finally {
-                System.out.println("Enter para seguir");
-                scanner.nextLine();
-                clearScreen();
-
+            for (Long cvu : CvuEliminar){
+                cuentaDao.deleteCuenta(cvu);
+                movimientosDao.deleteMovimiento(cvu);
             }
+
+        } catch (ClienteNoEncontradoException ex) {
+            System.out.println("----------------------------------------");
+            System.out.println(ex.getMessage());
+            System.out.println("----------------------------------------");
+        } finally {
+            System.out.println("Enter para seguir");
+            scanner.nextLine();
+            clearScreen();
         }
     }
 }

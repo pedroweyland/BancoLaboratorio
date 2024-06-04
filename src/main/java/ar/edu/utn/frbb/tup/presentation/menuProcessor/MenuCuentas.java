@@ -40,6 +40,7 @@ public class MenuCuentas extends BasePresentation {
             clienteService.findAllClientes();
 
             while (!salir) {
+                long dni, cvu;
                 int opcion = menuCuenta();
 
                 if (opcion != 1 && opcion != 0) {
@@ -49,16 +50,26 @@ public class MenuCuentas extends BasePresentation {
 
                 switch (opcion) {
                     case 1:
-                        crear.crearCuenta();
+                        dni = pedirDni("Escriba el DNI del cliente para crearle una cuenta: (0 para salir)");
+                        crear.crearCuenta(dni);
                         break;
                     case 2:
-                        eliminar.eliminarCuenta();
+                        dni = pedirDni("Escriba el DNI al cliente para eliminar una cuenta: (0 para salir) ");
+                        clearScreen();
+                        cvu = pedirCvu("Escriba el CVU de la cuenta que quiere eliminar: (0 para salir) ");
+                        clearScreen();
+                        eliminar.eliminarCuenta(dni, cvu);
                         break;
                     case 3:
-                        mostrar.mostrarCuenta();
+                        dni = pedirDni("Escriba el DNI del cliente para ver sus cuentas: (0 para salir)");
+                        mostrar.mostrarCuenta(dni);
                         break;
                     case 4:
-                        altaBaja.gestionarEstado();
+                        dni = pedirDni("Escriba el DNI del cliente para dar de Alta/Baja: (0 para salir)");
+                        clearScreen();
+                        cvu = pedirCvu("Escriba el CVU de la cuenta que quiere dar de Alta/Baja: (0 para salir) ");
+                        clearScreen();
+                        altaBaja.gestionarEstado(dni, cvu);
                         break;
                     case 0:
                         System.out.println("Saliendo...");

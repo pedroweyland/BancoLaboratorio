@@ -36,7 +36,7 @@ public class MenuClientes extends BasePresentation {
 
         while (!salir) {
             try {
-
+                long dni;
                 int opcion = menuCliente();
 
                 if (opcion != 1 && opcion != 0) {
@@ -48,13 +48,19 @@ public class MenuClientes extends BasePresentation {
                         clienteInput.ingresoCliente();
                         break;
                     case 2:
-                        modificar.modificarCliente();
+                        dni = pedirDni("Escriba el DNI para el cliente que quiere modificar: (0 para salir)");
+                        clearScreen();
+                        modificar.modificarCliente(dni);
                         break;
                     case 3:
-                        eliminar.eliminarCliente();
+                        dni = pedirDni("Escriba el DNI para el cliente que quiere eliminar: (0 para salir)");
+                        clearScreen();
+                        eliminar.eliminarCliente(dni);
                         break;
                     case 4:
-                        mostrar.mostrarCliente();
+                        dni = pedirDni("Escriba el DNI para el cliente que quiere mostrar: (0 para salir)");
+                        clearScreen();
+                        mostrar.mostrarCliente(dni);
                         break;
                     case 5:
                         mostrarTodos.mostrarTodosClientes();
@@ -70,6 +76,7 @@ public class MenuClientes extends BasePresentation {
                 System.out.println("----------------------------------------");
                 System.out.println("Enter para seguir");
                 scanner.nextLine();
+                clearScreen();
             }
         }
     }
