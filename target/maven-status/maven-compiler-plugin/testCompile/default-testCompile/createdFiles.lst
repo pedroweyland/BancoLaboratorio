@@ -1,2 +1,2 @@
-ar\utn\frbb\tup\service\administracion\gestion\clientes\ClienteServiceTest.class
-ar\utn\frbb\tup\service\administracion\gestion\cuentas\CuentasServiceTest.class
+ar\utn\frbb\tup\service\administracion\cuentas\CuentasServiceTest.class
+ar\utn\frbb\tup\service\administracion\clientes\ClienteServiceTest.class

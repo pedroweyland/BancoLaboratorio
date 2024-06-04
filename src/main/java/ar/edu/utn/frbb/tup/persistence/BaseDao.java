@@ -33,6 +33,7 @@ public abstract class BaseDao<T> {
         //En el try abre directamente el archivo, y cuando termina cierra automaticamente el recurso
 
         try (FileWriter archivo = new FileWriter(rutaArchivo, true);){
+
             PrintWriter writer = new PrintWriter(archivo);
 
             writer.println(info);

@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
+import ar.edu.utn.frbb.tup.exception.ClienteExistenteException;
 import ar.edu.utn.frbb.tup.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
@@ -83,7 +84,7 @@ public class ModificarCliente extends BaseAdministracion {
                         clearScreen();
                     }
                 }
-            }catch (ClienteNoEncontradoException ex) {
+            } catch (ClienteNoEncontradoException | ClienteExistenteException ex) {
                 System.out.println("----------------------------------------");
                 System.out.println(ex.getMessage());
                 System.out.println("----------------------------------------");

@@ -34,6 +34,5 @@ public class CrearCliente extends BaseAdministracion {
             scanner.nextLine();
             clearScreen();
         }
-
     }
 }

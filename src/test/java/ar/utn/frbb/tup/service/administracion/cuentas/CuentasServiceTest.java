@@ -1,4 +1,4 @@
-package ar.utn.frbb.tup.service.administracion.gestion.cuentas;
+package ar.utn.frbb.tup.service.administracion.cuentas;
 
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
@@ -21,6 +21,7 @@ public class CuentasServiceTest {
         cuentaDao.inicializarCuentas();
     }
 
+
     @Test
     public void testCuentaSuccess(){
         Cuenta cuenta = new Cuenta();
@@ -41,6 +42,6 @@ public class CuentasServiceTest {
         cuentaDao.deleteCuenta(cuenta.getCVU());
 
         assertNull(cuentaDao.findCuenta(cuenta.getCVU()));
-
     }
+
 }
