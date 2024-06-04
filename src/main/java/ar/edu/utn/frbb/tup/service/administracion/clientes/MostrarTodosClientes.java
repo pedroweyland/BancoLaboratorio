@@ -17,28 +17,18 @@ public class MostrarTodosClientes extends BaseAdministracion {
     }
 
     // Mostrar todos los clientes
-    public void mostrarTodosClientes() {
+    public List<Cliente> mostrarTodosClientes() {
 
         try {
+
             //Leo toda la lista de clientes, si no hay clientes lanza una excepcion
-            List<Cliente> clientes = clienteDao.findAllClientes();
-
-            int contador = 1;
-
-            for (Cliente cliente : clientes) {
-                System.out.println("------------ Cliente Nro " + contador + " ------------");
-                System.out.println(toString(cliente));
-                contador++;
-            }
+            return clienteDao.findAllClientes();
 
         } catch (ClientesVaciosException ex){
             System.out.println("----------------------------------------");
             System.out.println(ex.getMessage());
             System.out.println("----------------------------------------");
-        } finally {
-            System.out.println("Enter para seguir");
-            scanner.nextLine();
-            clearScreen();
         }
+        return null;
     }
 }

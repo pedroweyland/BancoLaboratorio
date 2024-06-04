@@ -21,7 +21,7 @@ public class DarAltaBaja extends BaseAdministracion {
         this.cuentaDao = cuentaDao;
     }
 
-    public void gestionarEstado (long dni, long cvu) {
+    public void gestionarEstado (long dni, long cvu, boolean opcion) {
 
         //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
         Cliente cliente = clienteDao.findCliente(dni);
@@ -41,9 +41,6 @@ public class DarAltaBaja extends BaseAdministracion {
 
             cuentaDao.deleteCuenta(cvu); //Borro la cuenta ya que va ser actualizada
 
-            //Si quiere dar de alta retorna True. si quiere dar de baja retorna False
-            boolean opcion = pedirOpcion("Escriba (B) si quiere dar de Baja o (A) si quere dar de Alta");
-
             System.out.println("----------------------------------------");
             darAltaBaja(cuenta, opcion);
             System.out.println("----------------------------------------");
@@ -54,10 +51,6 @@ public class DarAltaBaja extends BaseAdministracion {
             System.out.println("----------------------------------------");
             System.out.println(e.getMessage());
             System.out.println("----------------------------------------");
-        } finally {
-            System.out.println("Enter para seguir");
-            scanner.nextLine();
-            clearScreen();
         }
     }
 

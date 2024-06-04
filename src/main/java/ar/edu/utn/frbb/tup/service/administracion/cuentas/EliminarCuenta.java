@@ -25,7 +25,7 @@ public class EliminarCuenta extends BaseAdministracion {
         this.movimientosDao = movimientosDao;
     }
 
-    public void eliminarCuenta(long dni, long cvu) {
+    public Cuenta eliminarCuenta(long dni, long cvu) {
 
         Cliente cliente = clienteDao.findCliente(dni);
 
@@ -52,18 +52,12 @@ public class EliminarCuenta extends BaseAdministracion {
             cuentaDao.deleteCuenta(cvu);
             movimientosDao.deleteMovimiento(cvu);
 
-            System.out.println("------------ Cuenta eliminada -----------");
-            System.out.println(toString(cuenta));
-
-
+            return cuenta;
         } catch (ClienteNoEncontradoException | CuentaNoEncontradaException | CuentasVaciasException e) {
             System.out.println("----------------------------------------");
             System.out.println(e.getMessage());
             System.out.println("----------------------------------------");
-        } finally {
-            System.out.println("Enter para seguir");
-            scanner.nextLine();
-            clearScreen();
         }
+        return null;
     }
 }

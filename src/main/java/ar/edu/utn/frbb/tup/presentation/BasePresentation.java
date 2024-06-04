@@ -1,5 +1,7 @@
 package ar.edu.utn.frbb.tup.presentation;
 
+import ar.edu.utn.frbb.tup.model.Cliente;
+import ar.edu.utn.frbb.tup.model.Cuenta;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
@@ -102,5 +104,32 @@ public class BasePresentation {
                 System.out.println("---------------------------------------");
             }
         }
+    }
+
+    //Dependiendo que tipo de parametro se le pase usa una funcion o la otra
+    public String toString(Cliente cliente, String tipoMuestra) {
+        return  tipoMuestra + "\n" +
+                "Nombre: " + cliente.getNombre() + "\n" +
+                "Apellido: " + cliente.getApellido() + "\n" +
+                "Direccion: " + cliente.getDireccion() + "\n" +
+                "Dni: " + cliente.getDni() + "\n" +
+                "Fecha de nacimiento: " + cliente.getFechaNacimiento() + "\n" +
+                "Tipo de persona: " + cliente.getTipoPersona() + "\n" +
+                "Banco: " + cliente.getBanco() + "\n" +
+                "Mail: " + cliente.getMail() + "\n" +
+                "Fecha de alta: " + cliente.getFechaAlta() + "\n" +
+                "----------------------------------------";
+    }
+
+    public String toString(Cuenta cuenta, String tipoMuestra){
+        return  tipoMuestra + "\n" +
+                "Nombre de la cuenta: " + cuenta.getNombre() + "\n" +
+                "Estado: " + cuenta.getEstado() + "\n" +
+                "Saldo: " + cuenta.getSaldo() + "\n" +
+                "CVU: " + cuenta.getCVU() + "\n" +
+                "DNI titular: " + cuenta.getDniTitular() + "\n" +
+                "Fecha de Creacion: " + cuenta.getFechaCreacion() + "\n" +
+                "Tipo de cuenta: " + cuenta.getTipoCuenta() + "\n" +
+                "----------------------------------------";
     }
 }

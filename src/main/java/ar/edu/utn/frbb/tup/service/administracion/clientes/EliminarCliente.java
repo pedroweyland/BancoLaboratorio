@@ -24,16 +24,13 @@ public class EliminarCliente extends BaseAdministracion {
     }
 
     //Eliminar cliente
-    public void eliminarCliente(long dni) {
+    public Cliente eliminarCliente(long dni) {
 
         try {
 
             //Elimino el cliente con el DNI ingresado, si no existe el cliente lanza una excepcion,
             //devuelve el cliente eliminado para mostrar en pantalla
             Cliente cliente = clienteDao.deleteCliente(dni);
-
-            System.out.println("------------ Cliente eliminado -----------");
-            System.out.println(toString(cliente)); //Muestro en pantalla el cliente eliminado
 
             //Elimino las relaciones que tiene con las Cuentas y movimientos
 
@@ -44,14 +41,12 @@ public class EliminarCliente extends BaseAdministracion {
                 movimientosDao.deleteMovimiento(cvu);
             }
 
+            return cliente;
         } catch (ClienteNoEncontradoException ex) {
             System.out.println("----------------------------------------");
             System.out.println(ex.getMessage());
             System.out.println("----------------------------------------");
-        } finally {
-            System.out.println("Enter para seguir");
-            scanner.nextLine();
-            clearScreen();
         }
+        return null;
     }
 }

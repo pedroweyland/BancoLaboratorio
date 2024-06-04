@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.presentation.menuProcessor;
 
 import ar.edu.utn.frbb.tup.exception.ClientesVaciosException;
+import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.presentation.BasePresentation;
 import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
 import ar.edu.utn.frbb.tup.service.administracion.clientes.EliminarCliente;
@@ -9,6 +10,7 @@ import ar.edu.utn.frbb.tup.service.administracion.clientes.MostrarCliente;
 import ar.edu.utn.frbb.tup.service.administracion.clientes.MostrarTodosClientes;
 import ar.edu.utn.frbb.tup.service.handler.ClienteService;
 import org.springframework.stereotype.Component;
+import java.util.List;
 
 import static ar.edu.utn.frbb.tup.presentation.menuProcessor.Menus.menuCliente;
 
@@ -33,11 +35,13 @@ public class MenuClientes extends BasePresentation {
     //Funcion que administra los clientes del banco
     public void menuClientes() {
         boolean salir = false;
-
+        int opcion = 0;
         while (!salir) {
             try {
                 long dni;
-                int opcion = menuCliente();
+                Cliente cliente;
+
+                opcion = menuCliente();
 
                 if (opcion != 1 && opcion != 0) {
                     clienteService.findAllClientes();
@@ -52,18 +56,31 @@ public class MenuClientes extends BasePresentation {
                         clearScreen();
                         modificar.modificarCliente(dni);
                         break;
+
                     case 3:
                         dni = pedirDni("Escriba el DNI para el cliente que quiere eliminar: (0 para salir)");
                         clearScreen();
-                        eliminar.eliminarCliente(dni);
+
+                        cliente = eliminar.eliminarCliente(dni);
+                        if (cliente != null) System.out.println(toString(cliente, "------------ Cliente eliminado -----------"));
+
                         break;
                     case 4:
                         dni = pedirDni("Escriba el DNI para el cliente que quiere mostrar: (0 para salir)");
                         clearScreen();
-                        mostrar.mostrarCliente(dni);
+                        cliente = mostrar.mostrarCliente(dni);
+                        if (cliente != null) System.out.println(toString(cliente, "------------ Muestra cliente -----------"));
+
                         break;
                     case 5:
-                        mostrarTodos.mostrarTodosClientes();
+                        clearScreen();
+                        List<Cliente> clientes = mostrarTodos.mostrarTodosClientes();
+                        int contador = 1;
+                        for (Cliente c : clientes) {
+                            System.out.println(toString(c, "------------ Cliente " + contador + " -----------"));
+                            contador++;
+                        }
+
                         break;
                     case 0:
                         System.out.println("Saliendo...");
@@ -74,6 +91,7 @@ public class MenuClientes extends BasePresentation {
                 System.out.println("----------------------------------------");
                 System.out.println(e.getMessage());
                 System.out.println("----------------------------------------");
+            } finally {
                 System.out.println("Enter para seguir");
                 scanner.nextLine();
                 clearScreen();

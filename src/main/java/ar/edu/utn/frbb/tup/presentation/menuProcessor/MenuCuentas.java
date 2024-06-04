@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.presentation.menuProcessor;
 
+import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.presentation.BasePresentation;
 import ar.edu.utn.frbb.tup.service.handler.ClienteService;
 import ar.edu.utn.frbb.tup.service.handler.CuentaService;
@@ -10,6 +11,8 @@ import ar.edu.utn.frbb.tup.service.administracion.cuentas.MostrarCuenta;
 import ar.edu.utn.frbb.tup.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.exception.CuentasVaciasException;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 import static ar.edu.utn.frbb.tup.presentation.menuProcessor.Menus.menuCuenta;
 
@@ -35,12 +38,15 @@ public class MenuCuentas extends BasePresentation {
     //Funcion que administra las cuentas de los clientes
     public void menuCuentas() {
         boolean salir = false;
-        try {
-            //Leo toda la lista de clientes, si no hay clientes lanza una excepcion ya que no se puede crear cuentas sin clientes
-            clienteService.findAllClientes();
 
-            while (!salir) {
+        while (!salir) {
+            try {
+                //Leo toda la lista de clientes, si no hay clientes lanza una excepcion ya que no se puede crear cuentas sin clientes
+                clienteService.findAllClientes();
+
+
                 long dni, cvu;
+                Cuenta cuenta;
                 int opcion = menuCuenta();
 
                 if (opcion != 1 && opcion != 0) {
@@ -51,38 +57,58 @@ public class MenuCuentas extends BasePresentation {
                 switch (opcion) {
                     case 1:
                         dni = pedirDni("Escriba el DNI del cliente para crearle una cuenta: (0 para salir)");
-                        crear.crearCuenta(dni);
+                        cuenta = crear.crearCuenta(dni);
+                        if (cuenta != null)
+                            System.out.println(toString(cuenta, "------------ Cuenta Creada Con Exito -----------"));
+
                         break;
                     case 2:
                         dni = pedirDni("Escriba el DNI al cliente para eliminar una cuenta: (0 para salir) ");
                         clearScreen();
                         cvu = pedirCvu("Escriba el CVU de la cuenta que quiere eliminar: (0 para salir) ");
                         clearScreen();
-                        eliminar.eliminarCuenta(dni, cvu);
+
+                        cuenta = eliminar.eliminarCuenta(dni, cvu);
+                        if (cuenta != null)
+                            System.out.println(toString(cuenta, "------------ Cuenta eliminada -----------"));
                         break;
+
                     case 3:
                         dni = pedirDni("Escriba el DNI del cliente para ver sus cuentas: (0 para salir)");
-                        mostrar.mostrarCuenta(dni);
+                        List<Cuenta> cuentas = mostrar.mostrarCuenta(dni);
+
+                        if (cuentas != null) {
+                            for (Cuenta c : cuentas) {
+                                System.out.println(toString(c, "------------ Cuenta -----------"));
+                            }
+                        }
+
                         break;
                     case 4:
                         dni = pedirDni("Escriba el DNI del cliente para dar de Alta/Baja: (0 para salir)");
                         clearScreen();
                         cvu = pedirCvu("Escriba el CVU de la cuenta que quiere dar de Alta/Baja: (0 para salir) ");
                         clearScreen();
-                        altaBaja.gestionarEstado(dni, cvu);
+                        boolean opc = pedirOpcion("Escriba (B) si quiere dar de Baja o (A) si quere dar de Alta");
+                        clearScreen();
+                        altaBaja.gestionarEstado(dni, cvu, opc);
                         break;
                     case 0:
                         System.out.println("Saliendo...");
                         salir = true;
                         break;
                 }
+
+            } catch(ClientesVaciosException | CuentasVaciasException ex){
+                System.out.println("----------------------------------------");
+                System.out.println(ex.getMessage());
+                System.out.println("----------------------------------------");
+            } finally {
+                System.out.println("Enter para seguir");
+                scanner.nextLine();
+                clearScreen();
             }
-        } catch (ClientesVaciosException | CuentasVaciasException ex){
-            System.out.println("----------------------------------------");
-            System.out.println(ex.getMessage());
-            System.out.println("----------------------------------------");
-            System.out.println("Enter para seguir");
-            scanner.nextLine();
         }
     }
+
 }

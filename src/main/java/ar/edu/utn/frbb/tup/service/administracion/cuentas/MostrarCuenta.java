@@ -10,6 +10,7 @@ import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.exception.CuentasVaciasException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,7 +23,7 @@ public class MostrarCuenta extends BaseAdministracion {
         this.cuentaDao = cuentaDao;
     }
 
-    public void mostrarCuenta(long dni) {
+    public List<Cuenta> mostrarCuenta(long dni) {
 
         //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
         Cliente cliente = clienteDao.findCliente(dni);
@@ -36,12 +37,12 @@ public class MostrarCuenta extends BaseAdministracion {
             //Me devuelve toda la lista de cuentas que hay
             List<Cuenta> cuentas = cuentaDao.findAllCuentas();
 
+            List<Cuenta> aux = new ArrayList<>(); //Lista auxiliar para guardar las cuentas del cliente
+
             boolean encontrada = false;
             for (Cuenta cuenta : cuentas) {
                 if (cuenta.getDniTitular() == dni) {
-                    //Muestro en pantalla las cuentas que tiene asociada el cliente
-                    System.out.println("------- Cuentas del cliente " + cliente.getNombre() + " -------");
-                    System.out.println(toString(cuenta));
+                    aux.add(cuenta);
                     encontrada = true;
                 }
             }
@@ -49,15 +50,13 @@ public class MostrarCuenta extends BaseAdministracion {
             if (!encontrada){
                 throw new CuentaNoEncontradaException("No hay cuentas asociadas al cliente con DNI: " + dni);
             }
+            return aux;
 
         } catch (ClienteNoEncontradoException | CuentasVaciasException | CuentaNoEncontradaException e) {
             System.out.println("----------------------------------------");
             System.out.println(e.getMessage());
             System.out.println("----------------------------------------");
-        } finally{
-            System.out.println("Enter para seguir");
-            scanner.nextLine();
-            clearScreen();
         }
+        return null;
     }
 }

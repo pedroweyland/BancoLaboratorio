@@ -21,7 +21,7 @@ public class CrearCuenta extends BaseAdministracion {
         this.cuentaInput = cuentaInput;
     }
 
-    public void crearCuenta(long dni) {
+    public Cuenta crearCuenta(long dni) {
 
         Cliente cliente = clienteDao.findCliente(dni);
 
@@ -37,19 +37,13 @@ public class CrearCuenta extends BaseAdministracion {
             cuentaDao.saveCuenta(cuenta);
 
             //Muestro en pantalla el resultado
-            System.out.println("----- Cuenta creada del cliente " + cliente.getNombre() + " -----");
-            System.out.println(toString(cuenta));
-            System.out.println("-------- Cuenta creada con exito --------");
-            System.out.println("----------------------------------------");
+            return cuenta;
 
         } catch (ClienteNoEncontradoException e) {
             System.out.println("----------------------------------------");
             System.out.println(e.getMessage());
             System.out.println("----------------------------------------");
-        }  finally {
-            System.out.println("Enter para seguir");
-            scanner.nextLine();
-            clearScreen();
         }
+        return null;
     }
 }

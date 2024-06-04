@@ -41,8 +41,11 @@ public class ClienteInput extends BasePresentation {
 
         clearScreen();
 
-        crearCliente.crearCliente(cliente);
-
+        //Si existe Muestro en pantalla el cliente creado
+        Cliente c = crearCliente.crearCliente(cliente);
+        if (c != null) {
+            System.out.println(toString(c, "------- Cliente creado con exito -------"));
+        }
     }
 
     public String ingresarNombre() {
