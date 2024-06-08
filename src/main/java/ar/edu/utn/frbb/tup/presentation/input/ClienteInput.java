@@ -6,7 +6,6 @@ import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.TipoPersona;
 import ar.edu.utn.frbb.tup.presentation.BasePresentation;
 import ar.edu.utn.frbb.tup.service.administracion.clientes.CrearCliente;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -18,8 +17,12 @@ import static ar.edu.utn.frbb.tup.presentation.validator.Validaciones.*;
 @Component
 public class ClienteInput extends BasePresentation {
     private Scanner scanner = new Scanner(System.in);
-    @Autowired
-    CrearCliente crearCliente;
+
+    private final CrearCliente crearCliente;
+
+    public ClienteInput(CrearCliente crearCliente){
+        this.crearCliente = crearCliente;
+    }
 
     public void ingresoCliente() {
 
@@ -41,7 +44,7 @@ public class ClienteInput extends BasePresentation {
 
         clearScreen();
 
-        //Si existe Muestro en pantalla el cliente creado
+        //Muestro en pantalla si el cliente fue creado exitosamente
         Cliente c = crearCliente.crearCliente(cliente);
         if (c != null) {
             System.out.println(toString(c, "------- Cliente creado con exito -------"));

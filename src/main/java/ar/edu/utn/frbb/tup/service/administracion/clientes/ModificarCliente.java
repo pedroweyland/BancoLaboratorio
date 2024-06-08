@@ -12,8 +12,8 @@ import static ar.edu.utn.frbb.tup.presentation.menuProcessor.Menus.menuModificac
 
 @Service
 public class ModificarCliente extends BaseAdministracion {
-    ClienteInput mod;
-    ClienteDao clienteDao;
+    private final ClienteInput mod;
+    private final ClienteDao clienteDao;
 
 
     public ModificarCliente(ClienteDao clienteDao, ClienteInput mod) {

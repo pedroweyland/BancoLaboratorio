@@ -15,9 +15,9 @@ import java.util.List;
 
 @Service
 public class EliminarCuenta extends BaseAdministracion {
-    ClienteDao clienteDao;
-    CuentaDao cuentaDao;
-    MovimientosDao movimientosDao;
+    private final ClienteDao clienteDao;
+    private final CuentaDao cuentaDao;
+    private final MovimientosDao movimientosDao;
 
     public EliminarCuenta(ClienteDao clienteDao, CuentaDao cuentaDao, MovimientosDao movimientosDao) {
         this.clienteDao = clienteDao;

@@ -3,6 +3,7 @@ package ar.edu.utn.frbb.tup.presentation.input;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
 import ar.edu.utn.frbb.tup.presentation.BasePresentation;
+import ar.edu.utn.frbb.tup.service.administracion.cuentas.CrearCuenta;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -14,7 +15,13 @@ import java.util.Scanner;
 public class CuentaInput extends BasePresentation {
     private Scanner scanner = new Scanner(System.in);
 
-    public Cuenta creacionCuenta(long dniTitular){
+    private final CrearCuenta crearCuenta;
+
+    public CuentaInput(CrearCuenta crearCuenta){
+        this.crearCuenta = crearCuenta;
+    }
+
+    public void creacionCuenta(long dniTitular){
         Random r = new Random();
         Cuenta cuenta = new Cuenta();
         //Creacion de cuenta para el cliente
@@ -32,7 +39,12 @@ public class CuentaInput extends BasePresentation {
 
         cuenta.setFechaCreacion(LocalDate.now());
         cuenta.setTipoCuenta(ingresarTipoCuenta());
-        return cuenta;
+
+        //Muestro en pantalla si la cuenta fue creada exitosamente
+        Cuenta c = crearCuenta.crearCuenta(cuenta);
+        if (c != null){
+            System.out.println(toString(cuenta, "------------ Cuenta Creada Con Exito -----------"));
+        }
 
     }
 

@@ -15,8 +15,8 @@ import java.util.List;
 
 @Service
 public class MostrarCuenta extends BaseAdministracion {
-    ClienteDao clienteDao;
-    CuentaDao cuentaDao;
+    private final ClienteDao clienteDao;
+    private final CuentaDao cuentaDao;
 
     public MostrarCuenta(ClienteDao clienteDao, CuentaDao cuentaDao) {
         this.clienteDao = clienteDao;

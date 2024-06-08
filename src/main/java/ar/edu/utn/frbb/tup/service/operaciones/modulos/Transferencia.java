@@ -14,8 +14,8 @@ import static ar.edu.utn.frbb.tup.presentation.BasePresentation.ingresarDinero;
 
 @Service
 public class Transferencia extends baseOperaciones {
-    CuentaDao cuentaDao;
-    MovimientosDao movimientosDao;
+    private final CuentaDao cuentaDao;
+    private final MovimientosDao movimientosDao;
 
     private final String tipoOperacion = "Transferencia a la cuenta ";
     private final String tipoOperacionDestino = "Deposito recibido de la cuenta ";

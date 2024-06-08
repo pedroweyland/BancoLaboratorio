@@ -5,16 +5,16 @@ import ar.edu.utn.frbb.tup.exception.ClienteExistenteException;
 import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracion;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CrearCliente extends BaseAdministracion {
-    ClienteDao clienteDao;
-    ClienteInput clienteInput;
+    private final ClienteDao clienteDao;
 
-    public CrearCliente(ClienteDao clienteDao, ClienteInput clienteInput) {
+
+    public CrearCliente(ClienteDao clienteDao) {
         this.clienteDao = clienteDao;
-        this.clienteInput = clienteInput;
     }
 
     public Cliente crearCliente(Cliente cliente) {

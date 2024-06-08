@@ -2,9 +2,10 @@ package ar.edu.utn.frbb.tup.presentation.menuProcessor;
 
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.presentation.BasePresentation;
+import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
+import ar.edu.utn.frbb.tup.presentation.input.CuentaInput;
 import ar.edu.utn.frbb.tup.service.handler.ClienteService;
 import ar.edu.utn.frbb.tup.service.handler.CuentaService;
-import ar.edu.utn.frbb.tup.service.administracion.cuentas.CrearCuenta;
 import ar.edu.utn.frbb.tup.service.administracion.cuentas.DarAltaBaja;
 import ar.edu.utn.frbb.tup.service.administracion.cuentas.EliminarCuenta;
 import ar.edu.utn.frbb.tup.service.administracion.cuentas.MostrarCuenta;
@@ -18,15 +19,15 @@ import static ar.edu.utn.frbb.tup.presentation.menuProcessor.Menus.menuCuenta;
 
 @Component
 public class MenuCuentas extends BasePresentation {
-    CrearCuenta crear;
-    EliminarCuenta eliminar;
-    MostrarCuenta mostrar;
-    DarAltaBaja altaBaja;
-    ClienteService clienteService;
-    CuentaService cuentaService;
+    private final CuentaInput cuentaInput;
+    private final EliminarCuenta eliminar;
+    private final MostrarCuenta mostrar;
+    private final DarAltaBaja altaBaja;
+    private final ClienteService clienteService;
+    private final CuentaService cuentaService;
 
-    public MenuCuentas(CrearCuenta crear, EliminarCuenta eliminar, MostrarCuenta mostrar, DarAltaBaja darAltaBaja, ClienteService clienteService, CuentaService cuentaService) {
-        this.crear = crear;
+    public MenuCuentas(CuentaInput cuentaInput, EliminarCuenta eliminar, MostrarCuenta mostrar, DarAltaBaja darAltaBaja, ClienteService clienteService, CuentaService cuentaService) {
+        this.cuentaInput = cuentaInput;
         this.eliminar = eliminar;
         this.mostrar = mostrar;
         this.altaBaja = darAltaBaja;
@@ -36,7 +37,7 @@ public class MenuCuentas extends BasePresentation {
     }
 
     //Funcion que administra las cuentas de los clientes
-    public void menuCuentas() {
+    public void menuProcessor() {
         boolean salir = false;
 
         while (!salir) {
@@ -44,9 +45,9 @@ public class MenuCuentas extends BasePresentation {
                 //Leo toda la lista de clientes, si no hay clientes lanza una excepcion ya que no se puede crear cuentas sin clientes
                 clienteService.findAllClientes();
 
-
                 long dni, cvu;
                 Cuenta cuenta;
+
                 int opcion = menuCuenta();
 
                 if (opcion != 1 && opcion != 0) {
@@ -58,9 +59,7 @@ public class MenuCuentas extends BasePresentation {
                     case 1:
                         dni = pedirDni("Escriba el DNI del cliente para crearle una cuenta: (0 para salir)");
                         if (dni == 0) break;
-                        cuenta = crear.crearCuenta(dni);
-                        if (cuenta != null)
-                            System.out.println(toString(cuenta, "------------ Cuenta Creada Con Exito -----------"));
+                        cuentaInput.creacionCuenta(dni);
 
                         break;
                     case 2:
@@ -112,6 +111,8 @@ public class MenuCuentas extends BasePresentation {
                 System.out.println("----------------------------------------");
                 System.out.println(ex.getMessage());
                 System.out.println("----------------------------------------");
+                salir = true;
+
             } finally {
                 System.out.println("Enter para seguir");
                 scanner.nextLine();

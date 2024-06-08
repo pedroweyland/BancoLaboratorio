@@ -13,8 +13,8 @@ import static ar.edu.utn.frbb.tup.presentation.BasePresentation.*;
 
 @Service
 public class DarAltaBaja extends BaseAdministracion {
-    ClienteDao clienteDao;
-    CuentaDao cuentaDao;
+    private final ClienteDao clienteDao;
+    private final CuentaDao cuentaDao;
 
     public DarAltaBaja(ClienteDao clienteDao, CuentaDao cuentaDao) {
         this.clienteDao = clienteDao;

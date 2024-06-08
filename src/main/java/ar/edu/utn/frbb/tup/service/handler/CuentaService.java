@@ -6,7 +6,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CuentaService {
-    CuentaDao cuentaDao = new CuentaDao();
+    private final CuentaDao cuentaDao;
+
+    public CuentaService(CuentaDao cuentaDao){
+        this.cuentaDao = cuentaDao;
+    }
 
     public void findAllCuentas() throws CuentasVaciasException {
         cuentaDao.findAllCuentas();

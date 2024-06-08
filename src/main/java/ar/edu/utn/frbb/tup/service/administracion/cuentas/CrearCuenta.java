@@ -11,27 +11,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CrearCuenta extends BaseAdministracion {
-    ClienteDao clienteDao;
-    CuentaDao cuentaDao;
-    CuentaInput cuentaInput;
+    private final ClienteDao clienteDao;
+    private final CuentaDao cuentaDao;
 
-    public CrearCuenta(ClienteDao clienteDao, CuentaDao cuentaDao, CuentaInput cuentaInput) {
+    public CrearCuenta(ClienteDao clienteDao, CuentaDao cuentaDao) {
         this.clienteDao = clienteDao;
         this.cuentaDao = cuentaDao;
-        this.cuentaInput = cuentaInput;
     }
 
-    public Cuenta crearCuenta(long dni) {
+    public Cuenta crearCuenta(Cuenta cuenta) {
 
-        Cliente cliente = clienteDao.findCliente(dni);
+        Cliente cliente = clienteDao.findCliente(cuenta.getDniTitular());
 
         try {
             if (cliente == null){
-                throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
+                throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + cuenta.getDniTitular());
             }
-
-            //Usuario ingresa los datos y se guarda en la variable cliente
-            Cuenta cuenta = cuentaInput.creacionCuenta(dni);
 
             //Agrego la cuenta al archivo
             cuentaDao.saveCuenta(cuenta);

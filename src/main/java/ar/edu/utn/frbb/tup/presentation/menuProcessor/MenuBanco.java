@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MenuBanco extends BasePresentation {
-    MenuClientes menuClientes;
-    MenuCuentas menuCuentas;
-    MenuOperaciones menuOperaciones;
-    ClienteService clienteService;
-    CuentaService cuentaService;
-    MovimientoService movimientoService;
+    private final MenuClientes menuClientes;
+    private final MenuCuentas menuCuentas;
+    private final MenuOperaciones menuOperaciones;
+    private final ClienteService clienteService;
+    private final CuentaService cuentaService;
+    private final MovimientoService movimientoService;
 
     public MenuBanco(MenuClientes menuClientes, MenuCuentas menuCuentas, MenuOperaciones menuOperaciones, ClienteService clienteService, CuentaService cuentaService, MovimientoService movimientoService) {
         this.menuClientes = menuClientes;
@@ -41,14 +41,13 @@ public class MenuBanco extends BasePresentation {
 
             switch (opcion) {
                 case 1:
-                    menuClientes.menuClientes();
+                    menuClientes.menuProcessor();
                     break;
                 case 2:
-                    menuCuentas.menuCuentas();
+                    menuCuentas.menuProcessor();
                     break;
                 case 3:
-                    //operaciones.operaciones();
-                    menuOperaciones.menuOperacion();
+                    menuOperaciones.menuProcessor();
                     break;
                 case 0:
                     salir = true;

@@ -4,10 +4,7 @@ import ar.edu.utn.frbb.tup.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.presentation.BasePresentation;
 import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
-import ar.edu.utn.frbb.tup.service.administracion.clientes.EliminarCliente;
-import ar.edu.utn.frbb.tup.service.administracion.clientes.ModificarCliente;
-import ar.edu.utn.frbb.tup.service.administracion.clientes.MostrarCliente;
-import ar.edu.utn.frbb.tup.service.administracion.clientes.MostrarTodosClientes;
+import ar.edu.utn.frbb.tup.service.administracion.clientes.*;
 import ar.edu.utn.frbb.tup.service.handler.ClienteService;
 import org.springframework.stereotype.Component;
 import java.util.List;
@@ -16,32 +13,32 @@ import static ar.edu.utn.frbb.tup.presentation.menuProcessor.Menus.menuCliente;
 
 @Component
 public class MenuClientes extends BasePresentation {
-    ClienteInput clienteInput;
-    ModificarCliente modificar;
-    EliminarCliente eliminar;
-    MostrarCliente mostrar;
-    MostrarTodosClientes mostrarTodos;
-    ClienteService clienteService;
+    private final ClienteInput clienteInput;
+    private final ClienteService clienteService;
+    private final EliminarCliente eliminar;
+    private final ModificarCliente mod;
+    private final MostrarCliente mostrar;
+    private final MostrarTodosClientes mostrarTodos;
 
-    public MenuClientes(ClienteInput clienteInput, ModificarCliente modificar, EliminarCliente eliminar, MostrarCliente mostrar, MostrarTodosClientes mostrarTodos, ClienteService clienteService) {
+    public MenuClientes(ClienteInput clienteInput, ClienteService clienteService, EliminarCliente eliminarCliente, ModificarCliente modificarCliente, MostrarCliente mostrarCliente, MostrarTodosClientes mostrarTodosClientes) {
         this.clienteInput = clienteInput;
-        this.modificar = modificar;
-        this.eliminar = eliminar;
-        this.mostrar = mostrar;
-        this.mostrarTodos = mostrarTodos;
         this.clienteService = clienteService;
+        this.eliminar = eliminarCliente;
+        this.mod = modificarCliente;
+        this.mostrar = mostrarCliente;
+        this.mostrarTodos = mostrarTodosClientes;
     }
 
     //Funcion que administra los clientes del banco
-    public void menuClientes() {
+    public void menuProcessor() {
         boolean salir = false;
-        int opcion = 0;
+
         while (!salir) {
             try {
                 long dni;
                 Cliente cliente;
 
-                opcion = menuCliente();
+                int opcion = menuCliente();
 
                 if (opcion != 1 && opcion != 0) {
                     clienteService.findAllClientes();
@@ -55,7 +52,8 @@ public class MenuClientes extends BasePresentation {
                         dni = pedirDni("Escriba el DNI para el cliente que quiere modificar: (0 para salir)");
                         clearScreen();
                         if (dni == 0) break;
-                        modificar.modificarCliente(dni);
+                        mod.modificarCliente(dni);
+
                         break;
 
                     case 3:

@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class Consulta extends baseOperaciones {
-    MovimientosDao movimientosDao;
-
+    private final MovimientosDao movimientosDao;
     private final String tipoOperacion = "Consulta";
 
     public Consulta(MovimientosDao movimientosDao) {

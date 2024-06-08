@@ -5,26 +5,15 @@ import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
-import ar.edu.utn.frbb.tup.service.operaciones.modulos.*;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Operaciones extends baseOperaciones {
 
-    Deposito deposito;
-    Retiro retiro;
-    Transferencia transferencia;
-    Consulta consulta;
-    MostrarMovimientos movimientos;
-    ClienteDao clienteDao;
-    CuentaDao cuentaDao;
+    private final ClienteDao clienteDao;
+    private final CuentaDao cuentaDao;
 
-    public Operaciones(Deposito deposito, Retiro retiro, Transferencia transferencia, Consulta consulta, MostrarMovimientos movimientos, ClienteDao clienteDao, CuentaDao cuentaDao) {
-        this.deposito = deposito;
-        this.retiro = retiro;
-        this.transferencia = transferencia;
-        this.consulta = consulta;
-        this.movimientos = movimientos;
+    public Operaciones(ClienteDao clienteDao, CuentaDao cuentaDao) {
         this.clienteDao = clienteDao;
         this.cuentaDao = cuentaDao;
     }

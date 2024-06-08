@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class MostrarMovimientos extends baseOperaciones {
-    MovimientosDao movimientosDao;
+    private final MovimientosDao movimientosDao;
 
     public MostrarMovimientos(MovimientosDao movimientosDao) {
         this.movimientosDao = movimientosDao;

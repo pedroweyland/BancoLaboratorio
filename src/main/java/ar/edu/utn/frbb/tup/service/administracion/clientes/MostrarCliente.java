@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MostrarCliente extends BaseAdministracion {
-    ClienteDao clienteDao;
+    private final ClienteDao clienteDao;
 
     public MostrarCliente(ClienteDao clienteDao) {
         this.clienteDao = clienteDao;

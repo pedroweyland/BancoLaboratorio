@@ -5,7 +5,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MovimientoService {
-    MovimientosDao movimientosDao = new MovimientosDao();
+    private final MovimientosDao movimientosDao;
+
+    public MovimientoService(MovimientosDao movimientosDao){
+        this.movimientosDao = movimientosDao;
+    }
 
     public void inicializarMovimientos() {
         movimientosDao.inicializarMovimientos();
