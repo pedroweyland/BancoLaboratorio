@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.presentation.input;
 
+import ar.edu.utn.frbb.tup.exception.ClienteExistenteException;
 import ar.edu.utn.frbb.tup.exception.ClienteFechaDeAltaInvalidaException;
 import ar.edu.utn.frbb.tup.exception.ClienteMenorDeEdadException;
 import ar.edu.utn.frbb.tup.model.Cliente;
@@ -24,7 +25,7 @@ public class ClienteInput extends BasePresentation {
         this.crearCliente = crearCliente;
     }
 
-    public void ingresoCliente() {
+    public void ingresoCliente() throws ClienteExistenteException {
 
         Cliente cliente = new Cliente();
         clearScreen();

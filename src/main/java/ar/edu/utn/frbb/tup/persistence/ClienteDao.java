@@ -19,13 +19,7 @@ public class ClienteDao extends BaseDao<Cliente>{
         inicializarArchivo(encabezado, RUTA_ARCHIVO);
     }
 
-    public void saveCliente(Cliente cliente) throws ClienteExistenteException {
-
-        Cliente existente = findCliente(cliente.getDni());
-
-        if (existente != null) {
-            throw new ClienteExistenteException("Ya existe un cliente con el DNI ingresado");
-        }
+    public void saveCliente(Cliente cliente) {
 
         String infoAguardar = cliente.getDni() + "," + cliente.getNombre() + "," + cliente.getApellido() + "," + cliente.getDireccion() + "," + cliente.getFechaNacimiento() + "," + cliente.getMail() + "," + cliente.getBanco() + "," + cliente.getTipoPersona() + "," + cliente.getFechaAlta();
 
@@ -33,15 +27,10 @@ public class ClienteDao extends BaseDao<Cliente>{
     }
 
     public Cliente deleteCliente(Long dni) throws ClienteNoEncontradoException{
-        Cliente existente = findCliente(dni);
-
-        if (existente == null){
-            throw new ClienteNoEncontradoException("No existe ningun cliente con el DNI ingresado");
-        }
 
         deleteInfo(dni, RUTA_ARCHIVO);
 
-        return existente;
+        return findCliente(dni);
     }
 
     public Cliente findCliente(Long dni){

@@ -15,23 +15,15 @@ public class MostrarCliente extends BaseAdministracion {
     }
 
     // Mostrar un cliente en especifico
-    public Cliente mostrarCliente(long dni){
+    public Cliente mostrarCliente(long dni) throws ClienteNoEncontradoException {
 
-        try {
-            //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
-            Cliente cliente = clienteDao.findCliente(dni);
+        //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
+        Cliente cliente = clienteDao.findCliente(dni);
 
-            if (cliente == null){
-                throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
-            }
-
-            return cliente;
-
-        } catch (ClienteNoEncontradoException e) {
-            System.out.println("----------------------------------------");
-            System.out.println(e.getMessage());
-            System.out.println("----------------------------------------");
+        if (cliente == null){
+            throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
         }
-        return null;
+
+        return cliente;
     }
 }

@@ -1,5 +1,7 @@
 package ar.edu.utn.frbb.tup.presentation.menuProcessor;
 
+import ar.edu.utn.frbb.tup.exception.ClienteExistenteException;
+import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.exception.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.presentation.BasePresentation;
@@ -89,7 +91,7 @@ public class MenuClientes extends BasePresentation {
                         salir = true;
                         break;
                 }
-            } catch (ClientesVaciosException e) {
+            } catch (ClientesVaciosException | ClienteExistenteException | ClienteNoEncontradoException e) {
                 System.out.println("----------------------------------------");
                 System.out.println(e.getMessage());
                 System.out.println("----------------------------------------");

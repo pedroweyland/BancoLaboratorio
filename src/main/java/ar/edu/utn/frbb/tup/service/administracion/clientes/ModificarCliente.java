@@ -27,6 +27,10 @@ public class ModificarCliente extends BaseAdministracion {
 
         try {
 
+            if (clienteDao.findCliente(dni) != null){
+                throw new ClienteNoEncontradoException("Ya existe un cliente con el DNI ingresado");
+            }
+
             //Elimino el cliente con el DNI ingresado, si no existe el cliente lanza una excepcion,
             //Esta misma tambien retorna el cliente que fue eliminado para poder modificar
             Cliente cliente = clienteDao.deleteCliente(dni);
@@ -74,7 +78,7 @@ public class ModificarCliente extends BaseAdministracion {
                     clearScreen();
                 }
             }
-        } catch (ClienteNoEncontradoException | ClienteExistenteException ex) {
+        } catch (ClienteNoEncontradoException ex) {
             System.out.println("----------------------------------------");
             System.out.println(ex.getMessage());
             System.out.println("----------------------------------------");
