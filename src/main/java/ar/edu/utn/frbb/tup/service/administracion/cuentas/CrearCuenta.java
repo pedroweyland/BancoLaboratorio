@@ -19,26 +19,20 @@ public class CrearCuenta extends BaseAdministracion {
         this.cuentaDao = cuentaDao;
     }
 
-    public Cuenta crearCuenta(Cuenta cuenta) {
+    public Cuenta crearCuenta(Cuenta cuenta) throws ClienteNoEncontradoException {
 
         Cliente cliente = clienteDao.findCliente(cuenta.getDniTitular());
 
-        try {
-            if (cliente == null){
-                throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + cuenta.getDniTitular());
-            }
 
-            //Agrego la cuenta al archivo
-            cuentaDao.saveCuenta(cuenta);
-
-            //Muestro en pantalla el resultado
-            return cuenta;
-
-        } catch (ClienteNoEncontradoException e) {
-            System.out.println("----------------------------------------");
-            System.out.println(e.getMessage());
-            System.out.println("----------------------------------------");
+        if (cliente == null){
+            throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + cuenta.getDniTitular());
         }
-        return null;
+
+        //Agrego la cuenta al archivo
+        cuentaDao.saveCuenta(cuenta);
+
+        //Muestro en pantalla el resultado
+        return cuenta;
+
     }
 }

@@ -1,5 +1,7 @@
 package ar.edu.utn.frbb.tup.presentation.menuProcessor;
 
+import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.presentation.BasePresentation;
 import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
@@ -56,13 +58,13 @@ public class MenuCuentas extends BasePresentation {
                 }
 
                 switch (opcion) {
-                    case 1:
+                    case 1: //Creacion de cuenta
                         dni = pedirDni("Escriba el DNI del cliente para crearle una cuenta: (0 para salir)");
                         if (dni == 0) break;
                         cuentaInput.creacionCuenta(dni);
 
                         break;
-                    case 2:
+                    case 2: //Eliminar Cuenta
                         dni = pedirDni("Escriba el DNI al cliente para eliminar una cuenta: (0 para salir) ");
                         clearScreen();
                         if (dni == 0) break;
@@ -75,7 +77,7 @@ public class MenuCuentas extends BasePresentation {
                             System.out.println(toString(cuenta, "------------ Cuenta eliminada -----------"));
                         break;
 
-                    case 3:
+                    case 3: //Mostrar Cuenta
                         dni = pedirDni("Escriba el DNI del cliente para ver sus cuentas: (0 para salir)");
                         clearScreen();
                         if (dni == 0) break;
@@ -89,7 +91,7 @@ public class MenuCuentas extends BasePresentation {
                         }
 
                         break;
-                    case 4:
+                    case 4: //Dar Alta/Baja Cuenta
                         dni = pedirDni("Escriba el DNI del cliente para dar de Alta/Baja: (0 para salir)");
                         clearScreen();
                         if (dni == 0) break;
@@ -107,7 +109,8 @@ public class MenuCuentas extends BasePresentation {
                         break;
                 }
 
-            } catch(ClientesVaciosException | CuentasVaciasException ex){
+            } catch(ClientesVaciosException | CuentasVaciasException | ClienteNoEncontradoException |
+                    CuentaNoEncontradaException ex){
                 System.out.println("----------------------------------------");
                 System.out.println(ex.getMessage());
                 System.out.println("----------------------------------------");

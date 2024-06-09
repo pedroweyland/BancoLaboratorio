@@ -23,40 +23,39 @@ public class MostrarCuenta extends BaseAdministracion {
         this.cuentaDao = cuentaDao;
     }
 
-    public List<Cuenta> mostrarCuenta(long dni) {
+    public List<Cuenta> mostrarCuenta(long dni) throws ClienteNoEncontradoException, CuentasVaciasException, CuentaNoEncontradaException {
 
         //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
         Cliente cliente = clienteDao.findCliente(dni);
 
-        try {
-            if (cliente == null) {
-                //Lanzo excepcion si el cliente no fue encontrado
-                throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
-            }
-
-            //Me devuelve toda la lista de cuentas que hay
-            List<Cuenta> cuentas = cuentaDao.findAllCuentas();
-
-            List<Cuenta> aux = new ArrayList<>(); //Lista auxiliar para guardar las cuentas del cliente
-
-            boolean encontrada = false;
-            for (Cuenta cuenta : cuentas) {
-                if (cuenta.getDniTitular() == dni) {
-                    aux.add(cuenta);
-                    encontrada = true;
-                }
-            }
-
-            if (!encontrada){
-                throw new CuentaNoEncontradaException("No hay cuentas asociadas al cliente con DNI: " + dni);
-            }
-            return aux;
-
-        } catch (ClienteNoEncontradoException | CuentasVaciasException | CuentaNoEncontradaException e) {
-            System.out.println("----------------------------------------");
-            System.out.println(e.getMessage());
-            System.out.println("----------------------------------------");
+        if (cliente == null) {
+            //Lanzo excepcion si el cliente no fue encontrado
+            throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
         }
-        return null;
+
+        //Me devuelve la lista de todas las cuentas
+        List<Cuenta> cuentas = cuentaDao.findAllCuentas();
+
+        if (cuentas.isEmpty()){ //Si la lista esta vacia significa que no hay cuentas registradas
+            throw new CuentasVaciasException("No hay cuentas registradas");
+        }
+
+        List<Cuenta> aux = new ArrayList<>(); //Lista auxiliar para guardar las cuentas del cliente
+
+        boolean encontrada = false;
+        for (Cuenta cuenta : cuentas) {
+            if (cuenta.getDniTitular() == dni) {
+                aux.add(cuenta);
+                encontrada = true;
+            }
+        }
+
+        if (!encontrada) {
+            throw new CuentaNoEncontradaException("No hay cuentas asociadas al cliente con DNI: " + dni);
+        }
+
+        //Retorna la lista de cuentas que tiene asociada el cliente
+        return aux;
+
     }
 }

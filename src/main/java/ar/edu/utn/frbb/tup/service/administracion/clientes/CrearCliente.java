@@ -1,11 +1,9 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
-import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.exception.ClienteExistenteException;
 import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracion;
 import ar.edu.utn.frbb.tup.model.Cliente;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

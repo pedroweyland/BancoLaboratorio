@@ -34,14 +34,8 @@ public class CuentaDao extends BaseDao<Cuenta> {
         return findInfo(CVU, RUTA_ARCHIVO);
     }
 
-    public List<Cuenta> findAllCuentas() throws CuentasVaciasException{
-        List<Cuenta> cuentas = findAllInfo(RUTA_ARCHIVO);
-
-        if (cuentas.isEmpty()){ //Si la lista esta vacia significa que no hay clientes registrados
-            throw new CuentasVaciasException("No hay cuentas registradas");
-        }
-
-        return cuentas;
+    public List<Cuenta> findAllCuentas() {
+        return findAllInfo(RUTA_ARCHIVO);
     }
 
     public Cuenta findCuentaDelCliente(long cvu, long dni){

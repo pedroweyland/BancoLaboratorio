@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 import static ar.edu.utn.frbb.tup.presentation.menuProcessor.Menus.menuCliente;
+import static ar.edu.utn.frbb.tup.presentation.menuProcessor.Menus.menuModificacion;
 
 @Component
 public class MenuClientes extends BasePresentation {
@@ -47,18 +48,18 @@ public class MenuClientes extends BasePresentation {
                 }
 
                 switch (opcion) {
-                    case 1:
+                    case 1: //Crear Cliente
                         clienteInput.ingresoCliente();
                         break;
-                    case 2:
+                    case 2: //Modificar Cliente
                         dni = pedirDni("Escriba el DNI para el cliente que quiere modificar: (0 para salir)");
                         clearScreen();
                         if (dni == 0) break;
+
                         mod.modificarCliente(dni);
 
                         break;
-
-                    case 3:
+                    case 3: //Eliminar Cliente
                         dni = pedirDni("Escriba el DNI para el cliente que quiere eliminar: (0 para salir)");
                         clearScreen();
                         if (dni == 0) break;
@@ -67,7 +68,7 @@ public class MenuClientes extends BasePresentation {
                         if (cliente != null) System.out.println(toString(cliente, "------------ Cliente eliminado -----------"));
 
                         break;
-                    case 4:
+                    case 4: //Mostrar Cliente
                         dni = pedirDni("Escriba el DNI para el cliente que quiere mostrar: (0 para salir)");
                         clearScreen();
                         if (dni == 0) break;
@@ -76,7 +77,7 @@ public class MenuClientes extends BasePresentation {
                         if (cliente != null) System.out.println(toString(cliente, "------------ Muestra cliente -----------"));
 
                         break;
-                    case 5:
+                    case 5: //Mostrar todos los Clientes
                         clearScreen();
                         List<Cliente> clientes = mostrarTodos.mostrarTodosClientes();
                         int contador = 1;

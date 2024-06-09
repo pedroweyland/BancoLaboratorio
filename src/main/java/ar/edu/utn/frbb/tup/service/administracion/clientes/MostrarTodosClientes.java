@@ -18,18 +18,12 @@ public class MostrarTodosClientes extends BaseAdministracion {
     }
 
     // Mostrar todos los clientes
-    public List<Cliente> mostrarTodosClientes() {
+    public List<Cliente> mostrarTodosClientes() throws ClientesVaciosException {
 
-        try {
 
-            //Leo toda la lista de clientes, si no hay clientes lanza una excepcion
-            return clienteDao.findAllClientes();
 
-        } catch (ClientesVaciosException ex){
-            System.out.println("----------------------------------------");
-            System.out.println(ex.getMessage());
-            System.out.println("----------------------------------------");
-        }
-        return null;
+        //Leo toda la lista de clientes, si no hay clientes lanza una excepcion
+        return clienteDao.findAllClientes();
+
     }
 }

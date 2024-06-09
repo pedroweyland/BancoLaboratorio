@@ -4,7 +4,6 @@ import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
-import ar.edu.utn.frbb.tup.service.administracion.clientes.EliminarCliente;
 import ar.edu.utn.frbb.tup.service.administracion.clientes.MostrarCliente;
 import ar.utn.frbb.tup.service.administracion.baseAdministracionTest;
 import org.junit.jupiter.api.Test;

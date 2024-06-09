@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.presentation.input;
 
+import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
 import ar.edu.utn.frbb.tup.presentation.BasePresentation;
@@ -21,7 +22,7 @@ public class CuentaInput extends BasePresentation {
         this.crearCuenta = crearCuenta;
     }
 
-    public void creacionCuenta(long dniTitular){
+    public void creacionCuenta(long dniTitular) throws ClienteNoEncontradoException {
         Random r = new Random();
         Cuenta cuenta = new Cuenta();
         //Creacion de cuenta para el cliente

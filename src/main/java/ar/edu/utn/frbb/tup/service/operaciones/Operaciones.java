@@ -24,7 +24,7 @@ public class Operaciones extends baseOperaciones {
         Cliente cliente = clienteDao.findCliente(dni);
 
         if (cliente == null) { //Si no se encuentra el cliente lanza una excepcion
-            throw new ClienteNoEncontradoException("No se encontro ningun cliente con el DNI dado");
+            throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
         }
 
         Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);

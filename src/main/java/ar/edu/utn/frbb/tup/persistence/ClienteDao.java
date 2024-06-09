@@ -26,11 +26,10 @@ public class ClienteDao extends BaseDao<Cliente>{
         saveInfo(infoAguardar, RUTA_ARCHIVO);
     }
 
-    public Cliente deleteCliente(Long dni) throws ClienteNoEncontradoException{
+    public void deleteCliente(Long dni) {
 
         deleteInfo(dni, RUTA_ARCHIVO);
 
-        return findCliente(dni);
     }
 
     public Cliente findCliente(Long dni){

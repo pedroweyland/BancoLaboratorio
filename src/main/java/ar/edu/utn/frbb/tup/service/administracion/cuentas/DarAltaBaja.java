@@ -21,37 +21,31 @@ public class DarAltaBaja extends BaseAdministracion {
         this.cuentaDao = cuentaDao;
     }
 
-    public void gestionarEstado (long dni, long cvu, boolean opcion) {
+    public void gestionarEstado (long dni, long cvu, boolean opcion) throws ClienteNoEncontradoException, CuentaNoEncontradaException {
 
         //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
         Cliente cliente = clienteDao.findCliente(dni);
 
-        try {
-
-            if (cliente == null) {
-                throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
-            }
-
-            //Funcion que devuelve la cuenta encontrada o vuelve Null si no lo encontro, solo devuelve las cuentas que tiene asocida el cliente
-            Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);
-
-            if (cuenta == null) {
-                throw new CuentaNoEncontradaException("El Cliente no tiene ninguna cuenta con el CVU: " + cvu);
-            }
-
-            cuentaDao.deleteCuenta(cvu); //Borro la cuenta ya que va ser actualizada
-
-            System.out.println("----------------------------------------");
-            darAltaBaja(cuenta, opcion);
-            System.out.println("----------------------------------------");
-
-            cuentaDao.saveCuenta(cuenta); //Guardo la cuenta y la relacion actualizada
-
-        } catch (ClienteNoEncontradoException | CuentaNoEncontradaException e) {
-            System.out.println("----------------------------------------");
-            System.out.println(e.getMessage());
-            System.out.println("----------------------------------------");
+        if (cliente == null) {
+            throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
         }
+
+        //Funcion que devuelve la cuenta encontrada o vuelve Null si no lo encontro, solo devuelve las cuentas que tiene asocida el cliente
+        Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);
+
+        if (cuenta == null) {
+            throw new CuentaNoEncontradaException("El Cliente no tiene ninguna cuenta con el CVU: " + cvu);
+        }
+
+        cuentaDao.deleteCuenta(cvu); //Borro la cuenta ya que va ser actualizada
+
+        System.out.println("----------------------------------------");
+        darAltaBaja(cuenta, opcion);
+        System.out.println("----------------------------------------");
+
+        cuentaDao.saveCuenta(cuenta); //Guardo la cuenta y la relacion actualizada
+
+
     }
 
     public void darAltaBaja (Cuenta cuenta, boolean darDeAlta) {

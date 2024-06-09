@@ -25,39 +25,34 @@ public class EliminarCuenta extends BaseAdministracion {
         this.movimientosDao = movimientosDao;
     }
 
-    public Cuenta eliminarCuenta(long dni, long cvu) {
+    public Cuenta eliminarCuenta(long dni, long cvu) throws ClienteNoEncontradoException, CuentasVaciasException, CuentaNoEncontradaException {
 
         Cliente cliente = clienteDao.findCliente(dni);
 
-        try {
-            if (cliente == null) {
-                //Lanzo excepcion si el cliente no fue encontrado
-                throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
-            }
 
-            List<Long> cuentasCvu = cuentaDao.getRelacionesDni(dni); //Valido si el DNI tiene cuentas asociadas
-            if (cuentasCvu.isEmpty()) {
-                throw new CuentasVaciasException("No hay cuentas asociadas al cliente con DNI: " + dni);
-            }
-
-            //Funcion que devuelve la cuenta encontrada o vuelve Null si no lo encontro, solo devuelve las cuentas que tiene asocida el cliente
-            Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);
-
-            if (cuenta == null){
-                //Lanzo excepcion si la cuenta no fue encontrada
-                throw new CuentaNoEncontradaException("El Cliente no tiene ninguna cuenta con el CVU: " + cvu);
-            }
-
-            //Borro la cuenta en Cuentas y Movimientos de esta misma
-            cuentaDao.deleteCuenta(cvu);
-            movimientosDao.deleteMovimiento(cvu);
-
-            return cuenta;
-        } catch (ClienteNoEncontradoException | CuentaNoEncontradaException | CuentasVaciasException e) {
-            System.out.println("----------------------------------------");
-            System.out.println(e.getMessage());
-            System.out.println("----------------------------------------");
+        if (cliente == null) {
+            //Lanzo excepcion si el cliente no fue encontrado
+            throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
         }
-        return null;
+
+        List<Long> cuentasCvu = cuentaDao.getRelacionesDni(dni); //Valido si el DNI tiene cuentas asociadas
+        if (cuentasCvu.isEmpty()) {
+            throw new CuentasVaciasException("No hay cuentas asociadas al cliente con DNI: " + dni);
+        }
+
+        //Funcion que devuelve la cuenta encontrada o vuelve Null si no lo encontro, solo devuelve las cuentas que tiene asocida el cliente
+        Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);
+
+        if (cuenta == null) {
+            //Lanzo excepcion si la cuenta no fue encontrada
+            throw new CuentaNoEncontradaException("El Cliente no tiene ninguna cuenta con el CVU: " + cvu);
+        }
+
+        //Borro la cuenta en Cuentas y Movimientos de esta misma
+        cuentaDao.deleteCuenta(cvu);
+        movimientosDao.deleteMovimiento(cvu);
+
+        return cuenta;
+
     }
 }

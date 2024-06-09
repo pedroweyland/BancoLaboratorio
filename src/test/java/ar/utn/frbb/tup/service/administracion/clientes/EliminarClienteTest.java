@@ -36,21 +36,21 @@ public class EliminarClienteTest extends baseAdministracionTest {
     public void testEliminarClienteSuccess() throws ClienteNoEncontradoException {
         Cliente pepo = getCliente("Pepo", 12345678L);
 
-        when(clienteDao.findCliente(pepo.getDni())).thenReturn(null);
-        when(clienteDao.deleteCliente(pepo.getDni())).thenReturn(pepo);
+        when(clienteDao.findCliente(pepo.getDni())).thenReturn(pepo);
         when(cuentaDao.getRelacionesDni(pepo.getDni())).thenReturn(new ArrayList<>());
 
         Cliente eliminado = eliminarCliente.eliminarCliente(pepo.getDni());
 
         assertEquals(pepo, eliminado);
         verify(clienteDao, times(1)).deleteCliente(pepo.getDni());
-        verify(cuentaDao, times(1)).getRelacionesDni(pepo.getDni());    }
+        verify(cuentaDao, times(1)).getRelacionesDni(pepo.getDni());
+    }
 
     @Test
     public void testEliminarClienteNoEncontrado(){
         Cliente pepo = getCliente("Pepo", 12345678L);
 
-        when(clienteDao.findCliente(pepo.getDni())).thenReturn(new Cliente());
+        when(clienteDao.findCliente(pepo.getDni())).thenReturn(null);
 
         assertThrows(ClienteNoEncontradoException.class, () -> eliminarCliente.eliminarCliente(pepo.getDni()));
     }
