@@ -48,7 +48,7 @@ public class CrearClienteTest extends baseAdministracionTest {
     }
 
     @Test
-    public void testCrearClienteExistente() throws ClienteExistenteException {
+    public void testCrearClienteExistente(){
         Cliente pepo = getCliente("Pepo", 12345678L);
 
         when(clienteDao.findCliente(pepo.getDni())).thenReturn(new Cliente());

@@ -25,7 +25,6 @@ public class CrearCliente extends BaseAdministracion {
         clienteDao.saveCliente(cliente);
 
         return cliente;
-
-
+        
     }
 }

@@ -56,8 +56,13 @@ public class MenuClientes extends BasePresentation {
                         clearScreen();
                         if (dni == 0) break;
 
-                        mod.modificarCliente(dni);
+                        while (true) {
+                            int opcionMod = menuModificacion();  //Usuario ingresa que quiere modificar
+                            if (opcionMod == 0) break;
+                            String modificacion = mod.modificarCliente(dni, opcionMod);
 
+                            System.out.println(modificacion);
+                        }
                         break;
                     case 3: //Eliminar Cliente
                         dni = pedirDni("Escriba el DNI para el cliente que quiere eliminar: (0 para salir)");

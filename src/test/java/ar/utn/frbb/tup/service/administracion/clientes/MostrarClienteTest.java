@@ -48,4 +48,6 @@ public class MostrarClienteTest extends baseAdministracionTest {
 
         assertThrows(ClienteNoEncontradoException.class, () -> mostrarCliente.mostrarCliente(pepo.getDni()));
     }
+
+
 }

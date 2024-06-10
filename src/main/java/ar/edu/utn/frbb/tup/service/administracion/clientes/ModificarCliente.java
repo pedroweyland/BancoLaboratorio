@@ -22,9 +22,8 @@ public class ModificarCliente extends BaseAdministracion {
     }
 
     // Modificacion Cliente
-    public void modificarCliente(long dni) throws ClienteNoEncontradoException {
-        boolean salir = false;
-
+    public String modificarCliente(long dni, int opcion) throws ClienteNoEncontradoException {
+        String modificacion = "----------------------------------------\n";
         Cliente cliente = clienteDao.findCliente(dni);
 
         if (cliente == null) {
@@ -34,48 +33,36 @@ public class ModificarCliente extends BaseAdministracion {
         //Elimino el cliente ya que va ser modificado
         clienteDao.deleteCliente(dni);
 
-        while (!salir) {
-
-            int opcion = menuModificacion();  //Usuario ingresa que quiere modificar
-
-            //Switch para modifcar los datos del cliente
-            switch (opcion) {
-                case 1: //Nombre
-                    cliente.setNombre(mod.ingresarNombre());
-                    System.out.println("Nombre modificado correctamente");
-                    break;
-                case 2: //Apellido
-                    cliente.setApellido(mod.ingresarApellido());
-                    System.out.println("Apellido modificado correctamente");
-                    break;
-                case 3: //Direccion
-                    cliente.setDireccion(mod.ingresarDireccion());
-                    System.out.println("Direccion modificado correctamente");
-                    break;
-                case 4: //Tipo de persona
-                    cliente.setTipoPersona(mod.ingresarTipoPersona());
-                    System.out.println("Tipo persona modificado correctamente");
-                    break;
-                case 5: //Banco
-                    cliente.setBanco(mod.ingresarBanco());
-                    System.out.println("Banco modificado correctamente");
-                    break;
-                case 6: //Mail
-                    cliente.setMail(mod.ingresarMail());
-                    System.out.println("Mail modificado correctamente");
-                    break;
-                case 0:
-                    //Guardo el cliente modificado en el archivo
-                    clienteDao.saveCliente(cliente);
-                    salir = true;
-                    break;
-            }
-            if (opcion != 0) {
-                System.out.println("----------------------------------------");
-                System.out.println("Enter para seguir");
-                scanner.nextLine();
-                clearScreen();
-            }
+        //Switch para modifcar los datos del cliente
+        switch (opcion) {
+            case 1: //Nombre
+                cliente.setNombre(mod.ingresarNombre());
+                modificacion += "Nombre modificado correctamente\n";
+                break;
+            case 2: //Apellido
+                cliente.setApellido(mod.ingresarApellido());
+                modificacion += "Apellido modificado correctamente\n";
+                break;
+            case 3: //Direccion
+                cliente.setDireccion(mod.ingresarDireccion());
+                modificacion += "Direccion modificado correctamente\n";
+                break;
+            case 4: //Tipo de persona
+                cliente.setTipoPersona(mod.ingresarTipoPersona());
+                modificacion += "Tipo persona modificado correctamente\n";
+                break;
+            case 5: //Banco
+                cliente.setBanco(mod.ingresarBanco());
+                modificacion += "Banco modificado correctamente\n";
+                break;
+            case 6: //Mail
+                cliente.setMail(mod.ingresarMail());
+                modificacion += "Mail modificado correctamente\n";
+                break;
         }
+        //Guardo lo modificado
+        clienteDao.saveCliente(cliente);
+        modificacion += "----------------------------------------";
+        return modificacion;
     }
 }
