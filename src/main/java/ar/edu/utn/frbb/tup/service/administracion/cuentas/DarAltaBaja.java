@@ -21,7 +21,7 @@ public class DarAltaBaja extends BaseAdministracion {
         this.cuentaDao = cuentaDao;
     }
 
-    public void gestionarEstado (long dni, long cvu, boolean opcion) throws ClienteNoEncontradoException, CuentaNoEncontradaException {
+    public Cuenta gestionarEstado (long dni, long cvu, boolean opcion) throws ClienteNoEncontradoException, CuentaNoEncontradaException {
 
         //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
         Cliente cliente = clienteDao.findCliente(dni);
@@ -39,33 +39,11 @@ public class DarAltaBaja extends BaseAdministracion {
 
         cuentaDao.deleteCuenta(cvu); //Borro la cuenta ya que va ser actualizada
 
-        System.out.println("----------------------------------------");
-        darAltaBaja(cuenta, opcion);
-        System.out.println("----------------------------------------");
+        cuenta.setEstado(opcion);
 
         cuentaDao.saveCuenta(cuenta); //Guardo la cuenta y la relacion actualizada
 
-
-    }
-
-    public void darAltaBaja (Cuenta cuenta, boolean darDeAlta) {
-        //Funcion que da de alta o baja a una cuenta
-
-        if (darDeAlta) { //Si darDeAlta es True significa que el usuario quiere dar de alta, si es False significa que lo quiere dar de baja
-            if (cuenta.getEstado()) { //Condicional para saber si ya estaba dado de alta o no
-                System.out.println("La cuenta " + cuenta.getNombre() + " ya estaba dada de alta");
-            } else {
-                cuenta.setEstado(true);
-                System.out.println("La cuenta " + cuenta.getNombre() + " fue dada de alta correctamente");
-            }
-        } else {
-            if (cuenta.getEstado()) { //Condicional para saber si ya estaba dado de baja o no
-                cuenta.setEstado(false);
-                System.out.println("La cuenta " + cuenta.getNombre() + " fue dada de baja correctamente");
-            } else {
-                System.out.println("La cuenta " + cuenta.getNombre() + " ya estaba dada de baja");
-            }
-        }
+        return cuenta;
     }
 
 }
