@@ -3,6 +3,7 @@ package ar.edu.utn.frbb.tup.presentation.input;
 import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
+import ar.edu.utn.frbb.tup.model.TipoMoneda;
 import ar.edu.utn.frbb.tup.presentation.BasePresentation;
 import ar.edu.utn.frbb.tup.service.administracion.cuentas.CrearCuenta;
 import org.springframework.stereotype.Component;
@@ -40,7 +41,7 @@ public class CuentaInput extends BasePresentation {
 
         cuenta.setFechaCreacion(LocalDate.now());
         cuenta.setTipoCuenta(ingresarTipoCuenta());
-
+        cuenta.setTipoMoneda(ingresarTipoMoneda());
         //Muestro en pantalla si la cuenta fue creada exitosamente
         Cuenta c = crearCuenta.crearCuenta(cuenta);
         if (c != null){
@@ -69,6 +70,21 @@ public class CuentaInput extends BasePresentation {
             }
         }
 
+    }
+
+    public TipoMoneda ingresarTipoMoneda(){
+        while(true){
+            try {
+                System.out.println("Ingrese el tipo de moneda de la cuenta, Pesos(P) o Dolares(D): ");
+                String tipoMonedaStr = scanner.nextLine().toUpperCase();
+
+                return TipoMoneda.fromString(tipoMonedaStr);
+            } catch (IllegalArgumentException e) {
+                System.out.println("---------------------------------------");
+                System.out.println(e.getMessage());
+                System.out.println("---------------------------------------");
+            }
+        }
     }
 
     public long generarCVU(Random r) {

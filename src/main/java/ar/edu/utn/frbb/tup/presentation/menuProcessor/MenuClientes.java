@@ -43,8 +43,9 @@ public class MenuClientes extends BasePresentation {
 
                 int opcion = menuCliente();
 
-                if (opcion != 1 && opcion != 0) {
-                    clienteService.findAllClientes();
+                //Leo toda la lista de clientes, si no hay clientes lanza una excepcion, no lanza exepcion cuando el usuario pone 1 ya que la va a crear o 0 ya que va a salir
+                if ((opcion != 1 && opcion != 0) && clienteService.findAllClientes().isEmpty()) {
+                    throw new ClientesVaciosException("No hay clientes registrados");
                 }
 
                 switch (opcion) {

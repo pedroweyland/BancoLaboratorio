@@ -1,8 +1,11 @@
 package ar.edu.utn.frbb.tup.service.handler;
 
 import ar.edu.utn.frbb.tup.exception.ClientesVaciosException;
+import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ClienteService {
@@ -12,8 +15,8 @@ public class ClienteService {
         this.clienteDao = clienteDao;
     }
 
-    public void findAllClientes() throws ClientesVaciosException {
-        clienteDao.findAllClientes();
+    public List<Cliente> findAllClientes() throws ClientesVaciosException {
+        return clienteDao.findAllClientes();
     }
 
     public void inicializarClientes() {

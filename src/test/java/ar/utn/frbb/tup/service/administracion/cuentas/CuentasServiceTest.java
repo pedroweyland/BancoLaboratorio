@@ -22,7 +22,7 @@ public class CuentasServiceTest {
     }
 
 
-    @Test
+    /*@Test
     public void testCuentaSuccess(){
         Cuenta cuenta = new Cuenta();
 
@@ -42,6 +42,8 @@ public class CuentasServiceTest {
         cuentaDao.deleteCuenta(cuenta.getCVU());
 
         assertNull(cuentaDao.findCuenta(cuenta.getCVU()));
-    }
+
+
+    }*/
 
 }

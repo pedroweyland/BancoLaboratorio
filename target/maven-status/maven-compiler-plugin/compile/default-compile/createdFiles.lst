@@ -3,6 +3,7 @@ ar\edu\utn\frbb\tup\service\administracion\cuentas\MostrarCuenta.class
 ar\edu\utn\frbb\tup\service\operaciones\baseOperaciones.class
 ar\edu\utn\frbb\tup\service\administracion\clientes\ModificarCliente.class
 ar\edu\utn\frbb\tup\exception\CuentaEstaDeBajaException.class
+ar\edu\utn\frbb\tup\exception\MovimientosVaciosException.class
 ar\edu\utn\frbb\tup\service\operaciones\modulos\Consulta.class
 ar\edu\utn\frbb\tup\service\administracion\BaseAdministracion.class
 ar\edu\utn\frbb\tup\model\Movimiento.class
@@ -35,6 +36,7 @@ ar\edu\utn\frbb\tup\exception\CuentasVaciasException.class
 ar\edu\utn\frbb\tup\model\Persona.class
 ar\edu\utn\frbb\tup\exception\MismaCuentaException.class
 ar\edu\utn\frbb\tup\exception\CuentaSinDineroException.class
+ar\edu\utn\frbb\tup\model\TipoMoneda.class
 ar\edu\utn\frbb\tup\model\Cliente.class
 ar\edu\utn\frbb\tup\presentation\validator\Validaciones.class
 ar\edu\utn\frbb\tup\model\TipoCuenta.class

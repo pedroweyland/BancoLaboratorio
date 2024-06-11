@@ -1,9 +1,6 @@
 package ar.utn.frbb.tup.service.administracion;
 
-import ar.edu.utn.frbb.tup.model.Cliente;
-import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.model.TipoCuenta;
-import ar.edu.utn.frbb.tup.model.TipoPersona;
+import ar.edu.utn.frbb.tup.model.*;
 
 import java.time.LocalDate;
 
@@ -29,7 +26,7 @@ public class baseAdministracionTest {
         cuenta.setEstado(true);
         cuenta.setCVU(123456);
         cuenta.setSaldo(10000);
-
+        cuenta.setTipoMoneda(TipoMoneda.PESOS);
         return cuenta;
     }
 }

@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.service.operaciones.modulos;
 
+import ar.edu.utn.frbb.tup.exception.MovimientosVaciosException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
@@ -18,27 +19,22 @@ public class MostrarMovimientos extends baseOperaciones {
         this.movimientosDao = movimientosDao;
     }
 
-    public List<Movimiento> mostrarMovimientos(Cuenta cuenta){
+    public List<Movimiento> mostrarMovimientos(Cuenta cuenta) throws MovimientosVaciosException {
         List<Movimiento> movimientos = movimientosDao.findMovimientos(cuenta.getCVU());
 
-        if (!movimientos.isEmpty()) { //Valido si la cuenta tiene movimientos o no
+        if (!movimientos.isEmpty()) { //Valido si existen movimientos
             List<Movimiento> auxMovimiento = new ArrayList<>();
 
-            //Recorro la lista de movivmientos para ir mostrando uno por uno
+            //Recorro la lista de movivmientos para guardar los movimientos de la cuenta en otra lista separada
             for (Movimiento movimiento : movimientos) {
                 if (cuenta.getCVU() == movimiento.getCVU()) {
                     auxMovimiento.add(movimiento);
                 }
             }
             return auxMovimiento;
-        } else {
-            System.out.println("La cuenta no tiene movimientos asociados");
-
+        } else{
+            throw new MovimientosVaciosException("La cuenta no tiene movimientos");
         }
-
-        return null;
-
     }
-
 
 }

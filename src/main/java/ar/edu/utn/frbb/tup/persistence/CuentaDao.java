@@ -3,6 +3,7 @@ package ar.edu.utn.frbb.tup.persistence;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
 import ar.edu.utn.frbb.tup.exception.CuentasVaciasException;
+import ar.edu.utn.frbb.tup.model.TipoMoneda;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
@@ -15,12 +16,12 @@ public class CuentaDao extends BaseDao<Cuenta> {
     private final String RUTA_ARCHIVO = "src/main/java/ar/edu/utn/frbb/tup/persistence/data/cuentas.txt";
 
     public void inicializarCuentas(){
-        String encabezado = "CVU, DNI titular, nombre, estado, saldo, fecha creacion, tipo de cuenta";
+        String encabezado = "CVU, DNI titular, nombre, estado, saldo, fecha creacion, tipo de cuenta, tipo de moneda";
         inicializarArchivo(encabezado, RUTA_ARCHIVO);
     }
 
     public void saveCuenta(Cuenta cuenta){
-        String infoAguardar = cuenta.getCVU() + "," + cuenta.getDniTitular() + "," + cuenta.getNombre() + "," + cuenta.getEstado() + "," + cuenta.getSaldo() + "," + cuenta.getFechaCreacion() + "," + cuenta.getTipoCuenta();
+        String infoAguardar = cuenta.getCVU() + "," + cuenta.getDniTitular() + "," + cuenta.getNombre() + "," + cuenta.getEstado() + "," + cuenta.getSaldo() + "," + cuenta.getFechaCreacion() + "," + cuenta.getTipoCuenta() + "," + cuenta.getTipoMoneda();
 
         saveInfo(infoAguardar, RUTA_ARCHIVO);
     }
@@ -108,7 +109,7 @@ public class CuentaDao extends BaseDao<Cuenta> {
         cuenta.setSaldo(Double.parseDouble(datos[4]));
         cuenta.setFechaCreacion(LocalDate.parse(datos[5]));
         cuenta.setTipoCuenta(TipoCuenta.valueOf(datos[6]));
-
+        cuenta.setTipoMoneda(TipoMoneda.valueOf(datos[7]));
         return cuenta;
     }
 }

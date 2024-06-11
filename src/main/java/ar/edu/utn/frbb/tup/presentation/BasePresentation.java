@@ -132,6 +132,7 @@ public class BasePresentation {
                 "DNI titular: " + cuenta.getDniTitular() + "\n" +
                 "Fecha de Creacion: " + cuenta.getFechaCreacion() + "\n" +
                 "Tipo de cuenta: " + cuenta.getTipoCuenta() + "\n" +
+                "Tipo de Moneda: " + cuenta.getTipoMoneda() + "\n" +
                 "----------------------------------------";
     }
 

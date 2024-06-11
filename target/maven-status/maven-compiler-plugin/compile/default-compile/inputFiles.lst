@@ -19,6 +19,7 @@ C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frb
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\service\administracion\cuentas\EliminarCuenta.java
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\service\operaciones\modulos\Transferencia.java
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\model\Cliente.java
+C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\model\TipoMoneda.java
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\persistence\MovimientosDao.java
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\service\administracion\clientes\ModificarCliente.java
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\service\administracion\BaseAdministracion.java
@@ -47,6 +48,7 @@ C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frb
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\exception\CuentaExistenteException.java
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\exception\CuentasVaciasException.java
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\service\handler\MovimientoService.java
+C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\exception\MovimientosVaciosException.java
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\presentation\menuProcessor\MenuClientes.java
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\service\administracion\clientes\EliminarCliente.java
 C:\Users\weyla\OneDrive\Escritorio\BancoLaboratorio\src\main\java\ar\edu\utn\frbb\tup\service\administracion\cuentas\CrearCuenta.java

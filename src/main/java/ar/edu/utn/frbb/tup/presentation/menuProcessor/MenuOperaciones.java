@@ -41,9 +41,13 @@ public class MenuOperaciones extends BasePresentation {
 
         while (!salir) {
             try {
+                if (clienteService.findAllClientes().isEmpty()){ //Si hay clientes entonces se puede operar, si no hay vuelve excepcion
+                    throw new ClientesVaciosException("No hay Clientes registrados");
+                }
+                if (cuentaService.findAllCuentas().isEmpty()){ //Si hay cuentas entonces se puede operar, si no hay vuelve excepcion
+                    throw new CuentasVaciasException("No hay Cuentas registradas");
+                }
 
-                clienteService.findAllClientes(); //Si hay clientes entonces se puede operar, si no hay vuelve excepcion
-                cuentaService.findAllCuentas(); //Si hay cuentas entonces se puede operar, si no hay vuelve excepcion
                 long dni, cvu;
 
                 clearScreen();
@@ -94,11 +98,11 @@ public class MenuOperaciones extends BasePresentation {
                                 List<Movimiento> mov = movimientos.mostrarMovimientos(cuenta);
 
                                 System.out.println("---------- Movimientos de la cuenta " + cuenta.getNombre() + " ----------");
-                                if (!mov.isEmpty()) {
-                                    for (Movimiento movimiento : mov) {
+
+                                for (Movimiento movimiento : mov) {
                                         System.out.println(toString(movimiento));
-                                    }
                                 }
+
                                 break;
                             case 0:
                                 salir = true;
@@ -107,7 +111,7 @@ public class MenuOperaciones extends BasePresentation {
                     }
                 }
             } catch (ClientesVaciosException | CuentasVaciasException | CuentaNoEncontradaException |
-                     ClienteNoEncontradoException | CuentaEstaDeBajaException ex) {
+                     ClienteNoEncontradoException | CuentaEstaDeBajaException | MovimientosVaciosException ex) {
                 System.out.println("----------------------------------------");
                 System.out.println(ex.getMessage());
                 System.out.println("----------------------------------------");

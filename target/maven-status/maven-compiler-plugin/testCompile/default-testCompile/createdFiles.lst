@@ -1,2 +1,6 @@
+ar\utn\frbb\tup\service\administracion\clientes\CrearClienteTest.class
 ar\utn\frbb\tup\service\administracion\cuentas\CuentasServiceTest.class
-ar\utn\frbb\tup\service\administracion\clientes\ClienteServiceTest.class
+ar\utn\frbb\tup\service\administracion\clientes\ModificarClienteTest.class
+ar\utn\frbb\tup\service\administracion\clientes\MostrarClienteTest.class
+ar\utn\frbb\tup\service\administracion\baseAdministracionTest.class
+ar\utn\frbb\tup\service\administracion\clientes\EliminarClienteTest.class

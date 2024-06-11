@@ -12,8 +12,7 @@ public class  Cuenta {
     private long dniTitular;
     private LocalDate fechaCreacion;
     private TipoCuenta tipoCuenta;
-
-    private List<Movimiento> movimientos = new ArrayList<>();
+    private TipoMoneda tipoMoneda;
 
     public String getNombre(){
         return nombre;
@@ -62,14 +61,13 @@ public class  Cuenta {
         this.tipoCuenta = tipoCuenta;
     }
 
-    public List<Movimiento> getMovimientos() {
-        return movimientos;
-    }
 
-    public void addMovimientos(Movimiento movimiento) {
-        this.movimientos.add(movimiento);
+    public TipoMoneda getTipoMoneda() {
+        return tipoMoneda;
     }
-
+    public void setTipoMoneda(TipoMoneda tipoMoneda) {
+        this.tipoMoneda = tipoMoneda;
+    }
 
     public long getDniTitular() {
         return dniTitular;

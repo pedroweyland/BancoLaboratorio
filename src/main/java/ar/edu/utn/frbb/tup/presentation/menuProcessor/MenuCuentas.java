@@ -45,16 +45,18 @@ public class MenuCuentas extends BasePresentation {
         while (!salir) {
             try {
                 //Leo toda la lista de clientes, si no hay clientes lanza una excepcion ya que no se puede crear cuentas sin clientes
-                clienteService.findAllClientes();
+                if (clienteService.findAllClientes().isEmpty()) {
+                    throw new ClientesVaciosException("No hay clientes registrados");
+                }
 
                 long dni, cvu;
                 Cuenta cuenta;
 
                 int opcion = menuCuenta();
 
-                if (opcion != 1 && opcion != 0) {
-                    //Leo toda la lista de cuentas, si no hay cuentas lanza una excepcion, no lanza exepcion cuando el usuario pone 1 ya que la va a crear o 0 ya que va a salir
-                    cuentaService.findAllCuentas();
+                //Leo toda la lista de cuentas, si no hay cuentas lanza una excepcion, no lanza exepcion cuando el usuario pone 1 ya que la va a crear o 0 ya que va a salir
+                if ((opcion != 1 && opcion != 0) && cuentaService.findAllCuentas().isEmpty()) {
+                    throw new CuentasVaciasException("No hay cuentas registradas");
                 }
 
                 switch (opcion) {
