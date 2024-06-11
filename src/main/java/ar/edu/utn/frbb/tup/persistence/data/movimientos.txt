@@ -1,0 +1,4 @@
+CVU Origen, fecha Operacion, hora Operacion, tipo operacion, monto
+128884,2024-06-10,20:30:02.440740300,Deposito,100.0
+128884,2024-06-10,20:30:21.198921100,Deposito,1000.0
+128884,2024-06-10,20:30:23.361255300,Consulta,0.0

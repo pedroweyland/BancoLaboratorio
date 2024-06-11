@@ -1,14 +1,11 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
-import ar.edu.utn.frbb.tup.exception.ClienteExistenteException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracion;
 import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
 import org.springframework.stereotype.Service;
-
-import static ar.edu.utn.frbb.tup.presentation.menuProcessor.Menus.menuModificacion;
 
 @Service
 public class ModificarCliente extends BaseAdministracion {

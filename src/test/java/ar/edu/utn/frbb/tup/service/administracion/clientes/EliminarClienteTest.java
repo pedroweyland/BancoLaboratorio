@@ -1,4 +1,4 @@
-package ar.utn.frbb.tup.service.administracion.clientes;
+package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
 import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.model.Cliente;

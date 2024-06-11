@@ -1,4 +1,4 @@
-package ar.utn.frbb.tup.service.administracion.cuentas;
+package ar.edu.utn.frbb.tup.service.administracion.cuentas;
 
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;

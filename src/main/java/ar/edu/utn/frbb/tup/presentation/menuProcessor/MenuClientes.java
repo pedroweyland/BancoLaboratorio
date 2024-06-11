@@ -20,7 +20,7 @@ public class MenuClientes extends BasePresentation {
     private final ClienteService clienteService;
     private final EliminarCliente eliminar;
     private final ModificarCliente mod;
-    private final MostrarCliente mostrar;
+    private final ar.edu.utn.frbb.tup.service.administracion.clientes.MostrarCliente mostrar;
     private final MostrarTodosClientes mostrarTodos;
 
     public MenuClientes(ClienteInput clienteInput, ClienteService clienteService, EliminarCliente eliminarCliente, ModificarCliente modificarCliente, MostrarCliente mostrarCliente, MostrarTodosClientes mostrarTodosClientes) {
