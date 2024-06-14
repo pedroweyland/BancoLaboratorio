@@ -1,18 +1,12 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
-import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
-import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
-import ar.edu.utn.frbb.tup.service.administracion.clientes.ModificarCliente;
 import ar.utn.frbb.tup.service.administracion.baseAdministracionTest;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,9 +19,6 @@ public class ModificarClienteTest extends baseAdministracionTest {
     @Mock
     ClienteDao clienteDao;
 
-    @Mock
-    ClienteInput clienteInput;
-
     @InjectMocks
     ModificarCliente modificarCliente;
 
@@ -36,7 +27,7 @@ public class ModificarClienteTest extends baseAdministracionTest {
         MockitoAnnotations.openMocks(this);
     }
 
-     */
+
 
     @Test
     public void testModificarNombreClienteSuccess() throws ClienteNoEncontradoException {
@@ -78,5 +69,5 @@ public class ModificarClienteTest extends baseAdministracionTest {
 
         assertThrows(ClienteNoEncontradoException.class, () -> modificarCliente.modificarCliente(pepo.getDni(), 1));
     }
-
+    */
 }

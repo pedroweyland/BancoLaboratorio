@@ -1,6 +1,8 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
 import ar.edu.utn.frbb.tup.exception.ClienteExistenteException;
+import ar.edu.utn.frbb.tup.exception.ClienteFechaDeAltaInvalidaException;
+import ar.edu.utn.frbb.tup.exception.ClienteMenorDeEdadException;
 import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
@@ -41,7 +43,7 @@ public class CrearClienteTest extends baseAdministracionTest {
 
 
     @Test
-    public void testCrearClienteSuccess() throws ClienteExistenteException, ClienteNoEncontradoException {
+    public void testCrearClienteSuccess() throws ClienteExistenteException, ClienteMenorDeEdadException, ClienteFechaDeAltaInvalidaException {
         Cliente pepo = getCliente("Pepo", 12345678L);
 
         when(clienteDao.findCliente(pepo.getDni())).thenReturn(null);

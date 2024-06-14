@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.service.operaciones.modulos;
 
+import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
@@ -13,7 +14,6 @@ import static ar.edu.utn.frbb.tup.presentation.BasePresentation.ingresarDinero;
 public class Deposito extends baseOperaciones {
     private final CuentaDao cuentaDao;
     private final MovimientosDao movimientosDao;
-
     private final String tipoOperacion = "Deposito";
 
     public Deposito(CuentaDao cuentaDao, MovimientosDao movimientosDao) {
@@ -21,7 +21,13 @@ public class Deposito extends baseOperaciones {
         this.movimientosDao = movimientosDao;
     }
 
-    public void deposito(Cuenta cuenta, double monto){
+    public double deposito(long cvu , double monto) throws CuentaNoEncontradaException {
+
+        Cuenta cuenta = cuentaDao.findCuenta(cvu);
+
+        if (cuenta == null){
+            throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvu);
+        }
 
         cuentaDao.deleteCuenta(cuenta.getCVU()); //Borro la cuenta ya que va ser modificada
 
@@ -32,14 +38,9 @@ public class Deposito extends baseOperaciones {
         Movimiento movimiento = crearMovimiento(tipoOperacion, monto, cuenta.getCVU());
         movimientosDao.saveMovimiento(movimiento);
 
-        System.out.println("----------------------------------------");
-        System.out.println("Se ha realizado el deposito de $" + monto + " a la cuenta " + cuenta.getNombre());
-        System.out.println("----------------------------------------");
-
         cuentaDao.saveCuenta(cuenta); //Guardo la cuenta modificada
-        System.out.println("Enter para seguir");
-        scanner.nextLine();
-        clearScreen();
+
+        return cuenta.getSaldo();
 
     }
 }

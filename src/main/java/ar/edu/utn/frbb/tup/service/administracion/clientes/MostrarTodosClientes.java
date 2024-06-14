@@ -20,10 +20,14 @@ public class MostrarTodosClientes extends BaseAdministracion {
     // Mostrar todos los clientes
     public List<Cliente> mostrarTodosClientes() throws ClientesVaciosException {
 
+        List<Cliente> clientes = clienteDao.findAllClientes();
 
+        if (clientes.isEmpty()){//Si la lista esta vacia significa que no hay clientes registrados
+            throw new ClientesVaciosException("No hay clientes registrados");
+        }
 
         //Leo toda la lista de clientes, si no hay clientes lanza una excepcion
-        return clienteDao.findAllClientes();
+        return clientes;
 
     }
 }

@@ -37,15 +37,9 @@ public class ClienteDao extends BaseDao<Cliente>{
         return findInfo(dni, RUTA_ARCHIVO);
     }
 
-    public List<Cliente> findAllClientes() throws ClientesVaciosException{
+    public List<Cliente> findAllClientes() {
 
-        List<Cliente> clientes = findAllInfo(RUTA_ARCHIVO);
-
-        if (clientes.isEmpty()){//Si la lista esta vacia significa que no hay clientes registrados
-            throw new ClientesVaciosException("No hay clientes registrados");
-        }
-
-        return clientes;
+        return findAllInfo(RUTA_ARCHIVO);
     }
 
     //Funcion para parsear los datos leidos del archivo a un objeto tipo 'Cliente'

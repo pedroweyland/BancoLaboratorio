@@ -3,6 +3,7 @@ package ar.edu.utn.frbb.tup.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class  Cuenta {
     private String nombre;
@@ -13,6 +14,14 @@ public class  Cuenta {
     private LocalDate fechaCreacion;
     private TipoCuenta tipoCuenta;
     private TipoMoneda tipoMoneda;
+
+    public Cuenta(){
+        Random r = new Random();
+        this.saldo = 0;
+        this.CVU = r.nextInt(900000) + 100000;
+        this.fechaCreacion = LocalDate.now();
+        this.estado = true;
+    }
 
     public String getNombre(){
         return nombre;

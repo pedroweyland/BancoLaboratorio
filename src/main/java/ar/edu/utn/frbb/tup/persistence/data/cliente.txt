@@ -1,3 +1,1 @@
 DNI, Nombre, Apellido, Direccion, Fecha nacimiento, Mail, Banco, Tipo Persona, Fecha alta
-12341234,a,aa,a,2000-02-02,a,a,PERSONA_FISICA,2020-02-02
-12344321,dsa,naseh,apoyo,2000-02-02,a,a,PERSONA_JURIDICA,2020-02-02

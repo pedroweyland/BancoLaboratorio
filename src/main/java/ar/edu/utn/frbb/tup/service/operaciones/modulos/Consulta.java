@@ -1,7 +1,9 @@
 package ar.edu.utn.frbb.tup.service.operaciones.modulos;
 
+import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Movimiento;
+import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.service.operaciones.baseOperaciones;
 import org.springframework.stereotype.Service;
@@ -9,24 +11,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class Consulta extends baseOperaciones {
     private final MovimientosDao movimientosDao;
+    private final CuentaDao cuentaDao;
     private final String tipoOperacion = "Consulta";
 
-    public Consulta(MovimientosDao movimientosDao) {
+    public Consulta(MovimientosDao movimientosDao, CuentaDao cuentaDao) {
         this.movimientosDao = movimientosDao;
+        this.cuentaDao = cuentaDao;
     }
 
-    public void consulta(Cuenta cuenta){
+    public double consulta(long cvu) throws CuentaNoEncontradaException {
 
-        System.out.println("----------------------------------------");
-        System.out.println("Su saldo es de la cuenta " + cuenta.getNombre() + " es de $" + cuenta.getSaldo());
-        System.out.println("----------------------------------------");
+        Cuenta cuenta = cuentaDao.findCuenta(cvu);
 
-        System.out.println("Enter para seguir");
-        scanner.nextLine();
-        clearScreen();
+        if (cuenta == null){
+            throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvu);
+        }
 
         //Tomo registro de la operacion que se hizo
         Movimiento movimiento = crearMovimiento(tipoOperacion, 0, cuenta.getCVU());
         movimientosDao.saveMovimiento(movimiento);
+
+        return cuenta.getSaldo();
     }
 }

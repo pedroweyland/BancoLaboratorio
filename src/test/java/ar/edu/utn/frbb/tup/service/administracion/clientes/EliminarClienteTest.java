@@ -32,6 +32,12 @@ public class EliminarClienteTest extends baseAdministracionTest {
     @InjectMocks
     EliminarCliente eliminarCliente;
 
+    /*@BeforeAll
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+    }*/
+
     @Test
     public void testEliminarClienteSuccess() throws ClienteNoEncontradoException {
         Cliente pepo = getCliente("Pepo", 12345678L);

@@ -4,62 +4,55 @@ import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracion;
-import ar.edu.utn.frbb.tup.presentation.input.ClienteInput;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ModificarCliente extends BaseAdministracion {
-    private final ClienteInput mod;
     private final ClienteDao clienteDao;
 
-
-    public ModificarCliente(ClienteDao clienteDao, ClienteInput mod) {
+    public ModificarCliente(ClienteDao clienteDao) {
         this.clienteDao = clienteDao;
-        this.mod = mod;
     }
 
     // Modificacion Cliente
-    public String modificarCliente(long dni, int opcion) throws ClienteNoEncontradoException {
-        String modificacion = "----------------------------------------\n";
+    public Cliente modificarCliente(long dni, Cliente clienteModificado) throws ClienteNoEncontradoException {
+        //Busco al cliente que ingreso
         Cliente cliente = clienteDao.findCliente(dni);
 
-        if (cliente == null) {
+        if (cliente == null) { //Si no existe lanza una excepcion
             throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
         }
 
         //Elimino el cliente ya que va ser modificado
         clienteDao.deleteCliente(dni);
+        //Actualizo el Cliente
+        actualizarCliente(cliente, clienteModificado);
 
-        //Switch para modifcar los datos del cliente
-        switch (opcion) {
-            case 1: //Nombre
-                cliente.setNombre(mod.ingresarNombre());
-                modificacion += "Nombre modificado correctamente\n";
-                break;
-            case 2: //Apellido
-                cliente.setApellido(mod.ingresarApellido());
-                modificacion += "Apellido modificado correctamente\n";
-                break;
-            case 3: //Direccion
-                cliente.setDireccion(mod.ingresarDireccion());
-                modificacion += "Direccion modificado correctamente\n";
-                break;
-            case 4: //Tipo de persona
-                cliente.setTipoPersona(mod.ingresarTipoPersona());
-                modificacion += "Tipo persona modificado correctamente\n";
-                break;
-            case 5: //Banco
-                cliente.setBanco(mod.ingresarBanco());
-                modificacion += "Banco modificado correctamente\n";
-                break;
-            case 6: //Mail
-                cliente.setMail(mod.ingresarMail());
-                modificacion += "Mail modificado correctamente\n";
-                break;
-        }
         //Guardo lo modificado
         clienteDao.saveCliente(cliente);
-        modificacion += "----------------------------------------";
-        return modificacion;
+
+        return cliente;
+    }
+
+    private void actualizarCliente(Cliente cliente, Cliente clienteModificado) {
+        //Solo se modifica lo que el usuario escribio, si el usuario no especifica el nombre no se va a modificar
+        if (clienteModificado.getNombre() != null) { //Nombre
+            cliente.setNombre(clienteModificado.getNombre());
+        }
+        if (clienteModificado.getApellido() != null) { //Apellido
+            cliente.setApellido(clienteModificado.getApellido());
+        }
+        if (clienteModificado.getDireccion() != null) { //Direccion
+            cliente.setDireccion(clienteModificado.getDireccion());
+        }
+        if (clienteModificado.getTipoPersona() != null) { //Tipo de persona
+            cliente.setTipoPersona(clienteModificado.getTipoPersona());
+        }
+        if (clienteModificado.getBanco() != null) { //Banco
+            cliente.setBanco(clienteModificado.getBanco());
+        }
+        if (clienteModificado.getMail() != null) { //Mail
+            cliente.setMail(clienteModificado.getMail());
+        }
     }
 }
