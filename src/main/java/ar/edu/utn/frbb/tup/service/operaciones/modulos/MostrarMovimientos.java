@@ -1,8 +1,10 @@
 package ar.edu.utn.frbb.tup.service.operaciones.modulos;
 
+import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.exception.MovimientosVaciosException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Movimiento;
+import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.service.operaciones.baseOperaciones;
 import org.springframework.stereotype.Component;
@@ -14,12 +16,21 @@ import java.util.List;
 @Service
 public class MostrarMovimientos extends baseOperaciones {
     private final MovimientosDao movimientosDao;
+    private final CuentaDao cuentaDao;
 
-    public MostrarMovimientos(MovimientosDao movimientosDao) {
+    public MostrarMovimientos(MovimientosDao movimientosDao, CuentaDao cuentaDao) {
         this.movimientosDao = movimientosDao;
+        this.cuentaDao = cuentaDao;
     }
 
-    public List<Movimiento> mostrarMovimientos(Cuenta cuenta) throws MovimientosVaciosException {
+    public List<Movimiento> mostrarMovimientos(long cvu) throws MovimientosVaciosException, CuentaNoEncontradaException {
+
+        Cuenta cuenta = cuentaDao.findCuenta(cvu);
+
+        if (cuenta == null){
+            throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvu);
+        }
+
         List<Movimiento> movimientos = movimientosDao.findMovimientos(cuenta.getCVU());
 
         if (!movimientos.isEmpty()) { //Valido si existen movimientos

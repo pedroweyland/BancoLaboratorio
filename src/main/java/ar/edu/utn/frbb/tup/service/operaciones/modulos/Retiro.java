@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.service.operaciones.modulos;
 
+import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
@@ -22,8 +23,34 @@ public class Retiro extends baseOperaciones {
         this.movimientosDao = movimientosDao;
     }
 
-    public void retiro(Cuenta cuenta, double monto) {
+    public double retiro(long cvu, double monto) throws CuentaNoEncontradaException, CuentaSinDineroException {
 
+        Cuenta cuenta = cuentaDao.findCuenta(cvu);
+
+        if (cuenta == null){
+            throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvu);
+        }
+
+        if (cuenta.getSaldo() == 0){ //Si no tiene dinero para retirar lanzo una excepcion
+            throw new CuentaSinDineroException("No tiene dinero en esta cuenta para retirar");
+        }
+
+        if (cuenta.getSaldo() < monto){ //Si no le alcanza el dinero para retirar lanza una excepcion
+            throw new CuentaSinDineroException("No puede retirar ese monto, su saldo es de $" + cuenta.getSaldo());
+        }
+
+        cuentaDao.deleteCuenta(cuenta.getCVU()); //Borro la cuenta ya que va ser modificada
+        //Resto el monto al saldo que tenia la cuenta
+        cuenta.setSaldo(cuenta.getSaldo() - monto);
+
+        //Tomo registro de la operacion que se hizo
+        Movimiento movimiento = crearMovimiento(tipoOperacion, monto, cuenta.getCVU());
+        movimientosDao.saveMovimiento(movimiento);
+
+        cuentaDao.saveCuenta(cuenta); //Guardo la cuenta modificada
+
+        return cuenta.getSaldo();
+        /*
         try {
             if (cuenta.getSaldo() == 0){ //Si no tiene dinero para retirar lanzo una excepcion
                 throw new CuentaSinDineroException("No tiene dinero en esta cuenta para retirar");
@@ -57,6 +84,7 @@ public class Retiro extends baseOperaciones {
             scanner.nextLine();
             clearScreen();
         }
+        */
 
     }
 }

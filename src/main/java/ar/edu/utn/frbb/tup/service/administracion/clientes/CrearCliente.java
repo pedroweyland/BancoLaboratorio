@@ -4,7 +4,6 @@ import ar.edu.utn.frbb.tup.exception.ClienteFechaDeAltaInvalidaException;
 import ar.edu.utn.frbb.tup.exception.ClienteMenorDeEdadException;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.exception.ClienteExistenteException;
-import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracion;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 @Service
-public class CrearCliente extends BaseAdministracion {
+public class CrearCliente {
     private final ClienteDao clienteDao;
 
 

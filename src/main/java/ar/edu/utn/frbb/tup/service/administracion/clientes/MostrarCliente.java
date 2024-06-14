@@ -3,11 +3,10 @@ package ar.edu.utn.frbb.tup.service.administracion.clientes;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracion;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MostrarCliente extends BaseAdministracion {
+public class MostrarCliente {
     private final ClienteDao clienteDao;
 
     public MostrarCliente(ClienteDao clienteDao) {

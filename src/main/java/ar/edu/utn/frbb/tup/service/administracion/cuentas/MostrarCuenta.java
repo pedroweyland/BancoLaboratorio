@@ -5,7 +5,6 @@ import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
-import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracion;
 import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.exception.CuentasVaciasException;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MostrarCuenta extends BaseAdministracion {
+public class MostrarCuenta {
     private final ClienteDao clienteDao;
     private final CuentaDao cuentaDao;
 
