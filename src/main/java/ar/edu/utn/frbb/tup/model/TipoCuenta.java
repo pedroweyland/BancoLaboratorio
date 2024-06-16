@@ -2,7 +2,7 @@ package ar.edu.utn.frbb.tup.model;
 
 public enum TipoCuenta {
     CUENTA_CORRIENTE("C"),
-    CUENTA_AHORRO("A");
+    CAJA_AHORRO("A");
 
     private final String descripcion;
 

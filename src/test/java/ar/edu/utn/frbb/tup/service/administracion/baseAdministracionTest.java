@@ -18,7 +18,7 @@ public class baseAdministracionTest {
         return cliente;
     }
 
-    public Cuenta getCuenta(String nombre, long dniTitular, TipoCuenta tipoCuenta){
+    public Cuenta getCuenta(String nombre, long dniTitular, TipoCuenta tipoCuenta, TipoMoneda tipoMoneda){
         Cuenta cuenta = new Cuenta();
         cuenta.setNombre(nombre);
         cuenta.setDniTitular(dniTitular);
@@ -26,7 +26,7 @@ public class baseAdministracionTest {
         cuenta.setEstado(true);
         cuenta.setCVU(123456);
         cuenta.setSaldo(10000);
-        cuenta.setTipoMoneda(TipoMoneda.PESOS);
+        cuenta.setTipoMoneda(tipoMoneda);
         return cuenta;
     }
 }

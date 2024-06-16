@@ -1,13 +1,9 @@
 package ar.edu.utn.frbb.tup.presentation.controllers;
 
-import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
-import ar.edu.utn.frbb.tup.exception.CuentasVaciasException;
-import ar.edu.utn.frbb.tup.exception.FaltaDeDatosException;
+import ar.edu.utn.frbb.tup.exception.*;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.service.administracion.cuentas.*;
 import ar.edu.utn.frbb.tup.service.handler.CuentaService;
-import ar.edu.utn.frbb.tup.service.handler.MovimientoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,7 +38,7 @@ public class CuentaController {
         try {
             Cuenta cuentaCrear = cuentaEsValida(cuenta);
             return crearCuenta.crearCuenta(cuentaCrear);
-        } catch (FaltaDeDatosException | ClienteNoEncontradoException e) {
+        } catch (FaltaDeDatosException | ClienteNoEncontradoException | TipoCuentaExistenteException | CuentaExistenteException e) {
             System.out.println(e.getMessage());
         }
         return null;

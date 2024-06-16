@@ -68,7 +68,7 @@ public class CuentaDao extends BaseDao<Cuenta> {
         return null;
     }
 
-    public List<Long> getRelacionesDni(Long dni){
+    public List<Long> getRelacionesDni(long dni){
         //Funcion para guardar todos los CVUs que tiene el dni ingresado
 
         List<Long> CvuRelacionados = new ArrayList<>();
@@ -97,7 +97,34 @@ public class CuentaDao extends BaseDao<Cuenta> {
 
     }
 
-    //Funcion para parsear los datos leidos del archivo a un objeto tipo 'Cuenta'
+    public List<Cuenta> findAllCuentasDelCliente(long dni) {
+
+        List<Cuenta> cuentasDelCliente = new ArrayList<>();
+        try {
+            File file = new File(RUTA_ARCHIVO);
+
+            FileReader fileReader = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            //Primero agrego el encabezado al contenido,
+            String linea = reader.readLine();
+
+            while ((linea = reader.readLine()) != null) {
+                String[] datos = linea.split(",");
+
+                if (Long.parseLong(datos[1]) == dni) {
+                    cuentasDelCliente.add(parseDatosToObjet(datos));
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return cuentasDelCliente;
+    }
+
+        //Funcion para parsear los datos leidos del archivo a un objeto tipo 'Cuenta'
     @Override
     public Cuenta parseDatosToObjet(String[] datos){
         Cuenta cuenta = new Cuenta();
