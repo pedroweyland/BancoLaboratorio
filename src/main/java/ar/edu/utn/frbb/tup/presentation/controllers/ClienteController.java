@@ -2,7 +2,6 @@ package ar.edu.utn.frbb.tup.presentation.controllers;
 
 import ar.edu.utn.frbb.tup.exception.*;
 import ar.edu.utn.frbb.tup.model.Cliente;
-import ar.edu.utn.frbb.tup.presentation.Resultados;
 import ar.edu.utn.frbb.tup.service.administracion.clientes.*;
 import ar.edu.utn.frbb.tup.service.handler.ClienteService;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +44,7 @@ public class ClienteController {
     public Cliente createCliente(@RequestBody Cliente cliente){
         try {
             Cliente clienteCrear = clienteEsValido(cliente);
-            return  crearCliente.crearCliente(clienteCrear);//Valido que los datos fueron ingresados
+            return  crearCliente.crearCliente(clienteCrear);//Válido que los datos fueron ingresados
         } catch (ClienteExistenteException | ClienteMenorDeEdadException | ClienteFechaDeAltaInvalidaException | FaltaDeDatosException e) {
             System.out.println(e.getMessage());
         }

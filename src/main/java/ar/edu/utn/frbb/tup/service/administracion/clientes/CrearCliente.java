@@ -46,7 +46,7 @@ public class CrearCliente {
         }
     }
 
-    private void esFechaAltaValida(LocalDate fechaAlta, LocalDate fechaNacimiento) throws ClienteMenorDeEdadException, ClienteFechaDeAltaInvalidaException {
+    private void esFechaAltaValida(LocalDate fechaAlta, LocalDate fechaNacimiento) throws ClienteFechaDeAltaInvalidaException {
         Period period = Period.between(fechaNacimiento, fechaAlta);
 
         if (fechaNacimiento.isBefore(fechaAlta)) { //Valido que la fehca de alta no sea antes que la fecha de nacimiento

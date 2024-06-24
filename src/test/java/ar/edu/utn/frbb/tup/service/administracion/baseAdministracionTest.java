@@ -3,6 +3,8 @@ package ar.utn.frbb.tup.service.administracion;
 import ar.edu.utn.frbb.tup.model.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class baseAdministracionTest {
 
@@ -28,5 +30,12 @@ public class baseAdministracionTest {
         cuenta.setSaldo(10000);
         cuenta.setTipoMoneda(tipoMoneda);
         return cuenta;
+    }
+
+    public List<Cuenta> getCuentasList(Cuenta cuenta){
+        List<Cuenta> lista = new ArrayList<>();
+        lista.add(cuenta);
+
+        return lista;
     }
 }

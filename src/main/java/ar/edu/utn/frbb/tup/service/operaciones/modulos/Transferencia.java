@@ -26,22 +26,23 @@ public class Transferencia extends baseOperaciones {
         this.movimientosDao = movimientosDao;
     }
 
-    public double transferencia(long cuentaO, long cuenntaD, double monto) throws MismaCuentaException, CuentaEstaDeBajaException, CuentaSinDineroException, CuentaNoEncontradaException {
+    public double transferencia(long cuentaO, long cuentaD, double monto) throws MismaCuentaException, CuentaEstaDeBajaException, CuentaSinDineroException, CuentaNoEncontradaException {
+
+        if (cuentaO == cuentaD) { ////Lanzo excepcion cuando la cuenta destino es igual a la origen
+            throw new MismaCuentaException("No se puede transferir a la misma cuenta");
+        }
 
         Cuenta cuentaOrigen = cuentaDao.findCuenta(cuentaO);
-        Cuenta cuentaDestino = cuentaDao.findCuenta(cuenntaD);
+        Cuenta cuentaDestino = cuentaDao.findCuenta(cuentaD);
 
         if (cuentaOrigen == null ) {
             throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cuentaO);
         }
 
         if (cuentaDestino == null) {
-            throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cuenntaD);
+            throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cuentaD);
         }
 
-        if (cuentaOrigen.getCVU() == cuentaDestino.getCVU()) { ////Lanzo excepcion cuando la cuenta destino es igual a la origen
-            throw new MismaCuentaException("No se puede transferir a la misma cuenta");
-        }
         if (!cuentaDestino.getEstado()) { //Lanzo excepcion cuando la cuenta destino esta dada de baja
             throw new CuentaEstaDeBajaException("La cuenta a transferir esta dada de baja");
         }

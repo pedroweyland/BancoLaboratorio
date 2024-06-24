@@ -30,9 +30,9 @@ public class CrearClienteTest extends baseAdministracionTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
 
-    }*/
+    }
 
-
+     */
 
     @Test
     public void testCrearClienteSuccess() throws ClienteExistenteException, ClienteMenorDeEdadException, ClienteFechaDeAltaInvalidaException {
@@ -41,8 +41,10 @@ public class CrearClienteTest extends baseAdministracionTest {
         when(clienteDao.findCliente(pepo.getDni())).thenReturn(null);
 
         Cliente creacion = crearCliente.crearCliente(pepo);
+
         //Verifico que clienteDao se haya ejecutado una ves
         verify(clienteDao, times(1)).saveCliente(pepo);
+        verify(clienteDao, times(1)).findCliente(pepo.getDni());
 
         assertEquals(pepo, creacion);
         assertNotNull(creacion);
