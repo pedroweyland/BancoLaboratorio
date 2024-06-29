@@ -1,8 +1,6 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
-import ar.utn.frbb.tup.service.administracion.baseAdministracionTest;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,11 +9,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ModificarClienteTest extends baseAdministracionTest {
+public class ModificarClienteTest {
     @Mock
     ClienteDao clienteDao;
 

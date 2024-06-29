@@ -1,4 +1,4 @@
-package ar.utn.frbb.tup.service.administracion;
+package ar.edu.utn.frbb.tup.service.administracion;
 
 import ar.edu.utn.frbb.tup.model.*;
 
@@ -6,9 +6,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class baseAdministracionTest {
+public class BaseAdministracionTest {
 
-    public Cliente getCliente(String nombre, long dni){
+    public static Cliente getCliente(String nombre, long dni){
         Cliente cliente = new Cliente();
         cliente.setNombre(nombre);
         cliente.setApellido("Weyland");
@@ -20,7 +20,7 @@ public class baseAdministracionTest {
         return cliente;
     }
 
-    public Cuenta getCuenta(String nombre, long dniTitular, TipoCuenta tipoCuenta, TipoMoneda tipoMoneda){
+    public static Cuenta getCuenta(String nombre, long dniTitular, TipoCuenta tipoCuenta, TipoMoneda tipoMoneda){
         Cuenta cuenta = new Cuenta();
         cuenta.setNombre(nombre);
         cuenta.setDniTitular(dniTitular);
@@ -32,7 +32,7 @@ public class baseAdministracionTest {
         return cuenta;
     }
 
-    public List<Cuenta> getCuentasList(Cuenta cuenta){
+    public static List<Cuenta> getCuentasList(Cuenta cuenta){
         List<Cuenta> lista = new ArrayList<>();
         lista.add(cuenta);
 

@@ -5,7 +5,7 @@ import ar.edu.utn.frbb.tup.exception.ClienteFechaDeAltaInvalidaException;
 import ar.edu.utn.frbb.tup.exception.ClienteMenorDeEdadException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
-import ar.utn.frbb.tup.service.administracion.baseAdministracionTest;
+import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracionTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CrearClienteTest extends baseAdministracionTest {
+public class CrearClienteTest {
 
     @Mock
     ClienteDao clienteDao;
@@ -36,7 +36,7 @@ public class CrearClienteTest extends baseAdministracionTest {
 
     @Test
     public void testCrearClienteSuccess() throws ClienteExistenteException, ClienteMenorDeEdadException, ClienteFechaDeAltaInvalidaException {
-        Cliente pepo = getCliente("Pepo", 12345678L);
+        Cliente pepo = BaseAdministracionTest.getCliente("Pepo", 12345678L);
 
         when(clienteDao.findCliente(pepo.getDni())).thenReturn(null);
 
@@ -53,7 +53,7 @@ public class CrearClienteTest extends baseAdministracionTest {
 
     @Test
     public void testCrearClienteExistente(){
-        Cliente pepo = getCliente("Pepo", 12345678L);
+        Cliente pepo = BaseAdministracionTest.getCliente("Pepo", 12345678L);
 
         when(clienteDao.findCliente(pepo.getDni())).thenReturn(new Cliente());
 

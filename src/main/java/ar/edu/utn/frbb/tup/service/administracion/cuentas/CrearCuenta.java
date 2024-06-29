@@ -30,9 +30,10 @@ public class CrearCuenta {
         if (cliente == null){
             throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + cuenta.getDniTitular());
         }
-        Cuenta aux = cuentaDao.findCuenta(cuenta.getCVU());
 
-        if (aux != null) {
+        Cuenta cuentaExiste = cuentaDao.findCuenta(cuenta.getCVU());
+
+        if (cuentaExiste != null) {
             throw new CuentaExistenteException("Ya tiene una cuenta con ese CVU");
         }
 
