@@ -1,17 +1,29 @@
 package ar.edu.utn.frbb.tup.service.handler;
 
+import ar.edu.utn.frbb.tup.exception.*;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
-import ar.edu.utn.frbb.tup.exception.CuentasVaciasException;
+import ar.edu.utn.frbb.tup.service.administracion.cuentas.CrearCuenta;
+import ar.edu.utn.frbb.tup.service.administracion.cuentas.DarAltaBaja;
+import ar.edu.utn.frbb.tup.service.administracion.cuentas.EliminarCuenta;
+import ar.edu.utn.frbb.tup.service.administracion.cuentas.MostrarCuenta;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class CuentaService {
+    private final CrearCuenta crearCuenta;
+    private final DarAltaBaja darAltaBaja;
+    private final EliminarCuenta eliminarCuenta;
+    private final MostrarCuenta mostrarCuenta;
     private final CuentaDao cuentaDao;
 
-    public CuentaService(CuentaDao cuentaDao){
+    public CuentaService(CrearCuenta crearCuenta, DarAltaBaja darAltaBaja, EliminarCuenta eliminarCuenta, MostrarCuenta mostrarCuenta, CuentaDao cuentaDao) {
+        this.crearCuenta = crearCuenta;
+        this.darAltaBaja = darAltaBaja;
+        this.eliminarCuenta = eliminarCuenta;
+        this.mostrarCuenta = mostrarCuenta;
         this.cuentaDao = cuentaDao;
     }
 
@@ -21,5 +33,21 @@ public class CuentaService {
 
     public void inicializarCuentas() {
         cuentaDao.inicializarCuentas();
+    }
+
+    public Cuenta crearCuenta(Cuenta cuenta) throws TipoCuentaExistenteException, CuentaExistenteException, ClienteNoEncontradoException {
+        return crearCuenta.crearCuenta(cuenta);
+    }
+
+    public Cuenta darAltaBaja(long dni, long cvu, boolean opcion) throws CuentaNoEncontradaException, ClienteNoEncontradoException {
+        return darAltaBaja.gestionarEstado(dni, cvu, opcion);
+    }
+
+    public Cuenta eliminarCuenta(long dni, long cvu) throws CuentasVaciasException, CuentaNoEncontradaException, ClienteNoEncontradoException {
+        return eliminarCuenta.eliminarCuenta(dni, cvu);
+    }
+
+    public List<Cuenta> mostrarCuenta(long dni) throws ClienteNoEncontradoException, CuentasVaciasException, CuentaNoEncontradaException {
+        return mostrarCuenta.mostrarCuenta(dni);
     }
 }

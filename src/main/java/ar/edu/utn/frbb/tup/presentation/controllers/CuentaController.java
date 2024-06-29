@@ -13,31 +13,23 @@ import static ar.edu.utn.frbb.tup.presentation.validator.Validaciones.cuentaEsVa
 @RestController
 @RequestMapping("/cuentas")
 public class CuentaController {
-    private final CrearCuenta crearCuenta;
-    private final DarAltaBaja darAltaBaja;
-    private final EliminarCuenta eliminarCliente;
-    private final MostrarCuenta mostrarCuenta;
     private final CuentaService cuentaService;
 
-    public CuentaController(CrearCuenta crearCuenta, DarAltaBaja darAltaBaja, EliminarCuenta eliminarCliente, MostrarCuenta mostrarCuenta, CuentaService cuentaService) {
-        this.crearCuenta = crearCuenta;
-        this.darAltaBaja = darAltaBaja;
-        this.eliminarCliente = eliminarCliente;
-        this.mostrarCuenta = mostrarCuenta;
+    public CuentaController(CuentaService cuentaService) {
         this.cuentaService = cuentaService;
         cuentaService.inicializarCuentas();
     }
 
     @GetMapping("/{dni}")
     public List<Cuenta> getAllCuentas(@PathVariable long dni) throws CuentasVaciasException, CuentaNoEncontradaException, ClienteNoEncontradoException {
-        return mostrarCuenta.mostrarCuenta(dni);
+        return cuentaService.mostrarCuenta(dni);
     }
 
     @PostMapping
     public Cuenta createCuenta(@RequestBody Cuenta cuenta) {
         try {
             Cuenta cuentaCrear = cuentaEsValida(cuenta);
-            return crearCuenta.crearCuenta(cuentaCrear);
+            return cuentaService.crearCuenta(cuentaCrear);
         } catch (FaltaDeDatosException | ClienteNoEncontradoException | TipoCuentaExistenteException | CuentaExistenteException e) {
             System.out.println(e.getMessage());
         }
@@ -46,12 +38,12 @@ public class CuentaController {
 
     @PutMapping("/{dni}/{cvu}")
     public Cuenta darAltaBajaCuenta(@PathVariable long dni, @PathVariable long cvu, @RequestParam boolean opcion) throws CuentaNoEncontradaException, ClienteNoEncontradoException {
-        return darAltaBaja.gestionarEstado(dni, cvu, opcion);
+        return cuentaService.darAltaBaja(dni, cvu, opcion);
     }
 
     @DeleteMapping("/{dni}/{cvu}")
     public Cuenta deleteCuenta(@PathVariable long dni, @PathVariable long cvu) throws CuentasVaciasException, CuentaNoEncontradaException, ClienteNoEncontradoException {
-        return eliminarCliente.eliminarCuenta(dni, cvu);
+        return cuentaService.eliminarCuenta(dni, cvu);
     }
 
 }

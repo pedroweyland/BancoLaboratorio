@@ -39,12 +39,12 @@ public class MostrarCuenta {
             throw new CuentasVaciasException("No hay cuentas registradas");
         }
 
-        List<Cuenta> aux = new ArrayList<>(); //Lista auxiliar para guardar las cuentas del cliente
+        List<Cuenta> cuentasClientes = new ArrayList<>(); //Lista auxiliar para guardar las cuentas del cliente
 
         boolean encontrada = false;
         for (Cuenta cuenta : cuentas) {
             if (cuenta.getDniTitular() == dni) {
-                aux.add(cuenta);
+                cuentasClientes.add(cuenta);
                 encontrada = true;
             }
         }
@@ -54,7 +54,7 @@ public class MostrarCuenta {
         }
 
         //Retorna la lista de cuentas que tiene asociada el cliente
-        return aux;
+        return cuentasClientes;
 
     }
 }
