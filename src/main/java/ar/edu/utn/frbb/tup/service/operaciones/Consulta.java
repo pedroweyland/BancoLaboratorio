@@ -1,15 +1,13 @@
-package ar.edu.utn.frbb.tup.service.operaciones.modulos;
+package ar.edu.utn.frbb.tup.service.operaciones;
 
-import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
-import ar.edu.utn.frbb.tup.service.operaciones.baseOperaciones;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Consulta extends baseOperaciones {
+public class Consulta {
     private final MovimientosDao movimientosDao;
     private final CuentaDao cuentaDao;
     private final String tipoOperacion = "Consulta";
@@ -28,8 +26,7 @@ public class Consulta extends baseOperaciones {
         }
 
         //Tomo registro de la operacion que se hizo
-        Movimiento movimiento = crearMovimiento(tipoOperacion, 0, cuenta.getCVU());
-        movimientosDao.saveMovimiento(movimiento);
+        movimientosDao.saveMovimiento(tipoOperacion, 0, cuenta.getCVU());
 
         return cuenta.getSaldo();
     }

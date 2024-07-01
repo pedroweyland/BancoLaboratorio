@@ -1,20 +1,16 @@
-package ar.edu.utn.frbb.tup.service.operaciones.modulos;
+package ar.edu.utn.frbb.tup.service.operaciones;
 
-import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
-import ar.edu.utn.frbb.tup.exception.CuentaEstaDeBajaException;
-import ar.edu.utn.frbb.tup.exception.CuentaSinDineroException;
-import ar.edu.utn.frbb.tup.exception.MismaCuentaException;
-import ar.edu.utn.frbb.tup.service.operaciones.baseOperaciones;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaEstaDeBajaException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.MismaCuentaException;
 import org.springframework.stereotype.Service;
 
-import static ar.edu.utn.frbb.tup.presentation.BasePresentation.ingresarDinero;
-
 @Service
-public class Transferencia extends baseOperaciones {
+public class Transferencia {
     private final CuentaDao cuentaDao;
     private final MovimientosDao movimientosDao;
 
@@ -60,11 +56,9 @@ public class Transferencia extends baseOperaciones {
         cuentaDestino.setSaldo(cuentaDestino.getSaldo() + monto);
 
         //Tomo registro de la transferencia en la cuentaOrginen y destino
-        Movimiento movimiento = crearMovimiento(tipoOperacion + cuentaDestino.getNombre(), monto, cuentaOrigen.getCVU());
-        movimientosDao.saveMovimiento(movimiento);
+        movimientosDao.saveMovimiento(tipoOperacion + cuentaDestino.getNombre(), monto, cuentaOrigen.getCVU());
 
-        Movimiento movimientoDestino = crearMovimiento(tipoOperacionDestino + cuentaOrigen.getNombre(), monto, cuentaDestino.getCVU());
-        movimientosDao.saveMovimiento(movimientoDestino);
+        movimientosDao.saveMovimiento(tipoOperacionDestino + cuentaOrigen.getNombre(), monto, cuentaDestino.getCVU());
 
         //Guardo la cuentaOrigen y cuentaDestino modificada
         cuentaDao.saveCuenta(cuentaOrigen);

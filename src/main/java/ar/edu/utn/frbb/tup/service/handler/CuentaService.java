@@ -1,6 +1,10 @@
 package ar.edu.utn.frbb.tup.service.handler;
 
-import ar.edu.utn.frbb.tup.exception.*;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaExistenteException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentasVaciasException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.TipoCuentaExistenteException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.service.administracion.cuentas.CrearCuenta;

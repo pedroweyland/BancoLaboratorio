@@ -18,7 +18,14 @@ public class MovimientosDao extends BaseDao<Movimiento>{
         inicializarArchivo(encabezado, RUTA_ARCHIVO);
     }
 
-    public void saveMovimiento(Movimiento movimiento){
+    public void saveMovimiento(String tipoOperacion, double monto, long cvu){
+        Movimiento movimiento = new Movimiento();
+        movimiento.setCVU(cvu);
+        movimiento.setFecha(LocalDate.now());
+        movimiento.setHora(LocalTime.now());
+        movimiento.setTipoOperacion(tipoOperacion);
+        movimiento.setMonto(monto);
+
         String infoAguardar = movimiento.getCVU() + "," + movimiento.getFechaOperacion() + "," + movimiento.getHoraOperacion() + "," + movimiento.getTipoOperacion() + "," + movimiento.getMonto();
         saveInfo(infoAguardar, RUTA_ARCHIVO);
     }

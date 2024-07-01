@@ -1,9 +1,13 @@
 package ar.edu.utn.frbb.tup.service.handler;
 
-import ar.edu.utn.frbb.tup.exception.*;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaEstaDeBajaException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.MismaCuentaException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.MovimientosVaciosException;
 import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
-import ar.edu.utn.frbb.tup.service.operaciones.modulos.*;
+import ar.edu.utn.frbb.tup.service.operaciones.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -1,17 +1,14 @@
-package ar.edu.utn.frbb.tup.service.operaciones.modulos;
+package ar.edu.utn.frbb.tup.service.operaciones;
 
-import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
-import ar.edu.utn.frbb.tup.service.operaciones.baseOperaciones;
 import org.springframework.stereotype.Service;
 
-import static ar.edu.utn.frbb.tup.presentation.BasePresentation.ingresarDinero;
 
 @Service
-public class Deposito extends baseOperaciones {
+public class Deposito {
     private final CuentaDao cuentaDao;
     private final MovimientosDao movimientosDao;
     private final String tipoOperacion = "Deposito";
@@ -35,8 +32,7 @@ public class Deposito extends baseOperaciones {
         cuenta.setSaldo(cuenta.getSaldo() + monto); 
 
         //Tomo registro de la operacion que se hizo
-        Movimiento movimiento = crearMovimiento(tipoOperacion, monto, cuenta.getCVU());
-        movimientosDao.saveMovimiento(movimiento);
+        movimientosDao.saveMovimiento(tipoOperacion, monto, cuenta.getCVU());
 
         cuentaDao.saveCuenta(cuenta); //Guardo la cuenta modificada
 

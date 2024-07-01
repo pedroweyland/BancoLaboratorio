@@ -2,7 +2,6 @@ package ar.edu.utn.frbb.tup.persistence;
 
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
-import ar.edu.utn.frbb.tup.exception.CuentasVaciasException;
 import ar.edu.utn.frbb.tup.model.TipoMoneda;
 import org.springframework.stereotype.Repository;
 

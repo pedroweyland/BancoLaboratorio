@@ -1,8 +1,8 @@
 package ar.edu.utn.frbb.tup.service.administracion.cuentas;
 
-import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.exception.CuentaExistenteException;
-import ar.edu.utn.frbb.tup.exception.TipoCuentaExistenteException;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaExistenteException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.TipoCuentaExistenteException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
@@ -17,7 +17,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;

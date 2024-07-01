@@ -1,14 +1,14 @@
 package ar.edu.utn.frbb.tup.service.administracion.cuentas;
 
-import ar.edu.utn.frbb.tup.exception.CuentaExistenteException;
-import ar.edu.utn.frbb.tup.exception.TipoCuentaExistenteException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaExistenteException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.TipoCuentaExistenteException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
 import ar.edu.utn.frbb.tup.model.TipoMoneda;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
-import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -4,7 +4,7 @@ import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
-import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

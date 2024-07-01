@@ -4,8 +4,8 @@ import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
-import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,8 +1,8 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
-import ar.edu.utn.frbb.tup.exception.ClienteExistenteException;
-import ar.edu.utn.frbb.tup.exception.ClienteFechaDeAltaInvalidaException;
-import ar.edu.utn.frbb.tup.exception.ClienteMenorDeEdadException;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteExistenteException;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteFechaDeAltaInvalidaException;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteMenorDeEdadException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracionTest;

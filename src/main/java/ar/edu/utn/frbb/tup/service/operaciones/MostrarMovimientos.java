@@ -1,20 +1,18 @@
-package ar.edu.utn.frbb.tup.service.operaciones.modulos;
+package ar.edu.utn.frbb.tup.service.operaciones;
 
-import ar.edu.utn.frbb.tup.exception.CuentaNoEncontradaException;
-import ar.edu.utn.frbb.tup.exception.MovimientosVaciosException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.MovimientosVaciosException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
-import ar.edu.utn.frbb.tup.service.operaciones.baseOperaciones;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MostrarMovimientos extends baseOperaciones {
+public class MostrarMovimientos {
     private final MovimientosDao movimientosDao;
     private final CuentaDao cuentaDao;
 

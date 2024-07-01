@@ -1,6 +1,6 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
-import ar.edu.utn.frbb.tup.exception.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
