@@ -1,7 +1,9 @@
 package ar.edu.utn.frbb.tup.presentation.controllers.handler;
 
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteExistenteException;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaExistenteException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.TipoCuentaExistenteException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,11 +28,11 @@ public class TupResponseEntityExceptionHandler extends ResponseEntityExceptionHa
         return handleExceptionInternal(ex, error, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
-    protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
+    @ExceptionHandler(value = { ClienteNoEncontradoException.class, CuentaNoEncontradaException.class})
+    protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
         String exceptionMessage = ex.getMessage();
         CustomApiError error = new CustomApiError();
-        error.setErrorCode(1234);
+        error.setErrorCode(404);
         error.setErrorMessage(exceptionMessage);
 
         return handleExceptionInternal(ex, error, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
