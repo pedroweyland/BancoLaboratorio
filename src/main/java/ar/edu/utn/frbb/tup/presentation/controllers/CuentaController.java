@@ -1,14 +1,16 @@
 package ar.edu.utn.frbb.tup.presentation.controllers;
 
 import ar.edu.utn.frbb.tup.exception.*;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaExistenteException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentasVaciasException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.TipoCuentaExistenteException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.service.administracion.cuentas.*;
 import ar.edu.utn.frbb.tup.service.handler.CuentaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static ar.edu.utn.frbb.tup.presentation.validator.Validaciones.cuentaEsValida;
 
 @RestController
 @RequestMapping("/cuentas")
@@ -26,14 +28,8 @@ public class CuentaController {
     }
 
     @PostMapping
-    public Cuenta createCuenta(@RequestBody Cuenta cuenta) {
-        try {
-            Cuenta cuentaCrear = cuentaEsValida(cuenta);
-            return cuentaService.crearCuenta(cuentaCrear);
-        } catch (FaltaDeDatosException | ClienteNoEncontradoException | TipoCuentaExistenteException | CuentaExistenteException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public Cuenta createCuenta(@RequestBody Cuenta cuenta) throws TipoCuentaExistenteException, CuentaExistenteException, ClienteNoEncontradoException {
+        return cuentaService.crearCuenta(cuenta);
     }
 
     @PutMapping("/{dni}/{cvu}")

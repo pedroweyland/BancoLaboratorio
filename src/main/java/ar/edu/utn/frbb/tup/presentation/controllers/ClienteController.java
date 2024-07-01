@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.presentation.controllers;
 
 import ar.edu.utn.frbb.tup.exception.*;
+import ar.edu.utn.frbb.tup.exception.ClientesException.*;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.service.handler.ClienteService;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +31,8 @@ public class ClienteController {
     }
 
     @PostMapping
-    public Cliente createCliente(@RequestBody Cliente cliente){
-        try {
-            Cliente clienteCrear = clienteEsValido(cliente);
-            return  clienteService.crearCliente(clienteCrear);//Válido que los datos fueron ingresados
-        } catch (ClienteExistenteException | ClienteMenorDeEdadException | ClienteFechaDeAltaInvalidaException | FaltaDeDatosException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public Cliente createCliente(@RequestBody Cliente cliente) throws ClienteMenorDeEdadException, ClienteFechaDeAltaInvalidaException, ClienteExistenteException {
+        return  clienteService.crearCliente(cliente);
     }
 
     @DeleteMapping("/{dni}")
