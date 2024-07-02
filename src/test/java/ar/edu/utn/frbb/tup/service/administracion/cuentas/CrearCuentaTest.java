@@ -11,6 +11,7 @@ import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracionTest;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,15 +38,16 @@ public class CrearCuentaTest {
     @InjectMocks
     private CrearCuenta crearCuenta;
 
-    @BeforeAll
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+        crearCuenta = new CrearCuenta(clienteDao, cuentaDao);
     }
 
     @Test
     public void testCrearCuentaSuccess() throws TipoCuentaExistenteException, ClienteNoEncontradoException, CuentaExistenteException {
-        Cliente pepo = BaseAdministracionTest.getCliente("Pepo", 12341234);
-        Cuenta cuenta = BaseAdministracionTest.getCuenta("Peperino", 12341234, TipoCuenta.CUENTA_CORRIENTE, TipoMoneda.PESOS);
+        Cliente pepo = BaseAdministracionTest.getCliente("Pepo", 11223344);
+        Cuenta cuenta = BaseAdministracionTest.getCuenta("Peperino", 11223344, TipoCuenta.CUENTA_CORRIENTE, TipoMoneda.PESOS);
 
         when(clienteDao.findCliente(cuenta.getDniTitular())).thenReturn(pepo);
         when(cuentaDao.findAllCuentasDelCliente(cuenta.getDniTitular())).thenReturn(new ArrayList<>());
@@ -62,7 +64,6 @@ public class CrearCuentaTest {
         assertNotNull(creacion);
     }
 
-    /*
     @Test
     public void testCrearCuentaClienteExistenteException(){
         Cuenta cuenta = BaseAdministracionTest.getCuenta("Peperino", 12341234, TipoCuenta.CUENTA_CORRIENTE, TipoMoneda.PESOS);
@@ -104,5 +105,5 @@ public class CrearCuentaTest {
         verify(cuentaDao, times(1)).findAllCuentasDelCliente(cuenta.getDniTitular());
     }
 
-     */
+
 }
