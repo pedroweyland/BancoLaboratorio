@@ -7,6 +7,7 @@ import ar.edu.utn.frbb.tup.exception.CuentasException.CuentasVaciasException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.TipoCuentaExistenteException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
+import ar.edu.utn.frbb.tup.presentation.modelDto.CuentaDto;
 import ar.edu.utn.frbb.tup.service.administracion.cuentas.CrearCuenta;
 import ar.edu.utn.frbb.tup.service.administracion.cuentas.DarAltaBaja;
 import ar.edu.utn.frbb.tup.service.administracion.cuentas.EliminarCuenta;
@@ -39,8 +40,8 @@ public class CuentaService {
         cuentaDao.inicializarCuentas();
     }
 
-    public Cuenta crearCuenta(Cuenta cuenta) throws TipoCuentaExistenteException, CuentaExistenteException, ClienteNoEncontradoException {
-        return crearCuenta.crearCuenta(cuenta);
+    public Cuenta crearCuenta(CuentaDto cuentaDto) throws TipoCuentaExistenteException, CuentaExistenteException, ClienteNoEncontradoException {
+        return crearCuenta.crearCuenta(cuentaDto);
     }
 
     public Cuenta darAltaBaja(long dni, long cvu, boolean opcion) throws CuentaNoEncontradaException, ClienteNoEncontradoException {

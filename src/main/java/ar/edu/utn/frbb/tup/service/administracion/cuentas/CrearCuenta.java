@@ -9,6 +9,7 @@ import ar.edu.utn.frbb.tup.model.TipoMoneda;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.presentation.modelDto.CuentaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,8 @@ public class CrearCuenta {
         this.cuentaDao = cuentaDao;
     }
 
-    public Cuenta crearCuenta(Cuenta cuenta) throws ClienteNoEncontradoException, TipoCuentaExistenteException, CuentaExistenteException {
+    public Cuenta crearCuenta(CuentaDto cuentaDto) throws ClienteNoEncontradoException, TipoCuentaExistenteException, CuentaExistenteException {
+        Cuenta cuenta = new Cuenta(cuentaDto);
 
         Cliente cliente = clienteDao.findCliente(cuenta.getDniTitular());
 

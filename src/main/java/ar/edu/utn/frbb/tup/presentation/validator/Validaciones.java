@@ -1,6 +1,5 @@
 package ar.edu.utn.frbb.tup.presentation.validator;
 
-import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteFechaDeAltaInvalidaException;
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteMenorDeEdadException;
 import ar.edu.utn.frbb.tup.exception.FaltaDeDatosException;
 import ar.edu.utn.frbb.tup.model.Cliente;
@@ -86,27 +85,6 @@ public class Validaciones {
         }
     }
 
-    public static void esFechaAltaValida(LocalDate fechaAlta, LocalDate fechaNacimiento) throws ClienteFechaDeAltaInvalidaException{
-        //Valido si el formato es correcto
-
-        Period period = Period.between(fechaNacimiento, fechaAlta);
-
-        if (fechaNacimiento.isBefore(fechaAlta)) { //Valido que la fehca de alta no sea antes que la fecha de nacimiento
-
-            if (fechaAlta.isBefore(LocalDate.now())) { //Valido que la fecha de alta no sea despues de la fecha actual
-
-                if (period.getYears() < 18) { //Valido que la fecha de alta no sea menor a 18 años
-                    throw new ClienteFechaDeAltaInvalidaException("Tiene que haber minimo una diferencia de 18 anios entre la fecha de alta y nacimiento, (Formato: YYYY-MM-DD):");
-                }
-
-            } else {
-                throw new ClienteFechaDeAltaInvalidaException("La fecha de alta no puede ser despues de la fecha actual, (Formato: YYYY-MM-DD):");
-            }
-
-        } else {
-            throw new ClienteFechaDeAltaInvalidaException("La fecha de alta no puede ser antes que la fecha de nacimiento, (Formato: YYYY-MM-DD):");
-        }
-    }
 
 
 }

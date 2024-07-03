@@ -3,6 +3,7 @@ package ar.edu.utn.frbb.tup.service.handler;
 import ar.edu.utn.frbb.tup.exception.ClientesException.*;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
+import ar.edu.utn.frbb.tup.presentation.modelDto.ClienteDto;
 import ar.edu.utn.frbb.tup.service.administracion.clientes.*;
 import org.springframework.stereotype.Component;
 
@@ -34,8 +35,8 @@ public class ClienteService {
         clienteDao.inicializarClientes();
     }
 
-    public Cliente crearCliente(Cliente cliente) throws ClienteMenorDeEdadException, ClienteFechaDeAltaInvalidaException, ClienteExistenteException {
-        return crearCliente.crearCliente(cliente);
+    public Cliente crearCliente(ClienteDto clienteDto) throws ClienteMenorDeEdadException, ClienteExistenteException {
+        return crearCliente.crearCliente(clienteDto);
     }
 
     public Cliente eliminarCliente(long dni) throws ClienteNoEncontradoException {

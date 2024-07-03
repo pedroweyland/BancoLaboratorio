@@ -1,3 +1,2 @@
 CVU, DNI titular, nombre, estado, saldo, fecha creacion, tipo de cuenta, tipo de moneda
-369216,12341234,Pomoro,true,0.0,2024-06-29,CUENTA_CORRIENTE,PESOS
-756191,12341234,CARLAIO,true,0.0,2024-06-30,CAJA_AHORRO,PESOS
+278603,11223344,Caralio,true,0.0,2024-07-02,CUENTA_CORRIENTE,DOLARES

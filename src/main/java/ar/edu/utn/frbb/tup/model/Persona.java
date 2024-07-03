@@ -10,11 +10,21 @@ public class Persona {
     private long dni;
     private LocalDate fechaNacimiento;
 
+    public Persona(){}
+
+    public Persona(String nombre, String apellido, String direccion, long dni, LocalDate fechaNacimiento) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.dni = dni;
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
     //Getters y Setters
     public String getNombre() {
         return nombre;
     }
+
     public Persona setNombre(String nombre) {
         this.nombre = nombre;
         return this;

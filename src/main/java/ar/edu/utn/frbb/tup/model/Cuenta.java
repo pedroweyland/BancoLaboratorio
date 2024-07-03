@@ -1,5 +1,7 @@
 package ar.edu.utn.frbb.tup.model;
 
+import ar.edu.utn.frbb.tup.presentation.modelDto.CuentaDto;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,18 @@ public class  Cuenta {
         this.CVU = r.nextInt(900000) + 100000;
         this.fechaCreacion = LocalDate.now();
         this.estado = true;
+    }
+
+    public Cuenta(CuentaDto cuentaDto){
+        Random r = new Random();
+        this.saldo = 0;
+        this.CVU = r.nextInt(900000) + 100000;
+        this.fechaCreacion = LocalDate.now();
+        this.estado = true;
+        this.dniTitular = cuentaDto.getDniTitular();
+        this.nombre = cuentaDto.getNombre();
+        this.tipoCuenta = TipoCuenta.fromString(cuentaDto.getTipoCuenta());
+        this.tipoMoneda = TipoMoneda.fromString(cuentaDto.getTipoMoneda());
     }
 
     public String getNombre(){

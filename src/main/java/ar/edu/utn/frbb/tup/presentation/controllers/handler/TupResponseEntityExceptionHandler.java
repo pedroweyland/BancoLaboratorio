@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class TupResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {TipoCuentaExistenteException.class, ClienteExistenteException.class, CuentaExistenteException.class})
+    @ExceptionHandler(value = {TipoCuentaExistenteException.class, ClienteExistenteException.class, CuentaExistenteException.class, IllegalArgumentException.class})
     protected ResponseEntity<Object> handleMateriaNotFound(Exception ex, WebRequest request) {
         String exceptionMessage = ex.getMessage();
         CustomApiError error = new CustomApiError();
