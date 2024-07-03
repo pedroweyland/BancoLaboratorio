@@ -6,6 +6,7 @@ import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.MismaCuentaException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.MovimientosVaciosException;
 import ar.edu.utn.frbb.tup.model.Movimiento;
+import ar.edu.utn.frbb.tup.model.Operaciones;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.service.operaciones.*;
 import org.springframework.stereotype.Component;
@@ -34,11 +35,11 @@ public class OperacionesService {
         movimientosDao.inicializarMovimientos();
     }
 
-    public double consulta(long cvu) throws CuentaNoEncontradaException {
+    public Operaciones consulta(long cvu) throws CuentaNoEncontradaException {
         return consulta.consulta(cvu);
     }
 
-    public double deposito(long cvu, double monto) throws CuentaNoEncontradaException {
+    public Operaciones deposito(long cvu, double monto) throws CuentaNoEncontradaException {
         return deposito.deposito(cvu, monto);
     }
 
@@ -46,11 +47,11 @@ public class OperacionesService {
         return mostrarMovimientos.mostrarMovimientos(cvu);
     }
 
-    public double retiro(long cvu, double monto) throws CuentaNoEncontradaException, CuentaSinDineroException {
+    public Operaciones retiro(long cvu, double monto) throws CuentaNoEncontradaException, CuentaSinDineroException {
         return retiro.retiro(cvu, monto);
     }
 
-    public double transferencia(long cvu, long cvuDestino, double monto) throws CuentaNoEncontradaException, MismaCuentaException, CuentaEstaDeBajaException, CuentaSinDineroException {
+    public Operaciones transferencia(long cvu, long cvuDestino, double monto) throws CuentaNoEncontradaException, MismaCuentaException, CuentaEstaDeBajaException, CuentaSinDineroException {
         return transferencia.transferencia(cvu, cvuDestino, monto);
     }
 

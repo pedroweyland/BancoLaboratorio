@@ -2,6 +2,7 @@ package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
+import ar.edu.utn.frbb.tup.model.Operaciones;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaEstaDeBajaException;
@@ -22,7 +23,7 @@ public class Transferencia {
         this.movimientosDao = movimientosDao;
     }
 
-    public double transferencia(long cuentaO, long cuentaD, double monto) throws MismaCuentaException, CuentaEstaDeBajaException, CuentaSinDineroException, CuentaNoEncontradaException {
+    public Operaciones transferencia(long cuentaO, long cuentaD, double monto) throws MismaCuentaException, CuentaEstaDeBajaException, CuentaSinDineroException, CuentaNoEncontradaException {
 
         if (cuentaO == cuentaD) { ////Lanzo excepcion cuando la cuenta destino es igual a la origen
             throw new MismaCuentaException("No se puede transferir a la misma cuenta");
@@ -64,6 +65,6 @@ public class Transferencia {
         cuentaDao.saveCuenta(cuentaOrigen);
         cuentaDao.saveCuenta(cuentaDestino);
 
-        return cuentaOrigen.getSaldo();
+        return new Operaciones().setCvu(cuentaOrigen.getCVU()).setSaldoActual(cuentaOrigen.getSaldo()).setMonto(monto).setTipoOperacion(tipoOperacion);
     }
 }

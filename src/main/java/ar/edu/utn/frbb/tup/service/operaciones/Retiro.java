@@ -2,6 +2,7 @@ package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
+import ar.edu.utn.frbb.tup.model.Operaciones;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
@@ -20,7 +21,7 @@ public class Retiro {
         this.movimientosDao = movimientosDao;
     }
 
-    public double retiro(long cvu, double monto) throws CuentaNoEncontradaException, CuentaSinDineroException {
+    public Operaciones retiro(long cvu, double monto) throws CuentaNoEncontradaException, CuentaSinDineroException {
 
         Cuenta cuenta = cuentaDao.findCuenta(cvu);
 
@@ -45,6 +46,6 @@ public class Retiro {
 
         cuentaDao.saveCuenta(cuenta); //Guardo la cuenta modificada
 
-        return cuenta.getSaldo();
+        return new Operaciones().setCvu(cvu).setSaldoActual(cuenta.getSaldo()).setMonto(monto).setTipoOperacion(tipoOperacion);
     }
 }

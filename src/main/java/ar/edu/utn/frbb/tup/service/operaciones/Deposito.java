@@ -2,6 +2,7 @@ package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
+import ar.edu.utn.frbb.tup.model.Operaciones;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class Deposito {
         this.movimientosDao = movimientosDao;
     }
 
-    public double deposito(long cvu , double monto) throws CuentaNoEncontradaException {
+    public Operaciones deposito(long cvu , double monto) throws CuentaNoEncontradaException {
 
         Cuenta cuenta = cuentaDao.findCuenta(cvu);
 
@@ -36,7 +37,7 @@ public class Deposito {
 
         cuentaDao.saveCuenta(cuenta); //Guardo la cuenta modificada
 
-        return cuenta.getSaldo();
+        return new Operaciones().setCvu(cvu).setSaldoActual(cuenta.getSaldo()).setMonto(monto).setTipoOperacion(tipoOperacion);
 
     }
 }
