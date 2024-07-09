@@ -9,9 +9,17 @@ import java.time.format.DateTimeParseException;
 @Component
 public class ClienteValidator {
 
-    public void validate(ClienteDto clienteDto) {
+    public void validateCliente(ClienteDto clienteDto) {
 
         validateDatosCompletos(clienteDto);
+        validateTipoPersona(clienteDto.getTipoPersona());
+        validateFechaNacimiento(clienteDto.getFechaNacimiento());
+    }
+
+    public void validateClienteModificacion(ClienteDto clienteDto) {
+        if (clienteDto.getDni() == 0) throw new IllegalArgumentException("Error: Ingrese un DNI");
+        if (clienteDto.getDni() < 10000000 || clienteDto.getDni() > 99999999) throw new IllegalArgumentException("Error: El dni debe tener 8 digitos");
+
         validateTipoPersona(clienteDto.getTipoPersona());
         validateFechaNacimiento(clienteDto.getFechaNacimiento());
     }

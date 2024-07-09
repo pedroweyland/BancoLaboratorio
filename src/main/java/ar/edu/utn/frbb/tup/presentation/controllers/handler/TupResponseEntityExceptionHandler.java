@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.presentation.controllers.handler;
 
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteExistenteException;
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteMenorDeEdadException;
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaExistenteException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
@@ -18,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class TupResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {TipoCuentaExistenteException.class, ClienteExistenteException.class, CuentaExistenteException.class, IllegalArgumentException.class})
+    @ExceptionHandler(value = {TipoCuentaExistenteException.class, ClienteExistenteException.class, CuentaExistenteException.class, IllegalArgumentException.class, ClienteMenorDeEdadException.class})
     protected ResponseEntity<Object> handleMateriaNotFound(Exception ex, WebRequest request) {
         String exceptionMessage = ex.getMessage();
         CustomApiError error = new CustomApiError();

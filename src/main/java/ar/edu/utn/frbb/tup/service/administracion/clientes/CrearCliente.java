@@ -22,7 +22,8 @@ public class CrearCliente {
     public Cliente crearCliente(ClienteDto clienteDto) throws ClienteExistenteException, ClienteMenorDeEdadException {
         Cliente cliente = new Cliente(clienteDto);
 
-        if (clienteDao.findCliente(cliente.getDni()) != null){
+        Cliente clienteEncontrado = clienteDao.findCliente(cliente.getDni());
+        if (clienteEncontrado != null){
             throw new ClienteExistenteException("Ya existe un cliente con el DNI ingresado");
         }
 

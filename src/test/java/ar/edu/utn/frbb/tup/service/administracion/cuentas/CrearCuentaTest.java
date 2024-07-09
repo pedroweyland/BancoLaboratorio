@@ -5,12 +5,10 @@ import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaExistenteException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.TipoCuentaExistenteException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.model.TipoCuenta;
-import ar.edu.utn.frbb.tup.model.TipoMoneda;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
+import ar.edu.utn.frbb.tup.presentation.modelDto.CuentaDto;
 import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracionTest;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -21,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -28,15 +27,14 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CrearCuentaTest {
+    @Mock
+    ClienteDao clienteDao;
 
     @Mock
-    private CuentaDao cuentaDao;
-
-    @Mock
-    private ClienteDao clienteDao;
+    CuentaDao cuentaDao;
 
     @InjectMocks
-    private CrearCuenta crearCuenta;
+    CrearCuenta crearCuenta;
 
     @BeforeEach
     public void setUp() {
@@ -45,65 +43,65 @@ public class CrearCuentaTest {
     }
 
     @Test
-    public void testCrearCuentaSuccess() throws TipoCuentaExistenteException, ClienteNoEncontradoException, CuentaExistenteException {
-        Cliente pepo = BaseAdministracionTest.getCliente("Pepo", 11223344);
-        Cuenta cuenta = BaseAdministracionTest.getCuenta("Peperino", 11223344, TipoCuenta.CUENTA_CORRIENTE, TipoMoneda.PESOS);
+    public void testCrearCuentaSuccess() throws TipoCuentaExistenteException, CuentaExistenteException, ClienteNoEncontradoException {
+        CuentaDto cuentaDto = BaseAdministracionTest.getCuentaDto("pepoCuenta", 12345678L, "C", "P");
 
-        when(clienteDao.findCliente(cuenta.getDniTitular())).thenReturn(pepo);
-        when(cuentaDao.findAllCuentasDelCliente(cuenta.getDniTitular())).thenReturn(new ArrayList<>());
-        when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(null);
+        when(clienteDao.findCliente(cuentaDto.getDniTitular())).thenReturn(new Cliente());
+        when(cuentaDao.findCuenta(any(Long.class))).thenReturn(null); //Como parametro acepta cualquier tipo de Long ya que la creacion es aleatoria de CVU
+        when(cuentaDao.findAllCuentasDelCliente(cuentaDto.getDniTitular())).thenReturn(new ArrayList<>());
 
-        Cuenta creacion = crearCuenta.crearCuenta(cuenta);
+        Cuenta nuevaCuenta = crearCuenta.crearCuenta(cuentaDto);
 
-        verify(clienteDao, times(1)).findCliente(cuenta.getDniTitular());
-        verify(cuentaDao, times(1)).saveCuenta(cuenta);
-        verify(cuentaDao, times(1)).findAllCuentasDelCliente(cuenta.getDniTitular());
-        verify(cuentaDao, times(1)).findCuenta(cuenta.getCVU());
+        verify(clienteDao, times(1)).findCliente(cuentaDto.getDniTitular());
+        verify(cuentaDao, times(1)).findCuenta(nuevaCuenta.getCVU());
+        verify(cuentaDao, times(1)).findAllCuentasDelCliente(cuentaDto.getDniTitular());
+        verify(cuentaDao, times(1)).saveCuenta(nuevaCuenta);
 
-        assertEquals(cuenta, creacion);
-        assertNotNull(creacion);
+        assertNotNull(nuevaCuenta);
     }
 
     @Test
-    public void testCrearCuentaClienteExistenteException(){
-        Cuenta cuenta = BaseAdministracionTest.getCuenta("Peperino", 12341234, TipoCuenta.CUENTA_CORRIENTE, TipoMoneda.PESOS);
+    public void testCrearCuentaClienteNoEncontrado() {
+        CuentaDto cuentaDto = BaseAdministracionTest.getCuentaDto("pepoCuenta", 12345678L, "C", "P");
 
-        when(clienteDao.findCliente(cuenta.getDniTitular())).thenReturn(null);
+        when(clienteDao.findCliente(cuentaDto.getDniTitular())).thenReturn(null);
 
-        assertThrows(ClienteNoEncontradoException.class, () -> crearCuenta.crearCuenta(cuenta));
-        verify(clienteDao, times(1)).findCliente(cuenta.getDniTitular());
+        assertThrows(ClienteNoEncontradoException.class, () -> crearCuenta.crearCuenta(cuentaDto));
+
+        verify(clienteDao, times(1)).findCliente(cuentaDto.getDniTitular());
     }
 
     @Test
-    public void testCrearCuentaCuentaExistenteException(){
-        Cuenta cuenta = BaseAdministracionTest.getCuenta("Peperino", 12341234, TipoCuenta.CUENTA_CORRIENTE, TipoMoneda.PESOS);
+    public void testCrearCuentaCuentaExistente() {
+        CuentaDto cuentaDto = BaseAdministracionTest.getCuentaDto("pepoCuenta", 12345678L, "C", "P");
 
-        when(clienteDao.findCliente(cuenta.getDniTitular())).thenReturn(new Cliente());
+        when(clienteDao.findCliente(cuentaDto.getDniTitular())).thenReturn(new Cliente());
+        when(cuentaDao.findCuenta(any(Long.class))).thenReturn(new Cuenta());
 
-        //Preparo el mock para que devuelva una cuenta nueva asi agarro la excepcion buscada
-        when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(new Cuenta());
+        assertThrows(CuentaExistenteException.class, () -> crearCuenta.crearCuenta(cuentaDto));
 
-        assertThrows(CuentaExistenteException.class, () -> crearCuenta.crearCuenta(cuenta));
+        verify(clienteDao, times(1)).findCliente(cuentaDto.getDniTitular());
+        verify(cuentaDao, times(1)).findCuenta(any(Long.class));
 
-        verify(cuentaDao, times(1)).findCuenta(cuenta.getCVU());
-        verify(clienteDao, times(1)).findCliente(cuenta.getDniTitular());
     }
 
     @Test
-    public void testCrearCuentaTipoCuentaExistenteException(){
-        Cuenta cuenta = BaseAdministracionTest.getCuenta("Peperino", 12341234, TipoCuenta.CUENTA_CORRIENTE, TipoMoneda.PESOS);
-        Cuenta cuentaMismoTipo = BaseAdministracionTest.getCuenta("Pomoro", 12341234, TipoCuenta.CUENTA_CORRIENTE, TipoMoneda.PESOS);
+    public void testCrearCuentaTipoCuentaExistente() {
+        CuentaDto cuentaDto = BaseAdministracionTest.getCuentaDto("pepoCuenta", 12345678L, "C", "P");
+        Cuenta cuenta = new Cuenta(cuentaDto);
 
-        when(clienteDao.findCliente(cuenta.getDniTitular())).thenReturn(new Cliente());
-        when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(null);
-        when(cuentaDao.findAllCuentasDelCliente(cuenta.getDniTitular())).thenReturn(BaseAdministracionTest.getCuentasList(cuentaMismoTipo));
+        List<Cuenta> cuentas = new ArrayList<>();
+        cuentas.add(cuenta);
 
-        assertThrows(TipoCuentaExistenteException.class, () -> crearCuenta.crearCuenta(cuenta));
+        when(clienteDao.findCliente(cuentaDto.getDniTitular())).thenReturn(new Cliente());
+        when(cuentaDao.findCuenta(any(Long.class))).thenReturn(null);
+        when(cuentaDao.findAllCuentasDelCliente(cuentaDto.getDniTitular())).thenReturn(cuentas);
 
-        verify(clienteDao, times(1)).findCliente(cuenta.getDniTitular());
-        verify(cuentaDao, times(1)).findCuenta(cuenta.getCVU());
-        verify(cuentaDao, times(1)).findAllCuentasDelCliente(cuenta.getDniTitular());
+        assertThrows(TipoCuentaExistenteException.class, () -> crearCuenta.crearCuenta(cuentaDto));
+
+        verify(clienteDao, times(1)).findCliente(cuentaDto.getDniTitular());
+        verify(cuentaDao, times(1)).findCuenta(any(Long.class));
+        verify(cuentaDao, times(1)).findAllCuentasDelCliente(cuentaDto.getDniTitular());
     }
-
 
 }

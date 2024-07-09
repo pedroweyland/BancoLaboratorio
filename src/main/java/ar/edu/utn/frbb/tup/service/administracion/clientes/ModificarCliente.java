@@ -3,6 +3,7 @@ package ar.edu.utn.frbb.tup.service.administracion.clientes;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.presentation.modelDto.ClienteDto;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,16 +15,18 @@ public class ModificarCliente {
     }
 
     // Modificacion Cliente
-    public Cliente modificarCliente(long dni, Cliente clienteModificado) throws ClienteNoEncontradoException {
+    public Cliente modificarCliente(ClienteDto clienteDto) throws ClienteNoEncontradoException {
+        Cliente clienteModificado = new Cliente(clienteDto);
+
         //Busco al cliente que ingreso
-        Cliente cliente = clienteDao.findCliente(dni);
+        Cliente cliente = clienteDao.findCliente(clienteModificado.getDni());
 
         if (cliente == null) { //Si no existe lanza una excepcion
-            throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
+            throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + clienteModificado.getDni());
         }
 
         //Elimino el cliente ya que va ser modificado
-        clienteDao.deleteCliente(dni);
+        clienteDao.deleteCliente(clienteModificado.getDni());
         //Actualizo el Cliente
         actualizarCliente(cliente, clienteModificado);
 
@@ -35,23 +38,17 @@ public class ModificarCliente {
 
     private void actualizarCliente(Cliente cliente, Cliente clienteModificado) {
         //Solo se modifica lo que el usuario escribio, si el usuario no especifica el nombre no se va a modificar
-        if (clienteModificado.getNombre() != null) { //Nombre
-            cliente.setNombre(clienteModificado.getNombre());
-        }
-        if (clienteModificado.getApellido() != null) { //Apellido
-            cliente.setApellido(clienteModificado.getApellido());
-        }
-        if (clienteModificado.getDireccion() != null) { //Direccion
-            cliente.setDireccion(clienteModificado.getDireccion());
-        }
-        if (clienteModificado.getTipoPersona() != null) { //Tipo de persona
-            cliente.setTipoPersona(clienteModificado.getTipoPersona());
-        }
-        if (clienteModificado.getBanco() != null) { //Banco
-            cliente.setBanco(clienteModificado.getBanco());
-        }
-        if (clienteModificado.getMail() != null) { //Mail
-            cliente.setMail(clienteModificado.getMail());
-        }
+        if (clienteModificado.getNombre() != null) cliente.setNombre(clienteModificado.getNombre());
+        //Apellido
+        if (clienteModificado.getApellido() != null) cliente.setApellido(clienteModificado.getApellido());
+        //Direccion
+        if (clienteModificado.getDireccion() != null) cliente.setDireccion(clienteModificado.getDireccion());
+        //Tipo de persona
+        if (clienteModificado.getTipoPersona() != null) cliente.setTipoPersona(clienteModificado.getTipoPersona());
+        //Banco
+        if (clienteModificado.getBanco() != null) cliente.setBanco(clienteModificado.getBanco());
+        //Mail
+        if (clienteModificado.getMail() != null) cliente.setMail(clienteModificado.getMail());
+
     }
 }

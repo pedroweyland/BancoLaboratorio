@@ -28,7 +28,6 @@ public class EliminarCuenta {
 
         Cliente cliente = clienteDao.findCliente(dni);
 
-
         if (cliente == null) {
             //Lanzo excepcion si el cliente no fue encontrado
             throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);

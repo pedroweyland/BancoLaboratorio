@@ -1,14 +1,21 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
+import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
+import ar.edu.utn.frbb.tup.presentation.modelDto.ClienteDto;
+import ar.edu.utn.frbb.tup.service.administracion.BaseAdministracionTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -19,52 +26,38 @@ public class ModificarClienteTest {
     @InjectMocks
     ModificarCliente modificarCliente;
 
-    /*@BeforeAll
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+        modificarCliente = new ModificarCliente(clienteDao);
     }
 
 
-
     @Test
-    public void testModificarNombreClienteSuccess() throws ClienteNoEncontradoException {
-        Cliente pepo = getCliente("Pepo", 12345678L);
+    public void testModificarClienteSuccess() throws ClienteNoEncontradoException {
+        ClienteDto pepoDto = BaseAdministracionTest.getClienteDto("Pepo", 12341234L);
+        ClienteDto pepoDtoModificado = BaseAdministracionTest.getClienteDto("Juan", 12341234L);
+        Cliente pepo = new Cliente(pepoDto);
 
-        when(clienteDao.findCliente(pepo.getDni())).thenReturn(pepo);
-        when(clienteInput.ingresarNombre()).thenReturn("Peperino");
+        when(clienteDao.findCliente(pepoDto.getDni())).thenReturn(pepo);
 
-        String resultado = modificarCliente.modificarCliente(pepo.getDni(), 1);
+        Cliente pepoModificado = modificarCliente.modificarCliente(pepoDtoModificado);
 
-        assertEquals("----------------------------------------\nNombre modificado correctamente\n----------------------------------------", resultado);
-
-        verify(clienteDao, times(1)).findCliente(pepo.getDni());
+        verify(clienteDao, times(1)).findCliente(pepoDto.getDni());
         verify(clienteDao, times(1)).deleteCliente(pepo.getDni());
         verify(clienteDao, times(1)).saveCliente(pepo);
+
+        assertEquals(pepoModificado.getDni(), pepo.getDni());
+        assertEquals(pepoModificado.getNombre(), "Juan");
     }
 
     @Test
-    public void testModificarApellidoCliente() throws ClienteNoEncontradoException {
-        Cliente pepo = getCliente("Pepo", 12345678L);
+    public void testModificarClienteNoEncontrado() {
+        ClienteDto pepoDto = BaseAdministracionTest.getClienteDto("Pepo", 12341234L);
 
-        when(clienteDao.findCliente(pepo.getDni())).thenReturn(pepo);
-        when(clienteInput.ingresarApellido()).thenReturn("Pomoro");
+        when(clienteDao.findCliente(pepoDto.getDni())).thenReturn(null);
 
-        String resultado = modificarCliente.modificarCliente(pepo.getDni(), 2);
+        assertThrows(ClienteNoEncontradoException.class, () -> modificarCliente.modificarCliente(pepoDto));
 
-        assertEquals("----------------------------------------\nApellido modificado correctamente\n----------------------------------------", resultado);
-
-        verify(clienteDao, times(1)).findCliente(pepo.getDni());
-        verify(clienteDao, times(1)).deleteCliente(pepo.getDni());
-        verify(clienteDao, times(1)).saveCliente(pepo);
     }
-
-    @Test
-    public void testModificarClienteNoEncontrado(){
-        Cliente pepo = getCliente("Pepo", 12345678L);
-
-        when(clienteDao.findCliente(pepo.getDni())).thenReturn(null);
-
-        assertThrows(ClienteNoEncontradoException.class, () -> modificarCliente.modificarCliente(pepo.getDni(), 1));
-    }
-    */
 }

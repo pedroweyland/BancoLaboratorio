@@ -36,7 +36,7 @@ public class ClienteController {
 
     @PostMapping
     public Cliente createCliente(@RequestBody ClienteDto clienteDto) throws ClienteMenorDeEdadException, ClienteExistenteException {
-        clienteValidator.validate(clienteDto);
+        clienteValidator.validateCliente(clienteDto);
         return clienteService.crearCliente(clienteDto);
     }
 
@@ -45,8 +45,9 @@ public class ClienteController {
         return clienteService.eliminarCliente(dni);
     }
 
-    @PutMapping("/{dni}")
-    public Cliente updateCliente(@PathVariable long dni, @RequestBody Cliente cliente) throws ClienteNoEncontradoException {
-        return clienteService.modificarCliente(dni, cliente);
+    @PutMapping("/")
+    public Cliente updateCliente(@RequestBody ClienteDto clienteDto) throws ClienteNoEncontradoException {
+        clienteValidator.validateClienteModificacion(clienteDto);
+        return clienteService.modificarCliente(clienteDto);
     }
 }

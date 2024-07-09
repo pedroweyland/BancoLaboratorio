@@ -43,8 +43,8 @@ public class ClienteService {
         return eliminarCliente.eliminarCliente(dni);
     }
 
-    public Cliente modificarCliente(long dni, Cliente clienteModificar) throws ClienteNoEncontradoException {
-        return modificarCliente.modificarCliente(dni, clienteModificar);
+    public Cliente modificarCliente(ClienteDto clienteDto) throws ClienteNoEncontradoException {
+        return modificarCliente.modificarCliente(clienteDto);
     }
 
     public Cliente mostrarCliente(long dni) throws ClienteNoEncontradoException {
