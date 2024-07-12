@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static ar.edu.utn.frbb.tup.presentation.validator.Validaciones.clienteEsValido;
-
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -46,7 +44,7 @@ public class ClienteController {
     }
 
     @PutMapping("/")
-    public Cliente updateCliente(@RequestBody ClienteDto clienteDto) throws ClienteNoEncontradoException {
+    public Cliente updateCliente(@RequestBody ClienteDto clienteDto) throws ClienteNoEncontradoException, ClienteMenorDeEdadException {
         clienteValidator.validateClienteModificacion(clienteDto);
         return clienteService.modificarCliente(clienteDto);
     }

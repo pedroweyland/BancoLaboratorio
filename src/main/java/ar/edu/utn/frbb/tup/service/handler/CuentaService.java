@@ -32,10 +32,6 @@ public class CuentaService {
         this.cuentaDao = cuentaDao;
     }
 
-    public List<Cuenta> findAllCuentas() throws CuentasVaciasException {
-        return cuentaDao.findAllCuentas();
-    }
-
     public void inicializarCuentas() {
         cuentaDao.inicializarCuentas();
     }

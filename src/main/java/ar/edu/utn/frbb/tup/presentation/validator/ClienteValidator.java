@@ -10,9 +10,7 @@ import java.time.format.DateTimeParseException;
 public class ClienteValidator {
 
     public void validateCliente(ClienteDto clienteDto) {
-
         validateDatosCompletos(clienteDto);
-        validateTipoPersona(clienteDto.getTipoPersona());
         validateFechaNacimiento(clienteDto.getFechaNacimiento());
     }
 
@@ -20,8 +18,10 @@ public class ClienteValidator {
         if (clienteDto.getDni() == 0) throw new IllegalArgumentException("Error: Ingrese un DNI");
         if (clienteDto.getDni() < 10000000 || clienteDto.getDni() > 99999999) throw new IllegalArgumentException("Error: El dni debe tener 8 digitos");
 
-        validateTipoPersona(clienteDto.getTipoPersona());
-        validateFechaNacimiento(clienteDto.getFechaNacimiento());
+        if (clienteDto.getFechaNacimiento() != null){
+            validateFechaNacimiento(clienteDto.getFechaNacimiento());
+        }
+
     }
 
     private void validateDatosCompletos(ClienteDto clienteDto) {
@@ -45,12 +45,6 @@ public class ClienteValidator {
         //DNI primero valido que lo haya ingresado despues valido que el dni sea de 8 digitos
         if (clienteDto.getDni() == 0) throw new IllegalArgumentException("Error: Ingrese un dni");
         if (clienteDto.getDni() < 10000000 || clienteDto.getDni() > 99999999) throw new IllegalArgumentException("Error: El dni debe tener 8 digitos");
-    }
-
-    private void validateTipoPersona(String tipoPersona) {
-        if (!"F".equals(tipoPersona) && !"J".equals(tipoPersona)) {
-            throw new IllegalArgumentException("Error: El tipo de persona debe ser 'F' o 'J'");
-        }
     }
 
     private void validateFechaNacimiento(String fechaNacimiento) {

@@ -15,17 +15,23 @@ public class Cliente extends Persona{
 
     public Cliente(){
         super();
+        this.fechaAlta = LocalDate.now();
     }
+
     public Cliente(ClienteDto clienteDto) {
-        super(clienteDto.getNombre(), clienteDto.getApellido(), clienteDto.getDireccion(), clienteDto.getDni(), LocalDate.parse(clienteDto.getFechaNacimiento()));
+        //Creo dos ternarios en fechaNacimiento y tipoPersona para cuando el usuario no quiera ingresarlas cuando lo quiera modificar
+        super(
+                clienteDto.getNombre(),
+                clienteDto.getApellido(),
+                clienteDto.getDireccion(),
+                clienteDto.getDni(),
+                clienteDto.getFechaNacimiento() != null ? LocalDate.parse(clienteDto.getFechaNacimiento()) : null
+        );
         this.banco = clienteDto.getBanco();
         this.mail = clienteDto.getMail();
-        this.tipoPersona = TipoPersona.fromString(clienteDto.getTipoPersona());
+        this.tipoPersona = clienteDto.getTipoPersona() != null ? TipoPersona.fromString(clienteDto.getTipoPersona()) : null;
         this.fechaAlta = LocalDate.now();
-
     }
-
-
     public String getBanco() {
         return banco;
     }

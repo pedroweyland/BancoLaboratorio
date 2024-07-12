@@ -27,10 +27,6 @@ public class ClienteService {
         this.clienteDao = clienteDao;
     }
 
-    public List<Cliente> findAllClientes() throws ClientesVaciosException {
-        return clienteDao.findAllClientes();
-    }
-
     public void inicializarClientes() {
         clienteDao.inicializarClientes();
     }
@@ -43,7 +39,7 @@ public class ClienteService {
         return eliminarCliente.eliminarCliente(dni);
     }
 
-    public Cliente modificarCliente(ClienteDto clienteDto) throws ClienteNoEncontradoException {
+    public Cliente modificarCliente(ClienteDto clienteDto) throws ClienteNoEncontradoException, ClienteMenorDeEdadException {
         return modificarCliente.modificarCliente(clienteDto);
     }
 

@@ -14,13 +14,13 @@ public enum TipoPersona {
         return descripcion;
     }
 
-    public static TipoPersona fromString(String text) throws IllegalArgumentException {
+    public static TipoPersona fromString(String text) {
         for (TipoPersona tipo : TipoPersona.values()) {
             if (tipo.descripcion.equalsIgnoreCase(text)) {
                 return tipo;
             }
         }
-        throw new IllegalArgumentException("No se pudo encontrar un TipoPersona con la descripcion: " + text);
+        throw new IllegalArgumentException("No se pudo encontrar un TipoPersona con la descripcion: " + text + ", debe ser 'F' o 'J'");
     }
 
 }

@@ -16,6 +16,6 @@ public enum TipoCuenta {
                 return tipo;
             }
         }
-        throw new IllegalArgumentException("No se pudo encontrar un TipoCuenta con la descripcion: " + text);
+        throw new IllegalArgumentException("No se pudo encontrar un TipoCuenta con la descripcion: " + text + ", debe ser 'C' o 'A'");
     }
 }

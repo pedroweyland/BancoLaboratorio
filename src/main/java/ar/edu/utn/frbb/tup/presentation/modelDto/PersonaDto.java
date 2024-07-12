@@ -1,7 +1,5 @@
 package ar.edu.utn.frbb.tup.presentation.modelDto;
 
-
-
 public class PersonaDto {
 
     private String nombre;

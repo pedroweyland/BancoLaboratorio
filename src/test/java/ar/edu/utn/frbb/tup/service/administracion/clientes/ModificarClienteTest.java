@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.service.administracion.clientes;
 
+import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteMenorDeEdadException;
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
@@ -32,9 +33,8 @@ public class ModificarClienteTest {
         modificarCliente = new ModificarCliente(clienteDao);
     }
 
-
     @Test
-    public void testModificarClienteSuccess() throws ClienteNoEncontradoException {
+    public void testModificarClienteSuccess() throws ClienteNoEncontradoException, ClienteMenorDeEdadException {
         ClienteDto pepoDto = BaseAdministracionTest.getClienteDto("Pepo", 12341234L);
         ClienteDto pepoDtoModificado = BaseAdministracionTest.getClienteDto("Juan", 12341234L);
         Cliente pepo = new Cliente(pepoDto);

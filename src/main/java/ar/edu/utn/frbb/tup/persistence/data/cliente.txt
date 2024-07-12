@@ -1,4 +1,3 @@
 DNI, Nombre, Apellido, Direccion, Fecha nacimiento, Mail, Banco, Tipo Persona, Fecha alta
-11223344,Pedro,Weyland,Berutti,2000-12-02,weylandpedro@gmail.com,Macro,PERSONA_JURIDICA,2024-07-02
-44332211,Pedro,Weyland,Berutti,2000-12-02,weylandpedro@gmail.com,Macro,PERSONA_FISICA,2024-07-02
-45501926,Pedro,Weyland,Berutti,2000-12-02,weylandpedro@gmail.com,Macro,PERSONA_JURIDICA,2024-07-02
+45501917,Pedro,Weyland,Berutti,2000-12-02,weylandpedro@gmail.com,Macro,PERSONA_JURIDICA,2024-07-11
+45501927,Pedro,weyland,Berutti,2000-12-02,weylandpedro@gmail.com,Santander,PERSONA_FISICA,2024-07-11
