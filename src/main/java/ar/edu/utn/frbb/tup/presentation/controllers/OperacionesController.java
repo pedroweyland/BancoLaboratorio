@@ -1,12 +1,15 @@
 package ar.edu.utn.frbb.tup.presentation.controllers;
 
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaDistintaMonedaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
-import ar.edu.utn.frbb.tup.exception.OperacionesException.MismaCuentaException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.MovimientosVaciosException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.TransferenciaFailException;
 import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.model.Operaciones;
+import ar.edu.utn.frbb.tup.presentation.modelDto.TransferDto;
+import ar.edu.utn.frbb.tup.presentation.validator.TransferValidator;
 import ar.edu.utn.frbb.tup.service.handler.OperacionesService;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,9 +51,10 @@ public class OperacionesController {
     }
 
     //Trransferencia
-    @PutMapping("/transferencia/{cvu}/{cvuDestino}")
-    public Operaciones getTransferencia(@PathVariable long cvu, @PathVariable long cvuDestino, @RequestParam double monto) throws CuentaNoEncontradaException, CuentaSinDineroException, MismaCuentaException, CuentaEstaDeBajaException {
-        return operacionesService.transferencia(cvu, cvuDestino, monto);
+    @PostMapping("/transferencia")
+    public Operaciones getTransferencia(@RequestBody TransferDto transferDto) throws CuentaNoEncontradaException, CuentaSinDineroException, CuentaEstaDeBajaException, CuentaDistintaMonedaException, TransferenciaFailException {
+        TransferValidator.validate(transferDto);
+        return operacionesService.transferencia(transferDto);
     }
     
 }

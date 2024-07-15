@@ -29,6 +29,7 @@ public class Consulta {
         //Tomo registro de la operacion que se hizo
         movimientosDao.saveMovimiento(tipoOperacion, 0, cuenta.getCVU());
 
+        //Devuelvo un Objeto operacion de la consulta que se hizo
         return new Operaciones().setCvu(cvu).setSaldoActual(cuenta.getSaldo()).setTipoOperacion(tipoOperacion);
     }
 }

@@ -1,52 +1,95 @@
 package ar.edu.utn.frbb.tup.service.operaciones;
 
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaDistintaMonedaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
-import ar.edu.utn.frbb.tup.model.Cuenta;
-import ar.edu.utn.frbb.tup.model.Operaciones;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.TransferenciaFailException;
+import ar.edu.utn.frbb.tup.model.*;
+import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
-import ar.edu.utn.frbb.tup.exception.OperacionesException.MismaCuentaException;
+import ar.edu.utn.frbb.tup.presentation.modelDto.ClienteDto;
+import ar.edu.utn.frbb.tup.presentation.modelDto.TransferDto;
 import org.springframework.stereotype.Service;
+
+import java.util.Random;
 
 @Service
 public class Transferencia {
     private final CuentaDao cuentaDao;
+    private final ClienteDao clienteDao;
     private final MovimientosDao movimientosDao;
 
     private final String tipoOperacion = "Transferencia a la cuenta ";
     private final String tipoOperacionDestino = "Deposito recibido de la cuenta ";
 
-    public Transferencia(CuentaDao cuentaDao, MovimientosDao movimientosDao) {
+    public Transferencia(CuentaDao cuentaDao, ClienteDao clienteDao, MovimientosDao movimientosDao) {
         this.cuentaDao = cuentaDao;
+        this.clienteDao = clienteDao;
         this.movimientosDao = movimientosDao;
     }
 
-    public Operaciones transferencia(long cuentaO, long cuentaD, double monto) throws MismaCuentaException, CuentaEstaDeBajaException, CuentaSinDineroException, CuentaNoEncontradaException {
+    public Operaciones transferencia(TransferDto transferDto) throws CuentaEstaDeBajaException, CuentaSinDineroException, CuentaNoEncontradaException, CuentaDistintaMonedaException, TransferenciaFailException {
+        Transfer datosTransfer = new Transfer(transferDto);
 
-        if (cuentaO == cuentaD) { ////Lanzo excepcion cuando la cuenta destino es igual a la origen
-            throw new MismaCuentaException("No se puede transferir a la misma cuenta");
+        //Calculo el monto total a transferir, si es PESOS un cargo de 2% si es DOLARES un cargo de 0.5%
+        double montoTotal = calcularMontoTransferencia(datosTransfer.getMonto(), datosTransfer.getMoneda());
+
+        Cuenta cuentaOrigen = cuentaDao.findCuenta(datosTransfer.getCuentaOrigen());
+        Cuenta cuentaDestino = cuentaDao.findCuenta(datosTransfer.getCuentaDestino());
+
+        //Valido si las cuentas existen, valido si estan de alta/baja, valido si son de la misma moneda
+        validateTransferencia(cuentaOrigen, cuentaDestino, datosTransfer.getMoneda(), datosTransfer.getCuentaOrigen(), datosTransfer.getCuentaDestino());
+
+        //Si la cuenta no tiene dinero lanza excepcion
+        if (montoTotal > cuentaOrigen.getSaldo()) throw new CuentaSinDineroException("No hay suficiente dinero en la cuenta " + cuentaOrigen.getNombre() + ", su saldo es de $" + cuentaOrigen.getSaldo());
+
+        //Busco el cliente para identificar si son del mismo banco o no
+        Cliente clienteOrigen = clienteDao.findCliente(cuentaOrigen.getDniTitular());
+        Cliente clienteDestino = clienteDao.findCliente(cuentaDestino.getDniTitular());
+
+        Operaciones transferenciaRealizada;
+        //Si son del mismo banco se realiza la transferencia si no la transferencia seria de un banco externo (posiblidades de excepcion)
+        if (clienteOrigen.getBanco().toLowerCase() == clienteDestino.getBanco().toLowerCase()) {
+            transferenciaRealizada = realizarTransferencia(cuentaOrigen, cuentaDestino, montoTotal);
+        } else {
+            transferenciaRealizada = transferenciaBancoExterno(cuentaOrigen, cuentaDestino, montoTotal);
         }
 
-        Cuenta cuentaOrigen = cuentaDao.findCuenta(cuentaO);
-        Cuenta cuentaDestino = cuentaDao.findCuenta(cuentaD);
+        return transferenciaRealizada;
+    }
 
-        if (cuentaOrigen == null ) {
-            throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cuentaO);
+    private void validateTransferencia(Cuenta cuentaOrigen, Cuenta cuentaDestino, TipoMoneda moneda, long cvuOrigen, long cvuDestino) throws CuentaEstaDeBajaException, CuentaSinDineroException, CuentaDistintaMonedaException, CuentaNoEncontradaException {
+
+        //Excepciones de CuentaNo encontrada - Si las cuentas son nulas lanza excepcion
+        if (cuentaOrigen == null ) throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvuOrigen);
+        if (cuentaDestino == null) throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvuDestino);
+
+        //Excepciones de Cuenta dada de baja - Si las cuentas estan dadas de baja lanza excepcion
+        if (!cuentaOrigen.getEstado()) throw new CuentaEstaDeBajaException("La cuenta a transferir esta dada de baja");
+        if (!cuentaDestino.getEstado()) throw new CuentaEstaDeBajaException("La cuenta a transferir esta dada de baja");
+
+
+        //Excepcion cuando son diferentes monedas - Si la cuenta tiene diferente moneda lanza excepcion
+        if (cuentaOrigen.getTipoMoneda() != moneda) throw new CuentaDistintaMonedaException("La cuenta de Origen con el CVU " + cvuOrigen + " es de diferente tipo de moneda" );
+        if (cuentaDestino.getTipoMoneda() != moneda) throw new CuentaDistintaMonedaException("La cuenta de Destino con el CVU " + cvuDestino + " es de diferente tipo de moneda" );
+    }
+
+    //Funcion para calcular el monto final de la transferencia
+    private double calcularMontoTransferencia(double monto, TipoMoneda moneda){
+        double cargo = 0;
+
+        if (moneda == TipoMoneda.PESOS && monto > 1000000) {
+            cargo = 0.02;
+        } else if (moneda == TipoMoneda.DOLARES && monto > 5000) {
+            cargo = 0.005;
         }
 
-        if (cuentaDestino == null) {
-            throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cuentaD);
-        }
-
-        if (!cuentaDestino.getEstado()) { //Lanzo excepcion cuando la cuenta destino esta dada de baja
-            throw new CuentaEstaDeBajaException("La cuenta a transferir esta dada de baja");
-        }
-
-        if (monto > cuentaOrigen.getSaldo()) { //Lanzo excepcion cuando no tiene dinero para trnsferir
-            throw new CuentaSinDineroException("No hay suficiente dinero en la cuenta " + cuentaOrigen.getNombre() + ", su saldo es de $" + cuentaOrigen.getSaldo());
-        }
+        return monto + (monto * cargo);
+    }
+    //Funcion para realizar la transferencia - Cambiar los montos de las cuentas y reescribirlo en la base de datos
+    private Operaciones realizarTransferencia(Cuenta cuentaOrigen, Cuenta cuentaDestino, double monto){
 
         //Borro la cuentaOrigen ya que va ser modificada
         cuentaDao.deleteCuenta(cuentaOrigen.getCVU());
@@ -58,13 +101,23 @@ public class Transferencia {
 
         //Tomo registro de la transferencia en la cuentaOrginen y destino
         movimientosDao.saveMovimiento(tipoOperacion + cuentaDestino.getNombre(), monto, cuentaOrigen.getCVU());
-
         movimientosDao.saveMovimiento(tipoOperacionDestino + cuentaOrigen.getNombre(), monto, cuentaDestino.getCVU());
 
         //Guardo la cuentaOrigen y cuentaDestino modificada
         cuentaDao.saveCuenta(cuentaOrigen);
         cuentaDao.saveCuenta(cuentaDestino);
 
-        return new Operaciones().setCvu(cuentaOrigen.getCVU()).setSaldoActual(cuentaOrigen.getSaldo()).setMonto(monto).setTipoOperacion(tipoOperacion);
+        return new Operaciones().setCvu(cuentaOrigen.getCVU()).setSaldoActual(cuentaOrigen.getSaldo()).setMonto(monto).setTipoOperacion(tipoOperacion + cuentaDestino.getNombre());
+    }
+
+    //Funcion para simular una transferencia de un banco externo
+    private Operaciones transferenciaBancoExterno(Cuenta cuentaOrigen, Cuenta cuentaDestino, double monto) throws TransferenciaFailException {
+        //Simulacion de una transferencia de banco externo, si el dni de la cuenta destino es par se ejecuta, si no lanza excepcion
+        if (cuentaDestino.getDniTitular() % 2 == 0){
+            return realizarTransferencia(cuentaOrigen, cuentaDestino, monto);
+        } else{
+            throw new TransferenciaFailException("El banco externo no puede realizar esta transferencia");
+        }
+
     }
 }

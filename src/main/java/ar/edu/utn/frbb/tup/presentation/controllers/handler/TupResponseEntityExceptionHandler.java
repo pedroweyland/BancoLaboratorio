@@ -8,6 +8,7 @@ import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaExistenteException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentasVaciasException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.TipoCuentaExistenteException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.TransferenciaFailException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -33,7 +34,8 @@ public class TupResponseEntityExceptionHandler extends ResponseEntityExceptionHa
 
     @ExceptionHandler(value = {IllegalArgumentException.class,
             ClienteExistenteException.class, ClienteMenorDeEdadException.class,
-            TipoCuentaExistenteException.class, CuentaExistenteException.class})
+            TipoCuentaExistenteException.class, CuentaExistenteException.class,
+            TransferenciaFailException.class})
     protected ResponseEntity<Object> handleBadRequest(Exception ex, WebRequest request) {
         String exceptionMessage = ex.getMessage();
         CustomApiError error = new CustomApiError();

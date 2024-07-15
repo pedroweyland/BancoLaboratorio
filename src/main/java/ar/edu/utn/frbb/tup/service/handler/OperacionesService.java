@@ -1,13 +1,16 @@
 package ar.edu.utn.frbb.tup.service.handler;
 
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaDistintaMonedaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
-import ar.edu.utn.frbb.tup.exception.OperacionesException.MismaCuentaException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.MovimientosVaciosException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.TransferenciaFailException;
 import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.model.Operaciones;
+import ar.edu.utn.frbb.tup.model.TipoMoneda;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
+import ar.edu.utn.frbb.tup.presentation.modelDto.TransferDto;
 import ar.edu.utn.frbb.tup.service.operaciones.*;
 import org.springframework.stereotype.Component;
 
@@ -51,8 +54,8 @@ public class OperacionesService {
         return retiro.retiro(cvu, monto);
     }
 
-    public Operaciones transferencia(long cvu, long cvuDestino, double monto) throws CuentaNoEncontradaException, MismaCuentaException, CuentaEstaDeBajaException, CuentaSinDineroException {
-        return transferencia.transferencia(cvu, cvuDestino, monto);
+    public Operaciones transferencia(TransferDto transferDto) throws CuentaNoEncontradaException, CuentaEstaDeBajaException, CuentaSinDineroException, CuentaDistintaMonedaException, TransferenciaFailException {
+        return transferencia.transferencia(transferDto);
     }
 
 

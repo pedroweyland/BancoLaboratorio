@@ -1,1 +1,9 @@
 CVU Origen, fecha Operacion, hora Operacion, tipo operacion, monto
+927471,2024-07-14,18:54:34.756361800,Consulta,0.0
+927471,2024-07-14,18:57:12.196696400,Deposito,1500.0
+927471,2024-07-14,18:57:16.306237800,Transferencia a la cuenta Peperino,1000.0
+281630,2024-07-14,18:57:16.306779900,Deposito recibido de la cuenta Pomoro,1000.0
+927471,2024-07-14,18:57:52.238030300,Consulta,0.0
+281630,2024-07-14,18:57:58.759347200,Consulta,0.0
+927471,2024-07-14,18:59:27.276390200,Transferencia a la cuenta Peperino,100.0
+281630,2024-07-14,18:59:27.282099200,Deposito recibido de la cuenta Pomoro,100.0
