@@ -4,10 +4,8 @@ import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteExistenteException
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteMenorDeEdadException;
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClientesVaciosException;
-import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaExistenteException;
-import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
-import ar.edu.utn.frbb.tup.exception.CuentasException.CuentasVaciasException;
-import ar.edu.utn.frbb.tup.exception.CuentasException.TipoCuentaExistenteException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.*;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.MovimientosVaciosException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.TransferenciaFailException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +20,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class TupResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { ClienteNoEncontradoException.class, ClientesVaciosException.class, CuentaNoEncontradaException.class, CuentasVaciasException.class})
+    @ExceptionHandler(value = { ClienteNoEncontradoException.class, ClientesVaciosException.class,
+            CuentaNoEncontradaException.class, CuentasVaciasException.class,
+            MovimientosVaciosException.class})
     protected ResponseEntity<Object> handleMateriaNotFound(Exception ex, WebRequest request) {
         String exceptionMessage = ex.getMessage();
         CustomApiError error = new CustomApiError();
@@ -35,7 +35,8 @@ public class TupResponseEntityExceptionHandler extends ResponseEntityExceptionHa
     @ExceptionHandler(value = {IllegalArgumentException.class,
             ClienteExistenteException.class, ClienteMenorDeEdadException.class,
             TipoCuentaExistenteException.class, CuentaExistenteException.class,
-            TransferenciaFailException.class})
+            TransferenciaFailException.class, CuentaDistintaMonedaException.class,
+            CuentaSinDineroException.class})
     protected ResponseEntity<Object> handleBadRequest(Exception ex, WebRequest request) {
         String exceptionMessage = ex.getMessage();
         CustomApiError error = new CustomApiError();

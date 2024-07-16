@@ -5,6 +5,7 @@ public class TransferDto {
     private long cuentaDestino;
     private double monto;
     private String moneda;
+    private String tipoTransaccion;
 
     public long getCuentaOrigen() {
         return cuentaOrigen;
@@ -32,5 +33,13 @@ public class TransferDto {
     }
     public void setMoneda(String moneda) {
         this.moneda = moneda;
+    }
+
+    public String getTipoTransaccion() {
+        return tipoTransaccion;
+    }
+
+    public void setTipoTransaccion(String tipoTransaccion) {
+        this.tipoTransaccion = tipoTransaccion;
     }
 }

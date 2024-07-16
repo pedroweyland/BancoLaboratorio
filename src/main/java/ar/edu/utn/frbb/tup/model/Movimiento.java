@@ -10,9 +10,10 @@ public class Movimiento {
     private String tipoOperacion;
     private double monto;
 
-    public long getCVU() {
+    public Long getCVU() {
         return CVU;
     }
+
     public void setCVU(Long CVU) {
         this.CVU = CVU;
     }
@@ -20,22 +21,23 @@ public class Movimiento {
     public LocalDate getFechaOperacion() {
         return fechaOperacion;
     }
-    public Movimiento setFecha(LocalDate fecha){
-        this.fechaOperacion = fecha;
-        return this;
+
+    public void setFechaOperacion(LocalDate fechaOperacion) {
+        this.fechaOperacion = fechaOperacion;
     }
 
     public LocalTime getHoraOperacion() {
         return horaOperacion;
     }
-    public Movimiento setHora(LocalTime hora){
-        this.horaOperacion = hora;
-        return this;
+
+    public void setHoraOperacion(LocalTime horaOperacion) {
+        this.horaOperacion = horaOperacion;
     }
 
     public String getTipoOperacion() {
         return tipoOperacion;
     }
+
     public void setTipoOperacion(String tipoOperacion) {
         this.tipoOperacion = tipoOperacion;
     }
@@ -43,6 +45,7 @@ public class Movimiento {
     public double getMonto() {
         return monto;
     }
+
     public void setMonto(double monto) {
         this.monto = monto;
     }

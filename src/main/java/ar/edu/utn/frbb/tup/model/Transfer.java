@@ -8,6 +8,7 @@ public class Transfer {
     private long cuentaDestino;
     private double monto;
     private TipoMoneda moneda;
+    private TipoTransaccion tipoTransaccion;
 
     public Transfer() {
     }
@@ -17,6 +18,7 @@ public class Transfer {
         this.cuentaDestino = transferDto.getCuentaDestino();
         this.monto = transferDto.getMonto();
         this.moneda = TipoMoneda.fromString(transferDto.getMoneda());
+        this.tipoTransaccion = TipoTransaccion.fromString(transferDto.getTipoTransaccion());
     }
 
     public long getCuentaOrigen() {
@@ -49,5 +51,13 @@ public class Transfer {
 
     public void setMoneda(TipoMoneda moneda) {
         this.moneda = moneda;
+    }
+
+    public TipoTransaccion getTipoTransaccion() {
+        return tipoTransaccion;
+    }
+
+    public void setTipoTransaccion(TipoTransaccion tipoTransaccion) {
+        this.tipoTransaccion = tipoTransaccion;
     }
 }

@@ -17,11 +17,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ConsultaTest {
+public class DepositoTest {
     @Mock
     CuentaDao cuentaDao;
 
@@ -29,36 +30,39 @@ public class ConsultaTest {
     MovimientosDao movimientosDao;
 
     @InjectMocks
-    Consulta consulta;
+    Deposito desposito;
 
     @BeforeEach
-    public void setup() {
+    public void setUp(){
         MockitoAnnotations.openMocks(this);
-        consulta = new Consulta(movimientosDao, cuentaDao);
+        desposito = new Deposito(cuentaDao, movimientosDao);
     }
 
     @Test
-    public void testConsultaSuccess() throws CuentaNoEncontradaException {
+    public void testDepositoSuccess() throws CuentaNoEncontradaException {
         Cuenta cuenta = BaseOperacionesTest.getCuenta("Cuenta de prueba", 123456, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
+        cuenta.setSaldo(0);
 
         when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(cuenta);
 
-        Operaciones operacion = consulta.consulta(cuenta.getCVU());
+        Operaciones deposito = desposito.deposito(cuenta.getCVU(), 1000);
 
-        assertNotNull(operacion);
-        assertEquals(cuenta.getCVU(), operacion.getCvu());
-        verify(cuentaDao, times(1)).findCuenta(cuenta.getCVU());
-        verify(movimientosDao, times(1)).saveMovimiento("Consulta", 0.0, cuenta.getCVU());
+        assertNotNull(deposito);
+        assertEquals(1000, deposito.getMonto());
+        assertEquals(1000, cuenta.getSaldo());
+
+        verify(cuentaDao).deleteCuenta(cuenta.getCVU());
+        verify(movimientosDao).saveMovimiento("Deposito", 1000, cuenta.getCVU());
+        verify(cuentaDao).saveCuenta(cuenta);
+
     }
 
     @Test
-    public void testConsultaCuentaNoEncontrada() throws CuentaNoEncontradaException {
-        long cvu = 123456L;
+    public void testDepositoCuentaNoEncontrada() throws CuentaNoEncontradaException {
+        Cuenta cuenta = BaseOperacionesTest.getCuenta("Cuenta de prueba", 123456, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
 
-        when(cuentaDao.findCuenta(cvu)).thenReturn(null);
+        when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(null);
 
-        assertThrows(CuentaNoEncontradaException.class, () -> consulta.consulta(cvu));
-
-        verify(cuentaDao, times(1)).findCuenta(cvu);
+        assertThrows(CuentaNoEncontradaException.class, () -> desposito.deposito(cuenta.getCVU(), 1000));
     }
 }

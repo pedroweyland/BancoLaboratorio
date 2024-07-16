@@ -1,11 +1,12 @@
 package ar.edu.utn.frbb.tup.presentation.controllers;
 
-import ar.edu.utn.frbb.tup.exception.*;
 import ar.edu.utn.frbb.tup.exception.ClientesException.*;
 import ar.edu.utn.frbb.tup.model.Cliente;
 import ar.edu.utn.frbb.tup.presentation.modelDto.ClienteDto;
 import ar.edu.utn.frbb.tup.presentation.validator.ClienteValidator;
 import ar.edu.utn.frbb.tup.service.handler.ClienteService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,9 +34,10 @@ public class ClienteController {
     }
 
     @PostMapping
-    public Cliente createCliente(@RequestBody ClienteDto clienteDto) throws ClienteMenorDeEdadException, ClienteExistenteException {
+    public ResponseEntity<Cliente> createCliente(@RequestBody ClienteDto clienteDto) throws ClienteMenorDeEdadException, ClienteExistenteException {
         clienteValidator.validateCliente(clienteDto);
-        return clienteService.crearCliente(clienteDto);
+        Cliente cliente = clienteService.crearCliente(clienteDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
     }
 
     @DeleteMapping("/{dni}")

@@ -32,7 +32,9 @@ public class TransferValidator {
 
         //Moneda
         if (transferDto.getMoneda() == null) throw new IllegalArgumentException("Error: Ingrese el tipo de moneda");
-    }
 
+        //Tipo transaccion
+        if (transferDto.getTipoTransaccion() == null) throw new IllegalArgumentException("Error: Ingrese el tipo de transaccion");
+    }
 
 }

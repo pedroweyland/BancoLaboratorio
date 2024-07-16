@@ -9,11 +9,8 @@ import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
-import ar.edu.utn.frbb.tup.presentation.modelDto.ClienteDto;
 import ar.edu.utn.frbb.tup.presentation.modelDto.TransferDto;
 import org.springframework.stereotype.Service;
-
-import java.util.Random;
 
 @Service
 public class Transferencia {
@@ -52,9 +49,9 @@ public class Transferencia {
         Operaciones transferenciaRealizada;
         //Si son del mismo banco se realiza la transferencia si no la transferencia seria de un banco externo (posiblidades de excepcion)
         if (clienteOrigen.getBanco().toLowerCase() == clienteDestino.getBanco().toLowerCase()) {
-            transferenciaRealizada = realizarTransferencia(cuentaOrigen, cuentaDestino, montoTotal);
+            transferenciaRealizada = realizarTransferencia(cuentaOrigen, cuentaDestino, datosTransfer.getTipoTransaccion(), montoTotal);
         } else {
-            transferenciaRealizada = transferenciaBancoExterno(cuentaOrigen, cuentaDestino, montoTotal);
+            transferenciaRealizada = transferenciaBancoExterno(cuentaOrigen, cuentaDestino, datosTransfer.getTipoTransaccion(),montoTotal);
         }
 
         return transferenciaRealizada;
@@ -89,7 +86,7 @@ public class Transferencia {
         return monto + (monto * cargo);
     }
     //Funcion para realizar la transferencia - Cambiar los montos de las cuentas y reescribirlo en la base de datos
-    private Operaciones realizarTransferencia(Cuenta cuentaOrigen, Cuenta cuentaDestino, double monto){
+    private Operaciones realizarTransferencia(Cuenta cuentaOrigen, Cuenta cuentaDestino, TipoTransaccion tipoTransaccion, double monto){
 
         //Borro la cuentaOrigen ya que va ser modificada
         cuentaDao.deleteCuenta(cuentaOrigen.getCVU());
@@ -100,8 +97,8 @@ public class Transferencia {
         cuentaDestino.setSaldo(cuentaDestino.getSaldo() + monto);
 
         //Tomo registro de la transferencia en la cuentaOrginen y destino
-        movimientosDao.saveMovimiento(tipoOperacion + cuentaDestino.getNombre(), monto, cuentaOrigen.getCVU());
-        movimientosDao.saveMovimiento(tipoOperacionDestino + cuentaOrigen.getNombre(), monto, cuentaDestino.getCVU());
+        movimientosDao.saveMovimiento(tipoOperacion + cuentaDestino.getNombre() + " - " + tipoTransaccion, monto, cuentaOrigen.getCVU());
+        movimientosDao.saveMovimiento(tipoOperacionDestino + cuentaOrigen.getNombre() + " - " + tipoTransaccion, monto, cuentaDestino.getCVU());
 
         //Guardo la cuentaOrigen y cuentaDestino modificada
         cuentaDao.saveCuenta(cuentaOrigen);
@@ -111,13 +108,12 @@ public class Transferencia {
     }
 
     //Funcion para simular una transferencia de un banco externo
-    private Operaciones transferenciaBancoExterno(Cuenta cuentaOrigen, Cuenta cuentaDestino, double monto) throws TransferenciaFailException {
+    private Operaciones transferenciaBancoExterno(Cuenta cuentaOrigen, Cuenta cuentaDestino, TipoTransaccion tipoTransaccion,double monto) throws TransferenciaFailException {
         //Simulacion de una transferencia de banco externo, si el dni de la cuenta destino es par se ejecuta, si no lanza excepcion
         if (cuentaDestino.getDniTitular() % 2 == 0){
-            return realizarTransferencia(cuentaOrigen, cuentaDestino, monto);
+            return realizarTransferencia(cuentaOrigen, cuentaDestino, tipoTransaccion, monto);
         } else{
             throw new TransferenciaFailException("El banco externo no puede realizar esta transferencia");
         }
-
     }
 }

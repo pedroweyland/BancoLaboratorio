@@ -9,6 +9,8 @@ import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.presentation.modelDto.CuentaDto;
 import ar.edu.utn.frbb.tup.presentation.validator.CuentaValidator;
 import ar.edu.utn.frbb.tup.service.handler.CuentaService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,9 +33,10 @@ public class CuentaController {
     }
 
     @PostMapping
-    public Cuenta createCuenta(@RequestBody CuentaDto cuentaDto) throws TipoCuentaExistenteException, CuentaExistenteException, ClienteNoEncontradoException {
+    public ResponseEntity<Cuenta> createCuenta(@RequestBody CuentaDto cuentaDto) throws TipoCuentaExistenteException, CuentaExistenteException, ClienteNoEncontradoException {
         cuentaValidator.validate(cuentaDto);
-        return cuentaService.crearCuenta(cuentaDto);
+        Cuenta cuenta = cuentaService.crearCuenta(cuentaDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cuenta);
     }
 
     @PutMapping("/{dni}/{cvu}")

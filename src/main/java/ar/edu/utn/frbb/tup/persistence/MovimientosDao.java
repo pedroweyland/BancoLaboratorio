@@ -21,8 +21,8 @@ public class MovimientosDao extends BaseDao<Movimiento>{
     public void saveMovimiento(String tipoOperacion, double monto, long cvu){
         Movimiento movimiento = new Movimiento();
         movimiento.setCVU(cvu);
-        movimiento.setFecha(LocalDate.now());
-        movimiento.setHora(LocalTime.now());
+        movimiento.setFechaOperacion(LocalDate.now());
+        movimiento.setHoraOperacion(LocalTime.now());
         movimiento.setTipoOperacion(tipoOperacion);
         movimiento.setMonto(monto);
 
@@ -71,8 +71,8 @@ public class MovimientosDao extends BaseDao<Movimiento>{
         Movimiento movimiento = new Movimiento();
 
         movimiento.setCVU(Long.parseLong(datos[0]));
-        movimiento.setFecha(LocalDate.parse(datos[1]));
-        movimiento.setHora(LocalTime.parse(datos[2]));
+        movimiento.setFechaOperacion(LocalDate.parse(datos[1]));
+        movimiento.setHoraOperacion(LocalTime.parse(datos[2]));
         movimiento.setTipoOperacion(datos[3]);
         movimiento.setMonto(Double.parseDouble(datos[4]));
 

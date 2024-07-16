@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Operaciones;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
@@ -17,11 +18,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ConsultaTest {
+public class RetiroTest {
     @Mock
     CuentaDao cuentaDao;
 
@@ -29,36 +31,36 @@ public class ConsultaTest {
     MovimientosDao movimientosDao;
 
     @InjectMocks
-    Consulta consulta;
+    Retiro retiro;
 
     @BeforeEach
-    public void setup() {
+    public void setUp(){
         MockitoAnnotations.openMocks(this);
-        consulta = new Consulta(movimientosDao, cuentaDao);
+        retiro = new Retiro(cuentaDao, movimientosDao);
     }
 
     @Test
-    public void testConsultaSuccess() throws CuentaNoEncontradaException {
+    public void testRetiroSuccess() throws CuentaNoEncontradaException, CuentaSinDineroException {
         Cuenta cuenta = BaseOperacionesTest.getCuenta("Cuenta de prueba", 123456, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
-
+        cuenta.setSaldo(1000);
         when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(cuenta);
 
-        Operaciones operacion = consulta.consulta(cuenta.getCVU());
+        Operaciones operacion = retiro.retiro(cuenta.getCVU(), 1000);
 
         assertNotNull(operacion);
-        assertEquals(cuenta.getCVU(), operacion.getCvu());
-        verify(cuentaDao, times(1)).findCuenta(cuenta.getCVU());
-        verify(movimientosDao, times(1)).saveMovimiento("Consulta", 0.0, cuenta.getCVU());
+        assertEquals(1000, operacion.getMonto());
+        assertEquals(0, cuenta.getSaldo());
+
+        verify(cuentaDao).deleteCuenta(cuenta.getCVU());
+        verify(movimientosDao).saveMovimiento("Retiro", 1000, cuenta.getCVU());
+        verify(cuentaDao).saveCuenta(cuenta);
     }
 
     @Test
-    public void testConsultaCuentaNoEncontrada() throws CuentaNoEncontradaException {
-        long cvu = 123456L;
+    public void testRetiroCuentaNoEncontrada(){
 
-        when(cuentaDao.findCuenta(cvu)).thenReturn(null);
+        when(cuentaDao.findAllCuentas()).thenReturn(null);
 
-        assertThrows(CuentaNoEncontradaException.class, () -> consulta.consulta(cvu));
-
-        verify(cuentaDao, times(1)).findCuenta(cvu);
+        assertThrows(CuentaNoEncontradaException.class, () -> retiro.retiro(123456, 1000));
     }
 }
