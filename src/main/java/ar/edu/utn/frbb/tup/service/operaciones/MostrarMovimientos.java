@@ -28,22 +28,14 @@ public class MostrarMovimientos {
         if (cuenta == null){
             throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvu);
         }
-
         List<Movimiento> movimientos = movimientosDao.findMovimientos(cuenta.getCVU());
 
-        if (!movimientos.isEmpty()) { //Valido si existen movimientos
-            List<Movimiento> auxMovimiento = new ArrayList<>();
-
-            //Recorro la lista de movivmientos para guardar los movimientos de la cuenta en otra lista separada
-            for (Movimiento movimiento : movimientos) {
-                if (cuenta.getCVU() == movimiento.getCVU()) {
-                    auxMovimiento.add(movimiento);
-                }
-            }
-            return auxMovimiento;
-        } else{
+        if (movimientos.isEmpty()){
             throw new MovimientosVaciosException("La cuenta no tiene movimientos");
         }
+
+        return movimientos;
+
     }
 
 }
