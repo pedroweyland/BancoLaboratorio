@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Operaciones;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
@@ -19,12 +20,16 @@ public class Deposito {
         this.movimientosDao = movimientosDao;
     }
 
-    public Operaciones deposito(long cvu , double monto) throws CuentaNoEncontradaException {
-
+    public Operaciones deposito(long cvu , double monto) throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
+        //Valido que la cuenta existe y que esta de alta
         Cuenta cuenta = cuentaDao.findCuenta(cvu);
 
         if (cuenta == null){
             throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvu);
+        }
+
+        if (!cuenta.getEstado()){
+            throw new CuentaEstaDeBajaException("Esta cuenta se encuentra de baja, consulta con la sucursal. CVU: " + cuenta.getCVU());
         }
 
         cuentaDao.deleteCuenta(cuenta.getCVU()); //Borro la cuenta ya que va ser modificada

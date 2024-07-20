@@ -7,7 +7,7 @@ import ar.edu.utn.frbb.tup.model.*;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
-import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaEstaDeBajaException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
 import ar.edu.utn.frbb.tup.presentation.modelDto.TransferDto;
 import org.springframework.stereotype.Service;
@@ -33,6 +33,7 @@ public class Transferencia {
         //Calculo el monto total a transferir, si es PESOS un cargo de 2% si es DOLARES un cargo de 0.5%
         double montoTotal = calcularMontoTransferencia(datosTransfer.getMonto(), datosTransfer.getMoneda());
 
+        //Busco las cuentas a transferir
         Cuenta cuentaOrigen = cuentaDao.findCuenta(datosTransfer.getCuentaOrigen());
         Cuenta cuentaDestino = cuentaDao.findCuenta(datosTransfer.getCuentaDestino());
 
@@ -48,7 +49,7 @@ public class Transferencia {
 
         Operaciones transferenciaRealizada;
         //Si son del mismo banco se realiza la transferencia si no la transferencia seria de un banco externo (posiblidades de excepcion)
-        if (clienteOrigen.getBanco().toLowerCase() == clienteDestino.getBanco().toLowerCase()) {
+        if (clienteOrigen.getBanco().equalsIgnoreCase(clienteDestino.getBanco())) {
             transferenciaRealizada = realizarTransferencia(cuentaOrigen, cuentaDestino, datosTransfer.getTipoTransaccion(), montoTotal);
         } else {
             transferenciaRealizada = transferenciaBancoExterno(cuentaOrigen, cuentaDestino, datosTransfer.getTipoTransaccion(),montoTotal);
@@ -64,8 +65,8 @@ public class Transferencia {
         if (cuentaDestino == null) throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvuDestino);
 
         //Excepciones de Cuenta dada de baja - Si las cuentas estan dadas de baja lanza excepcion
-        if (!cuentaOrigen.getEstado()) throw new CuentaEstaDeBajaException("La cuenta a transferir esta dada de baja");
-        if (!cuentaDestino.getEstado()) throw new CuentaEstaDeBajaException("La cuenta a transferir esta dada de baja");
+        if (!cuentaOrigen.getEstado()) throw new CuentaEstaDeBajaException("La cuenta origen esta dada de baja");
+        if (!cuentaDestino.getEstado()) throw new CuentaEstaDeBajaException("La cuenta destino esta dada de baja");
 
 
         //Excepcion cuando son diferentes monedas - Si la cuenta tiene diferente moneda lanza excepcion
@@ -77,9 +78,9 @@ public class Transferencia {
     private double calcularMontoTransferencia(double monto, TipoMoneda moneda){
         double cargo = 0;
 
-        if (moneda == TipoMoneda.PESOS && monto > 1000000) {
+        if (moneda == TipoMoneda.PESOS && monto >= 1000000) {
             cargo = 0.02;
-        } else if (moneda == TipoMoneda.DOLARES && monto > 5000) {
+        } else if (moneda == TipoMoneda.DOLARES && monto >= 5000) {
             cargo = 0.005;
         }
 
@@ -104,7 +105,7 @@ public class Transferencia {
         cuentaDao.saveCuenta(cuentaOrigen);
         cuentaDao.saveCuenta(cuentaDestino);
 
-        return new Operaciones().setCvu(cuentaOrigen.getCVU()).setSaldoActual(cuentaOrigen.getSaldo()).setMonto(monto).setTipoOperacion(tipoOperacion + cuentaDestino.getNombre());
+        return new Operaciones().setCvu(cuentaOrigen.getCVU()).setSaldoActual(cuentaOrigen.getSaldo()).setMonto(monto).setTipoOperacion(tipoOperacion + cuentaDestino.getNombre() + " - " + tipoTransaccion);
     }
 
     //Funcion para simular una transferencia de un banco externo

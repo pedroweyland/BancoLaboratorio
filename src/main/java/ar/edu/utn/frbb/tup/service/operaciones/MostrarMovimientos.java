@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.MovimientosVaciosException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Movimiento;
@@ -21,13 +22,19 @@ public class MostrarMovimientos {
         this.cuentaDao = cuentaDao;
     }
 
-    public List<Movimiento> mostrarMovimientos(long cvu) throws MovimientosVaciosException, CuentaNoEncontradaException {
+    public List<Movimiento> mostrarMovimientos(long cvu) throws MovimientosVaciosException, CuentaNoEncontradaException, CuentaEstaDeBajaException {
+        //Valido que la cuenta existe y que esta de alta
 
         Cuenta cuenta = cuentaDao.findCuenta(cvu);
 
         if (cuenta == null){
             throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvu);
         }
+
+        if (!cuenta.getEstado()){
+            throw new CuentaEstaDeBajaException("Esta cuenta se encuentra de baja, consulta con la sucursal. CVU: " + cuenta.getCVU());
+        }
+
         List<Movimiento> movimientos = movimientosDao.findMovimientos(cuenta.getCVU());
 
         if (movimientos.isEmpty()){

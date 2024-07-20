@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Operaciones;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
@@ -21,7 +22,8 @@ public class Retiro {
         this.movimientosDao = movimientosDao;
     }
 
-    public Operaciones retiro(long cvu, double monto) throws CuentaNoEncontradaException, CuentaSinDineroException {
+    public Operaciones retiro(long cvu, double monto) throws CuentaNoEncontradaException, CuentaSinDineroException, CuentaEstaDeBajaException {
+        //Valido que la cuenta existe y que esta de alta
 
         Cuenta cuenta = cuentaDao.findCuenta(cvu);
 
@@ -29,15 +31,20 @@ public class Retiro {
             throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvu);
         }
 
-        if (cuenta.getSaldo() == 0){ //Si no tiene dinero para retirar lanzo una excepcion
+        if (!cuenta.getEstado()){
+            throw new CuentaEstaDeBajaException("Esta cuenta se encuentra de baja, consulta con la sucursal. CVU: " + cuenta.getCVU());
+        }
+
+        //Si no tiene dinero para retirar lanzo una excepcion
+        if (cuenta.getSaldo() == 0){
             throw new CuentaSinDineroException("No tiene dinero en esta cuenta para retirar");
         }
-
-        if (cuenta.getSaldo() < monto){ //Si no le alcanza el dinero para retirar lanza una excepcion
+        //Si no le alcanza el dinero para retirar lanza una excepcion
+        if (cuenta.getSaldo() < monto){
             throw new CuentaSinDineroException("No puede retirar ese monto, su saldo es de $" + cuenta.getSaldo());
         }
-
-        cuentaDao.deleteCuenta(cuenta.getCVU()); //Borro la cuenta ya que va ser modificada
+        //Borro la cuenta ya que va ser modificada
+        cuentaDao.deleteCuenta(cuenta.getCVU());
         //Resto el monto al saldo que tenia la cuenta
         cuenta.setSaldo(cuenta.getSaldo() - monto);
 
