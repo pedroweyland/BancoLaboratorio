@@ -2,6 +2,7 @@ package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Operaciones;
 import ar.edu.utn.frbb.tup.model.TipoCuenta;
@@ -40,7 +41,7 @@ public class RetiroTest {
     }
 
     @Test
-    public void testRetiroSuccess() throws CuentaNoEncontradaException, CuentaSinDineroException {
+    public void testRetiroSuccess() throws CuentaNoEncontradaException, CuentaSinDineroException, CuentaEstaDeBajaException {
         Cuenta cuenta = BaseOperacionesTest.getCuenta("Cuenta de prueba", 123456, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
         cuenta.setSaldo(1000);
         when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(cuenta);

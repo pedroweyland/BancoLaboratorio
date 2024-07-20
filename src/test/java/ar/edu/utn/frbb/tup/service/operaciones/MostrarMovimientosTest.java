@@ -1,6 +1,7 @@
 package ar.edu.utn.frbb.tup.service.operaciones;
 
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.MovimientosVaciosException;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.Movimiento;
@@ -46,7 +47,7 @@ public class MostrarMovimientosTest {
     }
 
     @Test
-    public void testMostrarMovimientosSuccess() throws MovimientosVaciosException, CuentaNoEncontradaException {
+    public void testMostrarMovimientosSuccess() throws MovimientosVaciosException, CuentaNoEncontradaException, CuentaEstaDeBajaException {
         Cuenta cuenta = BaseOperacionesTest.getCuenta("Cuenta de prueba", 123456, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
         List<Movimiento> movimientos = new ArrayList<>();
         Movimiento movimiento = new Movimiento();

@@ -18,6 +18,7 @@ public class BaseAdministracionTest {
         cliente.setDni(dni);
         cliente.setFechaNacimiento(LocalDate.of(2002, 2, 3));
         cliente.setTipoPersona(TipoPersona.PERSONA_JURIDICA);
+        cliente.setBanco("Santander");
 
         return cliente;
     }

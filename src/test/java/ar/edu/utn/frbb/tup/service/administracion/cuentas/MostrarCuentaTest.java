@@ -51,13 +51,13 @@ public class MostrarCuentaTest {
         cuentas.add(cuenta);
 
         when(clienteDao.findCliente(cuenta.getDniTitular())).thenReturn(new Cliente());
-        when(cuentaDao.findAllCuentas()).thenReturn(cuentas);
+        when(cuentaDao.findAllCuentasDelCliente(cuenta.getDniTitular())).thenReturn(cuentas);
 
         List<Cuenta> cuentasAsociadas = mostrarCuenta.mostrarCuenta(cuenta.getDniTitular());
         assertNotNull(cuentasAsociadas);
 
         verify(clienteDao, times(1)).findCliente(cuenta.getDniTitular());
-        verify(cuentaDao, times(1)).findAllCuentas();
+        verify(cuentaDao, times(1)).findAllCuentasDelCliente(cuenta.getDniTitular());
     }
 
     @Test
@@ -73,22 +73,12 @@ public class MostrarCuentaTest {
     public void testMostrarCuentaCuentasVacias(){
 
         when(clienteDao.findCliente(12341234L)).thenReturn(new Cliente());
-        when(cuentaDao.findAllCuentas()).thenReturn(new ArrayList<>());
-
-        assertThrows(CuentasVaciasException.class, () -> mostrarCuenta.mostrarCuenta(12341234L));
-    }
-
-    @Test
-    public void testMostrarCuentaNoEncontradas(){
-        Cuenta cuenta = BaseAdministracionTest.getCuenta("pepoCuenta", 12345678L, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
-
-        List<Cuenta> cuentas = new ArrayList<>();
-        cuentas.add(cuenta);
-
-        when(clienteDao.findCliente(12341234L)).thenReturn(new Cliente());
-        when(cuentaDao.findAllCuentas()).thenReturn(cuentas);
+        when(cuentaDao.findAllCuentasDelCliente(any(Long.class))).thenReturn(new ArrayList<>());
 
         assertThrows(CuentaNoEncontradaException.class, () -> mostrarCuenta.mostrarCuenta(12341234L));
+
+        verify(clienteDao, times(1)).findCliente(12341234L);
+        verify(cuentaDao, times(1)).findAllCuentasDelCliente(any(Long.class));
     }
 
 }
