@@ -48,7 +48,7 @@ public class CuentaService {
         return eliminarCuenta.eliminarCuenta(dni, cvu);
     }
 
-    public List<Cuenta> mostrarCuenta(long dni) throws ClienteNoEncontradoException, CuentasVaciasException, CuentaNoEncontradaException {
+    public List<Cuenta> mostrarCuenta(long dni) throws ClienteNoEncontradoException, CuentaNoEncontradaException {
         return mostrarCuenta.mostrarCuenta(dni);
     }
 }

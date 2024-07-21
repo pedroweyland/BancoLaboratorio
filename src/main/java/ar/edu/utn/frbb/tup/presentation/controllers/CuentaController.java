@@ -28,7 +28,7 @@ public class CuentaController {
     }
 
     @GetMapping("/{dni}")
-    public List<Cuenta> getAllCuentas(@PathVariable long dni) throws CuentasVaciasException, CuentaNoEncontradaException, ClienteNoEncontradoException {
+    public List<Cuenta> getAllCuentas(@PathVariable long dni) throws CuentaNoEncontradaException, ClienteNoEncontradoException {
         return cuentaService.mostrarCuenta(dni);
     }
 
@@ -48,5 +48,4 @@ public class CuentaController {
     public Cuenta deleteCuenta(@PathVariable long dni, @PathVariable long cvu) throws CuentasVaciasException, CuentaNoEncontradaException, ClienteNoEncontradoException {
         return cuentaService.eliminarCuenta(dni, cvu);
     }
-
 }

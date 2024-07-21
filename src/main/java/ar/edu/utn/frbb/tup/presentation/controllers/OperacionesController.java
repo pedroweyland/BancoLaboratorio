@@ -1,7 +1,7 @@
 package ar.edu.utn.frbb.tup.presentation.controllers;
 
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaDistintaMonedaException;
-import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaEstaDeBajaException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.MovimientosVaciosException;
@@ -27,34 +27,33 @@ public class OperacionesController {
     }
 
     //Consulta de saldo
-    @GetMapping("/{cvu}")
-    public Operaciones getConsulta(@PathVariable long cvu) throws CuentaNoEncontradaException {
+    @GetMapping("/consulta/{cvu}")
+    public Operaciones getConsulta(@PathVariable long cvu) throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
         return operacionesService.consulta(cvu);
     }
 
     //Deposito
     @PutMapping("/deposito/{cvu}")
-    public Operaciones getDeposito(@PathVariable long cvu, @RequestParam double monto) throws CuentaNoEncontradaException {
+    public Operaciones getDeposito(@PathVariable long cvu, @RequestParam double monto) throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
         return operacionesService.deposito(cvu, monto);
     }
 
     //Mostrar movimientos
     @GetMapping("/movimientos/{cvu}")
-    public List<Movimiento> getMostrarMovimientos(@PathVariable long cvu) throws CuentaNoEncontradaException, MovimientosVaciosException {
+    public List<Movimiento> getMostrarMovimientos(@PathVariable long cvu) throws CuentaNoEncontradaException, MovimientosVaciosException, CuentaEstaDeBajaException {
         return operacionesService.mostrarMovimientos(cvu);
     }
 
     //Retiro
     @PutMapping("/retiro/{cvu}")
-    public Operaciones getRetiro(@PathVariable long cvu, @RequestParam double monto) throws CuentaNoEncontradaException, CuentaSinDineroException {
+    public Operaciones getRetiro(@PathVariable long cvu, @RequestParam double monto) throws CuentaNoEncontradaException, CuentaSinDineroException, CuentaEstaDeBajaException {
         return operacionesService.retiro(cvu, monto);
     }
 
-    //Trransferencia
+    //Transferencia
     @PostMapping("/transferencia")
     public Operaciones getTransferencia(@RequestBody TransferDto transferDto) throws CuentaNoEncontradaException, CuentaSinDineroException, CuentaEstaDeBajaException, CuentaDistintaMonedaException, TransferenciaFailException {
         TransferValidator.validate(transferDto);
         return operacionesService.transferencia(transferDto);
     }
-    
 }

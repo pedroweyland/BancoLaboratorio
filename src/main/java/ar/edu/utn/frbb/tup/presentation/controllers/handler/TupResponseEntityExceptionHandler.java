@@ -5,6 +5,7 @@ import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteMenorDeEdadExcepti
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClientesVaciosException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.*;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.MovimientosVaciosException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.TransferenciaFailException;
 import org.springframework.http.HttpHeaders;
@@ -20,9 +21,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class TupResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { ClienteNoEncontradoException.class, ClientesVaciosException.class,
-            CuentaNoEncontradaException.class, CuentasVaciasException.class,
-            MovimientosVaciosException.class})
+    @ExceptionHandler(value = { ClienteNoEncontradoException.class,
+            ClientesVaciosException.class, CuentaNoEncontradaException.class,
+            CuentasVaciasException.class, MovimientosVaciosException.class})
     protected ResponseEntity<Object> handleMateriaNotFound(Exception ex, WebRequest request) {
         String exceptionMessage = ex.getMessage();
         CustomApiError error = new CustomApiError();
@@ -36,7 +37,7 @@ public class TupResponseEntityExceptionHandler extends ResponseEntityExceptionHa
             ClienteExistenteException.class, ClienteMenorDeEdadException.class,
             TipoCuentaExistenteException.class, CuentaExistenteException.class,
             TransferenciaFailException.class, CuentaDistintaMonedaException.class,
-            CuentaSinDineroException.class})
+            CuentaSinDineroException.class, CuentaEstaDeBajaException.class,})
     protected ResponseEntity<Object> handleBadRequest(Exception ex, WebRequest request) {
         String exceptionMessage = ex.getMessage();
         CustomApiError error = new CustomApiError();

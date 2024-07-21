@@ -20,7 +20,7 @@ public class DarAltaBaja {
 
     public Cuenta gestionarEstado (long dni, long cvu, boolean opcion) throws ClienteNoEncontradoException, CuentaNoEncontradaException {
 
-        //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
+        //Valido que exista el cliente, si no lanza excepcion
         Cliente cliente = clienteDao.findCliente(dni);
 
         if (cliente == null) {
@@ -38,7 +38,7 @@ public class DarAltaBaja {
 
         cuenta.setEstado(opcion);
 
-        cuentaDao.saveCuenta(cuenta); //Guardo la cuenta y la relacion actualizada
+        cuentaDao.saveCuenta(cuenta); //Guardo la cuenta actualizada
 
         return cuenta;
     }

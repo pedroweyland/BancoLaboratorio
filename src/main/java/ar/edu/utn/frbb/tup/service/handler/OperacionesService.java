@@ -1,14 +1,13 @@
 package ar.edu.utn.frbb.tup.service.handler;
 
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaDistintaMonedaException;
-import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaEstaDeBajaException;
+import ar.edu.utn.frbb.tup.exception.OperacionesException.CuentaEstaDeBajaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaNoEncontradaException;
 import ar.edu.utn.frbb.tup.exception.CuentasException.CuentaSinDineroException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.MovimientosVaciosException;
 import ar.edu.utn.frbb.tup.exception.OperacionesException.TransferenciaFailException;
 import ar.edu.utn.frbb.tup.model.Movimiento;
 import ar.edu.utn.frbb.tup.model.Operaciones;
-import ar.edu.utn.frbb.tup.model.TipoMoneda;
 import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import ar.edu.utn.frbb.tup.presentation.modelDto.TransferDto;
 import ar.edu.utn.frbb.tup.service.operaciones.*;
@@ -38,26 +37,23 @@ public class OperacionesService {
         movimientosDao.inicializarMovimientos();
     }
 
-    public Operaciones consulta(long cvu) throws CuentaNoEncontradaException {
+    public Operaciones consulta(long cvu) throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
         return consulta.consulta(cvu);
     }
 
-    public Operaciones deposito(long cvu, double monto) throws CuentaNoEncontradaException {
+    public Operaciones deposito(long cvu, double monto) throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
         return deposito.deposito(cvu, monto);
     }
 
-    public List<Movimiento> mostrarMovimientos(long cvu) throws CuentaNoEncontradaException, MovimientosVaciosException, MovimientosVaciosException {
+    public List<Movimiento> mostrarMovimientos(long cvu) throws CuentaNoEncontradaException, MovimientosVaciosException, CuentaEstaDeBajaException {
         return mostrarMovimientos.mostrarMovimientos(cvu);
     }
 
-    public Operaciones retiro(long cvu, double monto) throws CuentaNoEncontradaException, CuentaSinDineroException {
+    public Operaciones retiro(long cvu, double monto) throws CuentaNoEncontradaException, CuentaSinDineroException, CuentaEstaDeBajaException {
         return retiro.retiro(cvu, monto);
     }
 
     public Operaciones transferencia(TransferDto transferDto) throws CuentaNoEncontradaException, CuentaEstaDeBajaException, CuentaSinDineroException, CuentaDistintaMonedaException, TransferenciaFailException {
         return transferencia.transferencia(transferDto);
     }
-
-
-
 }

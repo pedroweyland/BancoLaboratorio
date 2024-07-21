@@ -1,4 +1,4 @@
-package ar.edu.utn.frbb.tup.exception.CuentasException;
+package ar.edu.utn.frbb.tup.exception.OperacionesException;
 
 public class CuentaEstaDeBajaException extends Exception {
     public CuentaEstaDeBajaException(String message) {

@@ -22,7 +22,8 @@ public class MovimientosDao extends BaseDao<Movimiento>{
         Movimiento movimiento = new Movimiento();
         movimiento.setCVU(cvu);
         movimiento.setFechaOperacion(LocalDate.now());
-        movimiento.setHoraOperacion(LocalTime.now());
+        //Pongo la hora actual con la hora minutos y segundos (sin coma)
+        movimiento.setHoraOperacion(LocalTime.now().withNano(0));
         movimiento.setTipoOperacion(tipoOperacion);
         movimiento.setMonto(monto);
 
@@ -78,5 +79,4 @@ public class MovimientosDao extends BaseDao<Movimiento>{
 
         return movimiento;
     }
-
 }

@@ -48,7 +48,7 @@ public class ClienteValidator {
     }
 
     private void validateFechaNacimiento(String fechaNacimiento) {
-        try{
+         try{
             LocalDate.parse(fechaNacimiento);
         } catch (DateTimeParseException e){
             throw new IllegalArgumentException("Error: La fecha de nacimiento no es correcta");

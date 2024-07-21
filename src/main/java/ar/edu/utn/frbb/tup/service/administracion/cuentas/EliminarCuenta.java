@@ -26,14 +26,15 @@ public class EliminarCuenta {
 
     public Cuenta eliminarCuenta(long dni, long cvu) throws ClienteNoEncontradoException, CuentasVaciasException, CuentaNoEncontradaException {
 
+        //Valido que exista el cliente, si no lanza excepcion
         Cliente cliente = clienteDao.findCliente(dni);
 
         if (cliente == null) {
-            //Lanzo excepcion si el cliente no fue encontrado
             throw new ClienteNoEncontradoException("No se encontro el cliente con el DNI: " + dni);
         }
 
-        List<Long> cuentasCvu = cuentaDao.getRelacionesDni(dni); //Valido si el DNI tiene cuentas asociadas
+        //Valido si el DNI tiene cuentas asociadas
+        List<Long> cuentasCvu = cuentaDao.getRelacionesDni(dni);
         if (cuentasCvu.isEmpty()) {
             throw new CuentasVaciasException("No hay cuentas asociadas al cliente con DNI: " + dni);
         }
@@ -42,7 +43,6 @@ public class EliminarCuenta {
         Cuenta cuenta = cuentaDao.findCuentaDelCliente(cvu, dni);
 
         if (cuenta == null) {
-            //Lanzo excepcion si la cuenta no fue encontrada
             throw new CuentaNoEncontradaException("El Cliente no tiene ninguna cuenta con el CVU: " + cvu);
         }
 
@@ -51,6 +51,5 @@ public class EliminarCuenta {
         movimientosDao.deleteMovimiento(cvu);
 
         return cuenta;
-
     }
 }

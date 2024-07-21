@@ -4,17 +4,17 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Movimiento {
-    private Long CVU;
+    private long CVU;
     private LocalDate fechaOperacion;
     private LocalTime horaOperacion;
     private String tipoOperacion;
     private double monto;
 
-    public Long getCVU() {
+    public long getCVU() {
         return CVU;
     }
 
-    public void setCVU(Long CVU) {
+    public void setCVU(long CVU) {
         this.CVU = CVU;
     }
 
