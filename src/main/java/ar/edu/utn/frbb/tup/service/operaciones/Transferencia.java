@@ -38,10 +38,7 @@ public class Transferencia {
         Cuenta cuentaDestino = cuentaDao.findCuenta(datosTransfer.getCuentaDestino());
 
         //Valido si las cuentas existen, valido si estan de alta/baja, valido si son de la misma moneda
-        validateTransferencia(cuentaOrigen, cuentaDestino, datosTransfer.getMoneda(), datosTransfer.getCuentaOrigen(), datosTransfer.getCuentaDestino());
-
-        //Si la cuenta no tiene dinero lanza excepcion
-        if (montoTotal > cuentaOrigen.getSaldo()) throw new CuentaSinDineroException("No hay suficiente dinero en la cuenta " + cuentaOrigen.getNombre() + ", su saldo es de $" + cuentaOrigen.getSaldo());
+        validateTransferencia(cuentaOrigen, cuentaDestino, datosTransfer, montoTotal);
 
         //Busco el cliente para identificar si son del mismo banco o no
         Cliente clienteOrigen = clienteDao.findCliente(cuentaOrigen.getDniTitular());
@@ -58,20 +55,23 @@ public class Transferencia {
         return transferenciaRealizada;
     }
 
-    private void validateTransferencia(Cuenta cuentaOrigen, Cuenta cuentaDestino, TipoMoneda moneda, long cvuOrigen, long cvuDestino) throws CuentaEstaDeBajaException, CuentaSinDineroException, CuentaDistintaMonedaException, CuentaNoEncontradaException {
+    //Funcion que valida si la transferencia se puede ejecutar correctamente
+    private void validateTransferencia(Cuenta cuentaOrigen, Cuenta cuentaDestino, Transfer datosTransfer, double montoTotal) throws CuentaEstaDeBajaException, CuentaDistintaMonedaException, CuentaNoEncontradaException, CuentaSinDineroException {
 
-        //Excepciones de CuentaNo encontrada - Si las cuentas son nulas lanza excepcion
-        if (cuentaOrigen == null ) throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvuOrigen);
-        if (cuentaDestino == null) throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + cvuDestino);
+        //Excepciones de Cuenta No encontrada - Si las cuentas son nulas lanza excepcion
+        if (cuentaOrigen == null ) throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + datosTransfer.getCuentaOrigen());
+        if (cuentaDestino == null) throw new CuentaNoEncontradaException("No se encontro ninguna cuenta con el CVU dado " + datosTransfer.getCuentaDestino());
 
         //Excepciones de Cuenta dada de baja - Si las cuentas estan dadas de baja lanza excepcion
         if (!cuentaOrigen.getEstado()) throw new CuentaEstaDeBajaException("La cuenta origen esta dada de baja");
         if (!cuentaDestino.getEstado()) throw new CuentaEstaDeBajaException("La cuenta destino esta dada de baja");
 
+        //Excepcion cuando son diferentes MONEDAS - Si la cuenta tiene diferente moneda lanza excepcion
+        if (cuentaOrigen.getTipoMoneda() != datosTransfer.getMoneda()) throw new CuentaDistintaMonedaException("La cuenta de Origen con el CVU " + datosTransfer.getCuentaOrigen() + " es de diferente tipo de moneda" );
+        if (cuentaDestino.getTipoMoneda() != datosTransfer.getMoneda()) throw new CuentaDistintaMonedaException("La cuenta de Destino con el CVU " + datosTransfer.getCuentaDestino() + " es de diferente tipo de moneda" );
 
-        //Excepcion cuando son diferentes monedas - Si la cuenta tiene diferente moneda lanza excepcion
-        if (cuentaOrigen.getTipoMoneda() != moneda) throw new CuentaDistintaMonedaException("La cuenta de Origen con el CVU " + cvuOrigen + " es de diferente tipo de moneda" );
-        if (cuentaDestino.getTipoMoneda() != moneda) throw new CuentaDistintaMonedaException("La cuenta de Destino con el CVU " + cvuDestino + " es de diferente tipo de moneda" );
+        //Si la cuenta no tiene dinero lanza excepcion
+        if (montoTotal > cuentaOrigen.getSaldo()) throw new CuentaSinDineroException("No hay suficiente dinero en la cuenta " + cuentaOrigen.getNombre() + ", su saldo es de $" + cuentaOrigen.getSaldo());
     }
 
     //Funcion para calcular el monto final de la transferencia

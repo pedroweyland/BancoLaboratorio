@@ -11,6 +11,8 @@ import ar.edu.utn.frbb.tup.model.Operaciones;
 import ar.edu.utn.frbb.tup.presentation.modelDto.TransferDto;
 import ar.edu.utn.frbb.tup.presentation.validator.TransferValidator;
 import ar.edu.utn.frbb.tup.service.handler.OperacionesService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,32 +30,32 @@ public class OperacionesController {
 
     //Consulta de saldo
     @GetMapping("/consulta/{cvu}")
-    public Operaciones getConsulta(@PathVariable long cvu) throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
-        return operacionesService.consulta(cvu);
+    public ResponseEntity<Operaciones> getConsulta(@PathVariable long cvu) throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
+        return new ResponseEntity<>(operacionesService.consulta(cvu), HttpStatus.OK);
     }
 
     //Deposito
     @PutMapping("/deposito/{cvu}")
-    public Operaciones getDeposito(@PathVariable long cvu, @RequestParam double monto) throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
-        return operacionesService.deposito(cvu, monto);
+    public ResponseEntity<Operaciones> getDeposito(@PathVariable long cvu, @RequestParam double monto) throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
+        return new ResponseEntity<>(operacionesService.deposito(cvu, monto), HttpStatus.OK);
     }
 
     //Mostrar movimientos
     @GetMapping("/movimientos/{cvu}")
-    public List<Movimiento> getMostrarMovimientos(@PathVariable long cvu) throws CuentaNoEncontradaException, MovimientosVaciosException, CuentaEstaDeBajaException {
-        return operacionesService.mostrarMovimientos(cvu);
+    public ResponseEntity<List<Movimiento>> getMostrarMovimientos(@PathVariable long cvu) throws CuentaNoEncontradaException, MovimientosVaciosException, CuentaEstaDeBajaException {
+        return new ResponseEntity<>(operacionesService.mostrarMovimientos(cvu), HttpStatus.OK);
     }
 
     //Retiro
     @PutMapping("/retiro/{cvu}")
-    public Operaciones getRetiro(@PathVariable long cvu, @RequestParam double monto) throws CuentaNoEncontradaException, CuentaSinDineroException, CuentaEstaDeBajaException {
-        return operacionesService.retiro(cvu, monto);
+    public ResponseEntity<Operaciones> getRetiro(@PathVariable long cvu, @RequestParam double monto) throws CuentaNoEncontradaException, CuentaSinDineroException, CuentaEstaDeBajaException {
+        return new ResponseEntity<>(operacionesService.retiro(cvu, monto), HttpStatus.OK);
     }
 
     //Transferencia
     @PostMapping("/transferencia")
-    public Operaciones getTransferencia(@RequestBody TransferDto transferDto) throws CuentaNoEncontradaException, CuentaSinDineroException, CuentaEstaDeBajaException, CuentaDistintaMonedaException, TransferenciaFailException {
+    public ResponseEntity<Operaciones> getTransferencia(@RequestBody TransferDto transferDto) throws CuentaNoEncontradaException, CuentaSinDineroException, CuentaEstaDeBajaException, CuentaDistintaMonedaException, TransferenciaFailException {
         TransferValidator.validate(transferDto);
-        return operacionesService.transferencia(transferDto);
+        return new ResponseEntity<>(operacionesService.transferencia(transferDto), HttpStatus.OK);
     }
 }

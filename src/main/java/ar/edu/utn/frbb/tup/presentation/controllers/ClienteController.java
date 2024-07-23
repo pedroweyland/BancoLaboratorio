@@ -24,30 +24,30 @@ public class ClienteController {
     }
 
     @GetMapping
-    public List<Cliente> getAllClientes() throws ClientesVaciosException {
-        return clienteService.mostrarTodosClientes();
+    public ResponseEntity<List<Cliente>> getAllClientes() throws ClientesVaciosException {
+        return new ResponseEntity<>(clienteService.mostrarTodosClientes(), HttpStatus.OK);
     }
 
     @GetMapping("/{dni}")
-    public Cliente getClienteById(@PathVariable long dni) throws ClienteNoEncontradoException {
-        return clienteService.mostrarCliente(dni);
+    public ResponseEntity<Cliente> getClienteById(@PathVariable long dni) throws ClienteNoEncontradoException {
+        return new ResponseEntity<>(clienteService.mostrarCliente(dni), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Cliente> createCliente(@RequestBody ClienteDto clienteDto) throws ClienteMenorDeEdadException, ClienteExistenteException {
         clienteValidator.validateCliente(clienteDto);
         Cliente cliente = clienteService.crearCliente(clienteDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
+        return new ResponseEntity<>(cliente, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{dni}")
-    public Cliente deleteCliente(@PathVariable long dni) throws ClienteNoEncontradoException {
-        return clienteService.eliminarCliente(dni);
+    public ResponseEntity<Cliente> deleteCliente(@PathVariable long dni) throws ClienteNoEncontradoException {
+        return new ResponseEntity<>(clienteService.eliminarCliente(dni), HttpStatus.OK);
     }
 
     @PutMapping("/")
-    public Cliente updateCliente(@RequestBody ClienteDto clienteDto) throws ClienteNoEncontradoException, ClienteMenorDeEdadException {
+    public ResponseEntity<Cliente> updateCliente(@RequestBody ClienteDto clienteDto) throws ClienteNoEncontradoException, ClienteMenorDeEdadException {
         clienteValidator.validateClienteModificacion(clienteDto);
-        return clienteService.modificarCliente(clienteDto);
+        return new ResponseEntity<>(clienteService.modificarCliente(clienteDto), HttpStatus.OK);
     }
 }

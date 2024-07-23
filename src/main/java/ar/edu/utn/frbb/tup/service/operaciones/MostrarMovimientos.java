@@ -24,7 +24,6 @@ public class MostrarMovimientos {
 
     public List<Movimiento> mostrarMovimientos(long cvu) throws MovimientosVaciosException, CuentaNoEncontradaException, CuentaEstaDeBajaException {
         //Valido que la cuenta existe y que esta de alta
-
         Cuenta cuenta = cuentaDao.findCuenta(cvu);
 
         if (cuenta == null){

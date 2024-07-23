@@ -28,24 +28,24 @@ public class CuentaController {
     }
 
     @GetMapping("/{dni}")
-    public List<Cuenta> getAllCuentas(@PathVariable long dni) throws CuentaNoEncontradaException, ClienteNoEncontradoException {
-        return cuentaService.mostrarCuenta(dni);
+    public ResponseEntity<List<Cuenta>> getAllCuentas(@PathVariable long dni) throws CuentaNoEncontradaException, ClienteNoEncontradoException {
+        return new ResponseEntity<>(cuentaService.mostrarCuenta(dni), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Cuenta> createCuenta(@RequestBody CuentaDto cuentaDto) throws TipoCuentaExistenteException, CuentaExistenteException, ClienteNoEncontradoException {
         cuentaValidator.validate(cuentaDto);
         Cuenta cuenta = cuentaService.crearCuenta(cuentaDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cuenta);
+        return new ResponseEntity<>(cuenta, HttpStatus.CREATED);
     }
 
     @PutMapping("/{dni}/{cvu}")
-    public Cuenta darAltaBajaCuenta(@PathVariable long dni, @PathVariable long cvu, @RequestParam boolean opcion) throws CuentaNoEncontradaException, ClienteNoEncontradoException {
-        return cuentaService.darAltaBaja(dni, cvu, opcion);
+    public ResponseEntity<Cuenta> darAltaBajaCuenta(@PathVariable long dni, @PathVariable long cvu, @RequestParam boolean opcion) throws CuentaNoEncontradaException, ClienteNoEncontradoException {
+        return new ResponseEntity<>(cuentaService.darAltaBaja(dni, cvu, opcion), HttpStatus.OK);
     }
 
     @DeleteMapping("/{dni}/{cvu}")
-    public Cuenta deleteCuenta(@PathVariable long dni, @PathVariable long cvu) throws CuentasVaciasException, CuentaNoEncontradaException, ClienteNoEncontradoException {
-        return cuentaService.eliminarCuenta(dni, cvu);
+    public ResponseEntity<Cuenta> deleteCuenta(@PathVariable long dni, @PathVariable long cvu) throws CuentasVaciasException, CuentaNoEncontradaException, ClienteNoEncontradoException {
+        return new ResponseEntity<>(cuentaService.eliminarCuenta(dni, cvu), HttpStatus.OK);
     }
 }
