@@ -14,7 +14,8 @@ public class TransferValidator {
     }
 
     private static void validateCVUentregados(long cuentaOrigen, long cuentaDestino) {
-        if (cuentaOrigen < 100000 || cuentaDestino > 999999) throw new IllegalArgumentException("Error: El Cvu tiene que ser de 6 digitos");
+        if (cuentaOrigen < 100000 || cuentaOrigen > 999999) throw new IllegalArgumentException("Error: El CVU Origen tiene que ser de 6 digitos");
+        if (cuentaDestino < 100000 || cuentaDestino > 999999) throw new IllegalArgumentException("Error: El CVU Destino tiene que ser de 6 digitos");
 
         if (cuentaOrigen == cuentaDestino) throw new IllegalArgumentException("Error: No puede ser la misma cuenta");
 

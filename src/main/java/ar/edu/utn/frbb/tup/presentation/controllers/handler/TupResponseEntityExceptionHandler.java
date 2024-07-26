@@ -57,5 +57,4 @@ public class TupResponseEntityExceptionHandler extends ResponseEntityExceptionHa
 
         return new ResponseEntity<>(body, headers, status);
     }
-
 }

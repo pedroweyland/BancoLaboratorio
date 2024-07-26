@@ -19,5 +19,4 @@ public class CuentaValidator {
         if (cuentaDto.getDniTitular() < 10000000 || cuentaDto.getDniTitular() > 99999999) throw new IllegalArgumentException("Error: El dni debe tener 8 digitos");
 
     }
-
 }
