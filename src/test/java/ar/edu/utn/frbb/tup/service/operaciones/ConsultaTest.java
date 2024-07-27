@@ -54,12 +54,23 @@ public class ConsultaTest {
 
     @Test
     public void testConsultaCuentaNoEncontrada() throws CuentaNoEncontradaException {
-        long cvu = 123456L;
 
-        when(cuentaDao.findCuenta(cvu)).thenReturn(null);
+        when(cuentaDao.findCuenta(123456L)).thenReturn(null);
 
-        assertThrows(CuentaNoEncontradaException.class, () -> consulta.consulta(cvu));
+        assertThrows(CuentaNoEncontradaException.class, () -> consulta.consulta(123456L));
 
-        verify(cuentaDao, times(1)).findCuenta(cvu);
+        verify(cuentaDao, times(1)).findCuenta(123456L);
+    }
+
+    @Test
+    public void testConsultaCuentaEstaDeBaja() throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
+        Cuenta cuenta = BaseOperacionesTest.getCuenta("Cuenta de prueba", 123456, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
+        cuenta.setEstado(false);
+
+        when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(cuenta);
+
+        assertThrows(CuentaEstaDeBajaException.class, () -> consulta.consulta(cuenta.getCVU()));
+
+        verify(cuentaDao, times(1)).findCuenta(cuenta.getCVU());
     }
 }

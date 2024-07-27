@@ -47,7 +47,7 @@ public abstract class BaseDao<T> {
     public void deleteInfo(long id, String rutaArchivo){
         //Lo que hace deleteInfo es leer todoo el archivo, guardarlo en una variable y reescribirlo exceputando la linea que tiene que eliminar
         try {
-            StringBuilder contenido = new StringBuilder(); //Creo el contenido para guardar todoo lo leido
+            StringBuilder contenido = new StringBuilder(); //Creo el contenido para guardar todo lo leido
 
             FileReader fileReader = new FileReader(rutaArchivo);
             BufferedReader reader = new BufferedReader(fileReader);

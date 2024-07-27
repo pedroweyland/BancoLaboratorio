@@ -25,6 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -85,5 +86,17 @@ public class MostrarMovimientosTest {
         when(movimientosDao.findMovimientos(cuenta.getCVU())).thenReturn(new ArrayList<>());
 
         assertThrows(MovimientosVaciosException.class, () -> mostrarMovimientos.mostrarMovimientos(cuenta.getCVU()));
+    }
+
+    @Test
+    public void testMostrarMovimientosCuentaEstaDeBaja() throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
+        Cuenta cuenta = BaseOperacionesTest.getCuenta("Cuenta de prueba", 123456, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
+        cuenta.setEstado(false);
+
+        when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(cuenta);
+
+        assertThrows(CuentaEstaDeBajaException.class, () -> mostrarMovimientos.mostrarMovimientos(cuenta.getCVU()));
+
+        verify(cuentaDao).findCuenta(cuenta.getCVU());
     }
 }

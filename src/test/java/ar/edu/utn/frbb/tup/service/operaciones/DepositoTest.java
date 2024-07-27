@@ -11,6 +11,7 @@ import ar.edu.utn.frbb.tup.persistence.MovimientosDao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -65,5 +66,17 @@ public class DepositoTest {
         when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(null);
 
         assertThrows(CuentaNoEncontradaException.class, () -> desposito.deposito(cuenta.getCVU(), 1000));
+    }
+
+    @Test
+    public void testDepositoCuentaDadaDeBaja() throws CuentaNoEncontradaException, CuentaEstaDeBajaException {
+        Cuenta cuenta = BaseOperacionesTest.getCuenta("Cuenta de prueba", 123456, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
+        cuenta.setEstado(false);
+
+        when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(cuenta);
+
+        assertThrows(CuentaEstaDeBajaException.class, () -> desposito.deposito(cuenta.getCVU(), 1000));
+
+        verify(cuentaDao).findCuenta(cuenta.getCVU());
     }
 }

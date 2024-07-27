@@ -10,7 +10,9 @@ public class Persona {
     private long dni;
     private LocalDate fechaNacimiento;
 
-    public Persona(){}
+    public Persona(){
+
+    }
 
     public Persona(String nombre, String apellido, String direccion, long dni, LocalDate fechaNacimiento) {
         this.nombre = nombre;

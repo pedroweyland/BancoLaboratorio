@@ -60,8 +60,45 @@ public class RetiroTest {
     @Test
     public void testRetiroCuentaNoEncontrada(){
 
-        when(cuentaDao.findAllCuentas()).thenReturn(null);
+        when(cuentaDao.findCuenta(123456L)).thenReturn(null);
 
         assertThrows(CuentaNoEncontradaException.class, () -> retiro.retiro(123456, 1000));
     }
+
+    @Test
+    public void testRetiroCuentaDadaDeBaja(){
+        Cuenta cuenta = BaseOperacionesTest.getCuenta("Cuenta de prueba", 123456, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
+        cuenta.setEstado(false);
+
+        when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(cuenta);
+
+        assertThrows(CuentaEstaDeBajaException.class, () -> retiro.retiro(cuenta.getCVU(), 1000));
+
+        verify(cuentaDao).findCuenta(cuenta.getCVU());
+    }
+
+    @Test
+    public void testRetiroCuentaSinDinero(){
+        Cuenta cuenta = BaseOperacionesTest.getCuenta("Cuenta de prueba", 123456, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
+        cuenta.setSaldo(0);
+
+        when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(cuenta);
+
+        assertThrows(CuentaSinDineroException.class, () -> retiro.retiro(cuenta.getCVU(), 1000));
+
+        verify(cuentaDao).findCuenta(cuenta.getCVU());
+    }
+
+    @Test
+    public void testRetiroCuentaConSaldoInsuficiente(){
+        Cuenta cuenta = BaseOperacionesTest.getCuenta("Cuenta de prueba", 123456, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
+        cuenta.setSaldo(1000);
+
+        when(cuentaDao.findCuenta(cuenta.getCVU())).thenReturn(cuenta);
+
+        assertThrows(CuentaSinDineroException.class, () -> retiro.retiro(cuenta.getCVU(), 1001));
+
+        verify(cuentaDao).findCuenta(cuenta.getCVU());
+    }
+
 }
