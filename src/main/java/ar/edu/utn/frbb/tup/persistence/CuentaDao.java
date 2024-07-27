@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class CuentaDao extends BaseDao<Cuenta> {
@@ -96,9 +98,9 @@ public class CuentaDao extends BaseDao<Cuenta> {
 
     }
 
-    public List<Cuenta> findAllCuentasDelCliente(long dni) {
+    public Set<Cuenta> findAllCuentasDelCliente(long dni) {
 
-        List<Cuenta> cuentasDelCliente = new ArrayList<>();
+        Set<Cuenta> cuentasDelCliente = new HashSet<>();
         try {
             File file = new File(RUTA_ARCHIVO);
 
@@ -123,7 +125,7 @@ public class CuentaDao extends BaseDao<Cuenta> {
         return cuentasDelCliente;
     }
 
-        //Funcion para parsear los datos leidos del archivo a un objeto tipo 'Cuenta'
+    //Funcion para parsear los datos leidos del archivo a un objeto tipo 'Cuenta'
     @Override
     public Cuenta parseDatosToObjet(String[] datos){
         Cuenta cuenta = new Cuenta();

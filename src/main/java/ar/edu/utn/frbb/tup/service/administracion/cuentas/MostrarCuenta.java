@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MostrarCuenta {
@@ -22,7 +23,7 @@ public class MostrarCuenta {
         this.cuentaDao = cuentaDao;
     }
 
-    public List<Cuenta> mostrarCuenta(long dni) throws ClienteNoEncontradoException, CuentaNoEncontradaException {
+    public Set<Cuenta> mostrarCuenta(long dni) throws ClienteNoEncontradoException, CuentaNoEncontradaException {
 
         //Funcion que devuelve el cliente encontrado o vuelve Null si no lo encontro
         Cliente cliente = clienteDao.findCliente(dni);
@@ -33,7 +34,7 @@ public class MostrarCuenta {
         }
 
         //Funcion que me devuelve todas las cuentas que tiene el cliente
-        List<Cuenta> cuentas = cuentaDao.findAllCuentasDelCliente(dni);
+        Set<Cuenta> cuentas = cuentaDao.findAllCuentasDelCliente(dni);
 
         if (cuentas.isEmpty()){
             throw new CuentaNoEncontradaException("No hay cuentas asociadas al cliente con DNI: " + dni);

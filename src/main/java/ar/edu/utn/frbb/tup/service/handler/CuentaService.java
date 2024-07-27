@@ -14,7 +14,7 @@ import ar.edu.utn.frbb.tup.service.administracion.cuentas.EliminarCuenta;
 import ar.edu.utn.frbb.tup.service.administracion.cuentas.MostrarCuenta;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Set;
 
 @Component
 public class CuentaService {
@@ -48,7 +48,7 @@ public class CuentaService {
         return eliminarCuenta.eliminarCuenta(dni, cvu);
     }
 
-    public List<Cuenta> mostrarCuenta(long dni) throws ClienteNoEncontradoException, CuentaNoEncontradaException {
+    public Set<Cuenta> mostrarCuenta(long dni) throws ClienteNoEncontradoException, CuentaNoEncontradaException {
         return mostrarCuenta.mostrarCuenta(dni);
     }
 }

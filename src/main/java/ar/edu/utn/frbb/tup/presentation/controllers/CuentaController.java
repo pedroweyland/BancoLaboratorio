@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/cuentas")
@@ -28,7 +29,7 @@ public class CuentaController {
     }
 
     @GetMapping("/{dni}")
-    public ResponseEntity<List<Cuenta>> getAllCuentas(@PathVariable long dni) throws CuentaNoEncontradaException, ClienteNoEncontradoException {
+    public ResponseEntity<Set<Cuenta>> getAllCuentas(@PathVariable long dni) throws CuentaNoEncontradaException, ClienteNoEncontradoException {
         return new ResponseEntity<>(cuentaService.mostrarCuenta(dni), HttpStatus.OK);
     }
 

@@ -18,9 +18,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -47,13 +46,13 @@ public class MostrarCuentaTest {
     public void testMostrarCuentaSuccess() throws CuentasVaciasException, CuentaNoEncontradaException, ClienteNoEncontradoException {
         Cuenta cuenta = BaseAdministracionTest.getCuenta("pepoCuenta", 12345678L, TipoCuenta.CAJA_AHORRO, TipoMoneda.PESOS);
 
-        List<Cuenta> cuentas = new ArrayList<>();
+        Set<Cuenta> cuentas = new HashSet<>();
         cuentas.add(cuenta);
 
         when(clienteDao.findCliente(cuenta.getDniTitular())).thenReturn(new Cliente());
         when(cuentaDao.findAllCuentasDelCliente(cuenta.getDniTitular())).thenReturn(cuentas);
 
-        List<Cuenta> cuentasAsociadas = mostrarCuenta.mostrarCuenta(cuenta.getDniTitular());
+        Set<Cuenta> cuentasAsociadas = mostrarCuenta.mostrarCuenta(cuenta.getDniTitular());
         assertNotNull(cuentasAsociadas);
 
         verify(clienteDao, times(1)).findCliente(cuenta.getDniTitular());
@@ -73,7 +72,7 @@ public class MostrarCuentaTest {
     public void testMostrarCuentaCuentasVacias(){
 
         when(clienteDao.findCliente(12341234L)).thenReturn(new Cliente());
-        when(cuentaDao.findAllCuentasDelCliente(any(Long.class))).thenReturn(new ArrayList<>());
+        when(cuentaDao.findAllCuentasDelCliente(any(Long.class))).thenReturn(new HashSet<>());
 
         assertThrows(CuentaNoEncontradaException.class, () -> mostrarCuenta.mostrarCuenta(12341234L));
 

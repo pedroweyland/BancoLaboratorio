@@ -12,6 +12,7 @@ public class Cliente extends Persona{
     private String mail;
     private TipoPersona tipoPersona;
     private LocalDate fechaAlta;
+    private Set<Cuenta> cuentas = new HashSet<>();
 
     public Cliente(){
         super();
@@ -60,5 +61,16 @@ public class Cliente extends Persona{
         this.mail = mail;
     }
 
+    public Set<Cuenta> getCuentas() {
+        return cuentas;
+    }
+
+    public void setCuentas(Set<Cuenta> cuentas) {
+        this.cuentas = cuentas;
+    }
+
+    public void addCuenta(Cuenta cuenta){
+        this.cuentas.add(cuenta);
+    }
 
 }

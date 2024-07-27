@@ -18,8 +18,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -48,7 +48,7 @@ public class CrearCuentaTest {
 
         when(clienteDao.findCliente(cuentaDto.getDniTitular())).thenReturn(new Cliente());
         when(cuentaDao.findCuenta(any(Long.class))).thenReturn(null); //Como parametro acepta cualquier tipo de Long ya que la creacion es aleatoria de CVU
-        when(cuentaDao.findAllCuentasDelCliente(cuentaDto.getDniTitular())).thenReturn(new ArrayList<>());
+        when(cuentaDao.findAllCuentasDelCliente(cuentaDto.getDniTitular())).thenReturn(new HashSet<>());
 
         Cuenta nuevaCuenta = crearCuenta.crearCuenta(cuentaDto);
 
@@ -90,7 +90,7 @@ public class CrearCuentaTest {
         CuentaDto cuentaDto = BaseAdministracionTest.getCuentaDto("pepoCuenta", 12345678L, "C", "P");
         Cuenta cuenta = new Cuenta(cuentaDto);
 
-        List<Cuenta> cuentas = new ArrayList<>();
+        Set<Cuenta> cuentas = new HashSet<>();
         cuentas.add(cuenta);
 
         when(clienteDao.findCliente(cuentaDto.getDniTitular())).thenReturn(new Cliente());

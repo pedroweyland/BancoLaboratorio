@@ -10,10 +10,9 @@ import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import ar.edu.utn.frbb.tup.exception.ClientesException.ClienteNoEncontradoException;
 import ar.edu.utn.frbb.tup.presentation.modelDto.CuentaDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
 
 @Service
 public class CrearCuenta {
@@ -54,7 +53,7 @@ public class CrearCuenta {
     }
 
     private void tieneCuenta(TipoCuenta tipoCuenta, TipoMoneda tipoMoneda, long dniTitular) throws TipoCuentaExistenteException {
-        List<Cuenta> cuentasClientes = cuentaDao.findAllCuentasDelCliente(dniTitular);
+        Set<Cuenta> cuentasClientes = cuentaDao.findAllCuentasDelCliente(dniTitular);
 
         for (Cuenta cuenta: cuentasClientes) {
             if (tipoCuenta.equals(cuenta.getTipoCuenta()) && tipoMoneda.equals(cuenta.getTipoMoneda())) {
