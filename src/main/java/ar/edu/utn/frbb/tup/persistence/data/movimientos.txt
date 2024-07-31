@@ -1,0 +1,5 @@
+CVU Origen, fecha Operacion, hora Operacion, tipo operacion, monto
+484721,2024-07-31,12:43:55,Deposito,1000000.0
+484721,2024-07-31,12:44:40,Deposito,1000000.0
+484721,2024-07-31,12:44:43,Transferencia a la cuenta Pomoro - DEBITO,1020000.0
+262497,2024-07-31,12:44:43,Deposito recibido de la cuenta Peperino - DEBITO,1000000.0

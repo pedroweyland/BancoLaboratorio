@@ -1,0 +1,2 @@
+DNI, Nombre, Apellido, Direccion, Fecha nacimiento, Mail, Banco, Tipo Persona, Fecha alta
+44556677,Edgar,Poncho,Viamonte,1999-02-11,weylandpedro@gmail.com,MANOLO,PERSONA_FISICA,2024-07-31
