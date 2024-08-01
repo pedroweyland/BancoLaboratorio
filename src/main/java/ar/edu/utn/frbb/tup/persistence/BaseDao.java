@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//Creo un generics
 public abstract class BaseDao<T> {
 
     public void inicializarArchivo(String encabezado, String rutaArchivo){

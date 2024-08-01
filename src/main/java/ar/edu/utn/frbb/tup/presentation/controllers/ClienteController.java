@@ -45,7 +45,7 @@ public class ClienteController {
         return new ResponseEntity<>(clienteService.eliminarCliente(dni), HttpStatus.OK);
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<Cliente> updateCliente(@RequestBody ClienteDto clienteDto) throws ClienteNoEncontradoException, ClienteMenorDeEdadException {
         clienteValidator.validateClienteModificacion(clienteDto);
         return new ResponseEntity<>(clienteService.modificarCliente(clienteDto), HttpStatus.OK);

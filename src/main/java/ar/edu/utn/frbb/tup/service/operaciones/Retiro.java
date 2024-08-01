@@ -43,8 +43,10 @@ public class Retiro {
         if (cuenta.getSaldo() < monto){
             throw new CuentaSinDineroException("No puede retirar ese monto, su saldo es de $" + cuenta.getSaldo());
         }
+
         //Borro la cuenta ya que va ser modificada
         cuentaDao.deleteCuenta(cuenta.getCVU());
+
         //Resto el monto al saldo que tenia la cuenta
         cuenta.setSaldo(cuenta.getSaldo() - monto);
 
