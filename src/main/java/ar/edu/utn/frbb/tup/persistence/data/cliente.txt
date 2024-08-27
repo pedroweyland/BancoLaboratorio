@@ -1,2 +1,3 @@
 DNI, Nombre, Apellido, Direccion, Fecha nacimiento, Mail, Banco, Tipo Persona, Fecha alta
 12345678,Pedro,Weyland,Berutti,2004-01-21,weylandpedro@gmail.com,City,PERSONA_JURIDICA,2024-07-31
+12341234,Edgar,Poncho,Viamonte,1999-02-11,weylandpedro@gmail.com,MANOLO,PERSONA_FISICA,2024-08-27

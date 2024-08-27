@@ -10,17 +10,16 @@ import java.time.format.DateTimeParseException;
 public class ClienteValidator {
 
     public void validateCliente(ClienteDto clienteDto) {
+        validateDni(clienteDto.getDni());
         validateDatosCompletos(clienteDto);
         validateFechaNacimiento(clienteDto.getFechaNacimiento());
     }
 
     public void validateClienteModificacion(ClienteDto clienteDto) {
-        if (clienteDto.getDni() == 0) throw new IllegalArgumentException("Error: Ingrese un DNI");
-        if (clienteDto.getDni() < 10000000 || clienteDto.getDni() > 99999999) throw new IllegalArgumentException("Error: El dni debe tener 8 digitos");
+        //No valido si todos los datos estan completos ya que el usuario puede modificar el que el quiere
+        validateDni(clienteDto.getDni());
 
-        if (clienteDto.getFechaNacimiento() != null){
-            validateFechaNacimiento(clienteDto.getFechaNacimiento());
-        }
+        if (clienteDto.getFechaNacimiento() != null) validateFechaNacimiento(clienteDto.getFechaNacimiento());
 
     }
 
@@ -42,9 +41,6 @@ public class ClienteValidator {
         //Tipo persona
         if (clienteDto.getTipoPersona() == null || clienteDto.getTipoPersona().isEmpty()) throw new IllegalArgumentException("Error: Ingrese un tipo de persona");
 
-        //DNI primero valido que lo haya ingresado despues valido que el dni sea de 8 digitos
-        if (clienteDto.getDni() == 0) throw new IllegalArgumentException("Error: Ingrese un dni");
-        if (clienteDto.getDni() < 10000000 || clienteDto.getDni() > 99999999) throw new IllegalArgumentException("Error: El dni debe tener 8 digitos");
     }
 
     private void validateFechaNacimiento(String fechaNacimiento) {
@@ -55,4 +51,17 @@ public class ClienteValidator {
         }
     }
 
+    private void validateDni(String dniStr){
+        try {
+            long dni = Long.parseLong(dniStr);
+
+            //Valido que lo haya ingresado despues valido que el dni sea de 8 digitos
+            if (dni == 0) throw new IllegalArgumentException("Error: Ingrese un dni");
+            if (dni < 10000000 || dni > 99999999) throw new IllegalArgumentException("Error: El dni debe tener 8 digitos");
+
+        } catch (NumberFormatException e){
+            throw new IllegalArgumentException("Error: El dni debe ser un numero");
+        }
+
+    }
 }

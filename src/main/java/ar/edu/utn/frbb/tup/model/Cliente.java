@@ -25,7 +25,7 @@ public class Cliente extends Persona{
                 clienteDto.getNombre(),
                 clienteDto.getApellido(),
                 clienteDto.getDireccion(),
-                clienteDto.getDni(),
+                Long.parseLong(clienteDto.getDni()),
                 clienteDto.getFechaNacimiento() != null ? LocalDate.parse(clienteDto.getFechaNacimiento()) : null
         );
         this.banco = clienteDto.getBanco();

@@ -5,7 +5,7 @@ public class PersonaDto {
     private String nombre;
     private String apellido;
     private String direccion;
-    private long dni;
+    private String dni;
     private String fechaNacimiento;
 
     public String getNombre() {
@@ -32,11 +32,11 @@ public class PersonaDto {
         this.direccion = direccion;
     }
 
-    public long getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(long dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
